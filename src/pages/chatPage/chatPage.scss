@@ -37,7 +37,7 @@
     border: 1px solid var(--second-text-color);
     border-radius: 100%;
     background-color: transparent;
-    width: 10%;
+    width: 100%;
     background-image: url('/src/assets/icons/plus.svg');
     background-position: center;
     height: 25px;
@@ -125,9 +125,15 @@
   &__points-button {
     background-image: url('/src/assets/icons/points.svg');
     background-position: center;
-    height: 100%;
-    width: 30px;
+    height: 25px;
+    width: 25px;
     min-height: 15px;
+
+    &:hover {
+      background-color: var(--hover-color);
+      border-radius: 100%;
+      height: 25px;
+    }
   }
 
   &__texts-container {
@@ -164,6 +170,12 @@
     background-image: url('/src/assets/icons/attach.svg');
     width: 32px;
     height: 32px;
+    background-position: center;
+
+    &:hover {
+      background-color: var(--hover-color);
+      border-radius: 100%;
+    }
   }
 
   &__message-input {
@@ -184,5 +196,35 @@
     border-radius: 100%;
     width: 28px;
     height: 28px;
+  }
+
+  &__add-chat-wrapper {
+    position: relative;
+    width: 11%;
+    max-width: 25px;
+  }
+
+  &__tooltip-wrapper {
+    position: absolute;
+    z-index: 100;
+
+    &_create-chat {
+      left: 20px;
+    }
+
+    &_points {
+      right: 26px;
+      top: 5px;
+      min-width: 210px;
+    }
+
+    &_attach {
+      bottom: 55px;
+      left: 0;
+    }
+  }
+
+  &__points-wrapper, &__attach-wrapper {
+    position: relative;
   }
 }

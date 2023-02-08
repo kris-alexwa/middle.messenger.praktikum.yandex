@@ -7,11 +7,13 @@
 @import '../pages/chatPage/chatPage';
 @import 'dialog/dialog';
 @import 'messageLayout/messageLayout';
+@import 'tooltipLayout/tooltipLayout';
 
 :root
 {
   --main-color: #3369F3;
   --second-text-color: #999999;
+  --hover-color: #E4EDFD;
 }
 
 @font-face {

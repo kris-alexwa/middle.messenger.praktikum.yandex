@@ -6,7 +6,7 @@
   position: relative;
 
   &:hover {
-    background-color: #E4EDFD;
+    background-color: var(--hover-color);
   }
 
   &__border {

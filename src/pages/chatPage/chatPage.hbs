@@ -5,7 +5,12 @@
         <input class="chat__search-input" type="text" placeholder="Поиск" />
         <img src={{searchIconUrl}} alt="Поиск" class="chat__search-icon" />
       </div>
-      <button class="chat__add-btn"></button>
+      <div class="chat__add-chat-wrapper">
+        <button class="chat__add-btn"></button>
+        <div class="chat__tooltip-wrapper chat__tooltip-wrapper_create-chat">
+          {{> tooltipLayout items=addChatItems}}
+        </div>
+      </div>
     </div>
     <ul class="chat__dialogs-list">
       {{#each dialogs}}
@@ -48,7 +53,12 @@
           </div>
           <p class="chat__name">Андрей</p>
         </div>
-        <button class="chat__points-button"></button>
+        <div class="chat__points-wrapper">
+          <button class="chat__points-button"></button>
+          <div class="chat__tooltip-wrapper chat__tooltip-wrapper_points">
+            {{> tooltipLayout items=pointsItems}}
+          </div>
+        </div>
       </div>
 
       <div class="chat__texts-container">
@@ -62,7 +72,12 @@
       </div>
 
       <form class="chat__form">
-        <button type="button" class="chat__attach-button"></button>
+        <div class="chat__attach-wrapper">
+          <button type="button" class="chat__attach-button"></button>
+          <div class="chat__tooltip-wrapper chat__tooltip-wrapper_attach">
+            {{> tooltipLayout items=attachItems}}
+          </div>
+        </div>
         <input type="text" class="chat__message-input" placeholder="Сообщение" />
         <button type="submit" class="chat__message-submit-button"></button>
       </form>

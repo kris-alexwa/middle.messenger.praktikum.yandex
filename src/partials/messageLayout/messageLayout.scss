@@ -7,14 +7,14 @@
   display: flex;
   position: relative;
 
-  &_companion {
+  &__companion {
     border-radius: 0 12px 12px 12px;
     background-color: #F8F8F8;
   }
 
-  &_you {
+  &__you {
     border-radius: 12px 12px 0 12px;
-    background-color: #E4EDFD;
+    background-color: var(--hover-color);
     align-self: end;
   }
 
