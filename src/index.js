@@ -9,6 +9,7 @@ import input from "./partials/input/input.hbs";
 import activeButton from "./partials/activeButton/activeButton.hbs";
 import simpleButton from "./partials/simpleButton/simpleButton.hbs";
 import dialog from "./partials/dialog/dialog.hbs";
+import messageLayout from './partials/messageLayout/messageLayout.hbs';
 
 import searchIconUrl from "./assets/icons/search.svg";
 import chatIconActive from "./assets/icons/chat-active.svg";
@@ -16,11 +17,14 @@ import chatIconDefault from "./assets/icons/chat-default.svg";
 import profileIconActive from "./assets/icons/profile-active.svg";
 import profileIconDefault from "./assets/icons/profile-default.svg";
 import { dialogs } from "./infractructure/consts";
+import defaultAvatarUrl from "./assets/img/avatar.png";
+import messageWasReadIcon from './assets/icons/read.svg';
 
 Handlebars.registerPartial("input", input);
 Handlebars.registerPartial("activeButton", activeButton);
 Handlebars.registerPartial("simpleButton", simpleButton);
 Handlebars.registerPartial("dialog", dialog);
+Handlebars.registerPartial("messageLayout", messageLayout);
 
 function render(html) {
   const app = document.querySelector("#app");
@@ -39,12 +43,14 @@ const PROPS = {
   signIn: {},
   signUp: {},
   chatPage: {
+    defaultAvatarUrl: defaultAvatarUrl,
     searchIconUrl: searchIconUrl,
     dialogs: dialogs,
     chatIconActive: chatIconActive,
     chatIconDefault: chatIconDefault,
     profileIconActive: profileIconActive,
     profileIconDefault: profileIconDefault,
+    messageWasReadIcon: messageWasReadIcon
   },
 };
 

@@ -24,7 +24,7 @@
     position: relative;
   }
 
-  &__input {
+  &__search-input {
     border: none;
     border-radius: 5px;
     background-color: #EFEFEF;
@@ -68,8 +68,6 @@
   }
 
   &__widget-button {
-    border: none;
-    background-color: transparent;
     height: fit-content;
     display: flex;
     align-items: center;
@@ -77,7 +75,13 @@
 
   &__dialog {
     width: 100%;
+  }
+
+  &__dialog-wrapper {
+    width: 100%;
     display: flex;
+    padding: 10px 20px;
+    position: relative;
   }
 
   &__dialog-default-message {
@@ -85,5 +89,100 @@
     color: var(--second-text-color);
     margin: auto;
     align-self: center;
+  }
+
+  &__avatar-wrapper {
+    width: 37px;
+    height: 37px;
+    object-fit: contain;
+  }
+
+  &__avatar {
+    width: 100%;
+    border-radius: 100%;
+  }
+
+  &__dialog-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #EAEAEA;
+  }
+
+  &__name {
+    font-weight: 600;
+    font-size: 13px;
+    margin-left: 10px;
+  }
+
+  &__companion-info-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__points-button {
+    background-image: url('/src/assets/icons/points.svg');
+    background-position: center;
+    height: 100%;
+    width: 30px;
+    min-height: 15px;
+  }
+
+  &__texts-container {
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    padding: 48px 0;
+    overflow-y: auto;
+  }
+
+  &__texts-date {
+    font-size: 12px;
+    color: var(--second-text-color);
+    text-align: center;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  &__form {
+    display: flex;
+    background-color: #ffffff;
+    justify-content: space-between;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 11px 20px;
+    align-items: center;
+    border-top: 1px solid #EAEAEA;
+  }
+
+  &__attach-button {
+    background-image: url('/src/assets/icons/attach.svg');
+    width: 32px;
+    height: 32px;
+  }
+
+  &__message-input {
+    width: 100%;
+    border: none;
+    background-color: #EFEFEF;
+    border-radius: 30px;
+    min-height: 32px;
+    margin: 0 10px;
+    padding: 0 20px;
+    font-size: 12px;
+  }
+
+  &__message-submit-button {
+    background-image: url('/src/assets/icons/submit-message.svg');
+    background-position: center;
+    background-color: var(--main-color);
+    border-radius: 100%;
+    width: 28px;
+    height: 28px;
   }
 }
