@@ -1,0 +1,89 @@
+.chat {
+  display: flex;
+
+  &__dialogs {
+    width: 100%;
+    max-width: 290px;
+    background-color: #FBFBFB;
+    height: 100vh;
+    padding: 16px 0;
+    border-right: 1px solid #EAEAEA;
+    position: relative;
+  }
+
+  &__wrapper {
+    display: flex;
+    column-gap: 16px;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 0 10px;
+  }
+
+  &__search {
+    width: 100%;
+    position: relative;
+  }
+
+  &__input {
+    border: none;
+    border-radius: 5px;
+    background-color: #EFEFEF;
+    font-size: 12px;
+    padding: 10px 10px 10px 30px;
+    width: 100%;
+  }
+
+  &__add-btn {
+    border: 1px solid var(--second-text-color);
+    border-radius: 100%;
+    background-color: transparent;
+    width: 10%;
+    background-image: url('/src/assets/icons/plus.svg');
+    background-position: center;
+    height: 25px;
+  }
+
+  &__search-icon {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+  }
+
+  &__dialogs-list {
+    overflow-y: auto;
+    height: 90%;
+  }
+
+  &__widget-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid #EAEAEA;
+    width: 100%;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    column-gap: 45px;
+    background-color: #FBFBFB;
+  }
+
+  &__widget-button {
+    border: none;
+    background-color: transparent;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+  }
+
+  &__dialog {
+    width: 100%;
+    display: flex;
+  }
+
+  &__dialog-default-message {
+    font-size: 12px;
+    color: var(--second-text-color);
+    margin: auto;
+    align-self: center;
+  }
+}

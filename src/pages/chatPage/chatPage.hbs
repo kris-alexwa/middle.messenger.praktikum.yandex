@@ -1,0 +1,41 @@
+<div class="chat">
+  <div class="chat__dialogs">
+    <div class="chat__wrapper">
+      <div class="chat__search">
+        <input class="chat__input" type="text" placeholder="Поиск" />
+        <img src={{searchIconUrl}} alt="Поиск" class="chat__search-icon" />
+      </div>
+      <button class="chat__add-btn"></button>
+    </div>
+    <ul class="chat__dialogs-list">
+      {{#each dialogs}}
+        <li onclick="router('currentChat')">
+          {{> dialog
+              avatar=this.avatar
+              name=this.name
+              message=this.message
+              messageCount=this.messageCount
+              time=this.time
+          }}
+        </li>
+      {{/each}}
+    </ul>
+
+    <ul class="chat__widget-bar">
+      <li>
+        <button class="chat__widget-button" onclick="router('profilePage')">
+          <img src={{profileIconDefault}} alt="Профиль" class="chat__profile-icon" />
+        </button>
+      </li>
+      <li>
+        <button class="chat__widget-button">
+          <img src={{chatIconActive}} alt="Чат" class="chat__chat-icon" />
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="chat__dialog">
+    <p class="chat__dialog-default-message">Выберите чат чтобы отправить сообщение</p>
+  </div>
+</div>

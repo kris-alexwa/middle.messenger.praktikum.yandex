@@ -1,0 +1,36 @@
+@import "../assets/css/normalize.css";
+@import 'simpleButton/simpleButton';
+@import 'activeButton/activeButton';
+@import 'input/input';
+@import '../pages/signUp/signUp';
+@import '../pages/signIn/signIn';
+@import '../pages/chatPage/chatPage';
+@import 'dialog/dialog';
+
+:root
+{
+  --main-color: #3369F3;
+  --second-text-color: #999999;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url('../assets/fonts/Inter-Medium.ttf');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url('../assets/fonts/Inter-SemiBold.ttf');
+  font-weight: 600;
+  font-style: normal;
+}
+
+body {
+  font-family: "Inter";
+  font-weight: 500;
+  color: #1E1E1E;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
