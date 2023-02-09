@@ -26,6 +26,7 @@
         <p class="profile__list-item-title">Почта</p>
         {{#if false}}
           <input
+              id="email"
               class="profile__list-item-info profile__list-item-info_input"
               type="text"
               value="pochta@yandex.ru"
@@ -38,6 +39,7 @@
         <p class="profile__list-item-title">Логин</p>
         {{#if false}}
           <input
+              id="login"
               class="profile__list-item-info profile__list-item-info_input"
               type="text"
               value="ivanivanov"
@@ -50,6 +52,7 @@
         <p class="profile__list-item-title">Имя</p>
         {{#if false}}
           <input
+              id="first_name"
               class="profile__list-item-info profile__list-item-info_input"
               type="text"
               value="Иванов"
@@ -62,6 +65,7 @@
         <p class="profile__list-item-title">Фамилия</p>
         {{#if false}}
           <input
+              id="second_name"
               class="profile__list-item-info profile__list-item-info_input"
               type="text"
               value="Иван"
@@ -74,6 +78,7 @@
         <p class="profile__list-item-title">Имя в чате</p>
         {{#if false}}
           <input
+              id="display_name"
               class="profile__list-item-info profile__list-item-info_input"
               type="text"
               value="ivanIvanov"
@@ -85,9 +90,11 @@
       <li class="profile__list-item">
         <p class="profile__list-item-title">Телефон</p>
         {{#if false}}
-          <input class="profile__list-item-info profile__list-item-info_input"
-                 value="+7 (909) 967 30 30"
-                 type="text"
+          <input
+              id="phone"
+              class="profile__list-item-info profile__list-item-info_input"
+              value="+7 (909) 967 30 30"
+              type="text"
           />
         {{else}}
           <p class="profile__list-item-info">+7 (909) 967 30 30</p>
@@ -99,6 +106,7 @@
       <li class="profile__list-item">
         <p class="profile__list-item-title">Старый пароль</p>
         <input
+            id="oldPassword"
             class="profile__list-item-info profile__list-item-info_input"
             type="password"
             value="pochta@yandex.ru"
@@ -107,6 +115,7 @@
       <li class="profile__list-item">
         <p class="profile__list-item-title">Новый пароль</p>
         <input
+            id="newPassword"
             class="profile__list-item-info profile__list-item-info_input"
             type="password"
             value="ivanivanov"
