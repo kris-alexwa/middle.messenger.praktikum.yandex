@@ -54,25 +54,6 @@
     height: 90%;
   }
 
-  &__widget-bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    border-top: 1px solid #EAEAEA;
-    width: 100%;
-    padding: 10px 0;
-    display: flex;
-    justify-content: center;
-    column-gap: 45px;
-    background-color: #FBFBFB;
-  }
-
-  &__widget-button {
-    height: fit-content;
-    display: flex;
-    align-items: center;
-  }
-
   &__dialog {
     width: 100%;
   }
@@ -226,5 +207,35 @@
 
   &__points-wrapper, &__attach-wrapper {
     position: relative;
+  }
+
+  &__tooltip {
+    background-color: #ffffff;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.14);
+    border-radius: 12px;
+    padding: 5px 0;
+    width: 100%;
+    min-width: 162px;
+    max-width: 210px;
+
+    &-list-item {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: 5px 12px;
+
+      &:hover {
+        background-color: rgba(205, 205, 205, 0.3);
+      }
+
+      &-label {
+        font-size: 12px;
+        margin-left: 8px;
+
+        &_red {
+          color: #EF0A0A;
+        }
+      }
+    }
   }
 }

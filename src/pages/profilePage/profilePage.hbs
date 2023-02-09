@@ -1,0 +1,132 @@
+<div class="profile">
+  <div class="profile__settings">
+    <div class="profile__user-info">
+      <div class="profile__avatar-wrapper" onclick="router('popupUploadFile')">
+        <img src={{avatarUrl}} alt="Аватар" class="profile__avatar" />
+      </div>
+      <div class="profile__user-wrapper">
+        <p class="profile__user-name">Иван</p>
+        <p class="profile__user-phone">+7 (909) 967 30 30</p>
+        <p class="profile__user-nickname">ivanIvanov</p>
+      </div>
+    </div>
+
+    <ul class="profile__settings-list">
+      <li class="profile__settings-item">Изменить данные</li>
+      <li class="profile__settings-item">Изменить пароль</li>
+      <li class="profile__settings-item profile__settings-item_exit">Выйти</li>
+    </ul>
+    {{>widgetBar profileIcon=profileIconActive chatIcon=chatIconDefault}}
+  </div>
+
+  <div class="profile__content">
+  {{#if true}}
+    <ul class="profile__list profile__list_data">
+      <li class="profile__list-item">
+        <p class="profile__list-item-title">Почта</p>
+        {{#if false}}
+          <input
+              class="profile__list-item-info profile__list-item-info_input"
+              type="text"
+              value="pochta@yandex.ru"
+          />
+        {{else}}
+          <p class="profile__list-item-info">pochta@yandex.ru</p>
+        {{/if}}
+      </li>
+      <li class="profile__list-item">
+        <p class="profile__list-item-title">Логин</p>
+        {{#if false}}
+          <input
+              class="profile__list-item-info profile__list-item-info_input"
+              type="text"
+              value="ivanivanov"
+          />
+        {{else}}
+          <p class="profile__list-item-info">ivanivanov</p>
+        {{/if}}
+      </li>
+      <li class="profile__list-item">
+        <p class="profile__list-item-title">Имя</p>
+        {{#if false}}
+          <input
+              class="profile__list-item-info profile__list-item-info_input"
+              type="text"
+              value="Иванов"
+          />
+        {{else}}
+          <p class="profile__list-item-info">Иванов</p>
+        {{/if}}
+      </li>
+      <li class="profile__list-item">
+        <p class="profile__list-item-title">Фамилия</p>
+        {{#if false}}
+          <input
+              class="profile__list-item-info profile__list-item-info_input"
+              type="text"
+              value="Иван"
+          />
+        {{else}}
+          <p class="profile__list-item-info">Иван</p>
+        {{/if}}
+      </li>
+      <li class="profile__list-item">
+        <p class="profile__list-item-title">Имя в чате</p>
+        {{#if false}}
+          <input
+              class="profile__list-item-info profile__list-item-info_input"
+              type="text"
+              value="ivanIvanov"
+          />
+        {{else}}
+          <p class="profile__list-item-info">ivanIvanov</p>
+        {{/if}}
+      </li>
+      <li class="profile__list-item">
+        <p class="profile__list-item-title">Телефон</p>
+        {{#if false}}
+          <input class="profile__list-item-info profile__list-item-info_input"
+                 value="+7 (909) 967 30 30"
+                 type="text"
+          />
+        {{else}}
+          <p class="profile__list-item-info">+7 (909) 967 30 30</p>
+        {{/if}}
+      </li>
+    </ul>
+  {{else}}
+    <ul class="profile__list profile__list_change-password">
+      <li class="profile__list-item">
+        <p class="profile__list-item-title">Старый пароль</p>
+        <input
+            class="profile__list-item-info profile__list-item-info_input"
+            type="password"
+            value="pochta@yandex.ru"
+        />
+      </li>
+      <li class="profile__list-item">
+        <p class="profile__list-item-title">Новый пароль</p>
+        <input
+            class="profile__list-item-info profile__list-item-info_input"
+            type="password"
+            value="ivanivanov"
+        />
+      </li>
+      <li class="profile__list-item">
+        <p class="profile__list-item-title">Повторите новый пароль</p>
+        <input
+            class="profile__list-item-info profile__list-item-info_input"
+            type="password"
+            value="Иванов"
+        />
+      </li>
+    </ul>
+  {{/if}}
+
+  {{#if false}}
+    <div class="profile__btn-save-wrapper">
+      {{> activeButton label="Сохранить"}}
+    </div>
+  {{/if}}
+  </div>
+</div>

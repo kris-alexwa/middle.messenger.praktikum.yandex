@@ -7,7 +7,12 @@
 @import '../pages/chatPage/chatPage';
 @import 'dialog/dialog';
 @import 'messageLayout/messageLayout';
-@import 'tooltipLayout/tooltipLayout';
+@import '../pages/profilePage/profilePage';
+@import 'widgetBar/widgetBar';
+@import "popup/popup";
+@import "../pages/popupDeleteChat/popupDeleteChat";
+@import "../pages/popupUploadFile/popupUploadFile";
+@import "errorPageLayout/errorPageLayout";
 
 :root
 {

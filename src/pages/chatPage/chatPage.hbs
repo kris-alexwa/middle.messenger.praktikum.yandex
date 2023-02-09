@@ -8,7 +8,18 @@
       <div class="chat__add-chat-wrapper">
         <button class="chat__add-btn"></button>
         <div class="chat__tooltip-wrapper chat__tooltip-wrapper_create-chat">
-          {{> tooltipLayout items=addChatItems}}
+
+          <div class="chat__tooltip">
+            <ul class="chat__tooltip-list">
+              <li class="chat__tooltip-list-item">
+                <img src={{createChatIcon}} />
+                <p class="chat__tooltip-list-item-label">
+                  Создать чат
+                </p>
+              </li>
+            </ul>
+          </div>
+
         </div>
       </div>
     </div>
@@ -26,18 +37,7 @@
       {{/each}}
     </ul>
 
-    <ul class="chat__widget-bar">
-      <li>
-        <button class="chat__widget-button" onclick="router('profilePage')">
-          <img src={{profileIconDefault}} alt="Профиль" class="chat__profile-icon" />
-        </button>
-      </li>
-      <li>
-        <button class="chat__widget-button">
-          <img src={{chatIconActive}} alt="Чат" class="chat__chat-icon" />
-        </button>
-      </li>
-    </ul>
+    {{>widgetBar profileIcon=profileIconDefault chatIcon=chatIconActive}}
   </div>
 
   <div class="chat__dialog-wrapper">
@@ -49,14 +49,37 @@
       <div class="chat__dialog-header">
         <div class="chat__companion-info-wrapper">
           <div class="chat__avatar-wrapper">
-            <img src={{defaultAvatarUrl}} alt="Аватар" class="chat__avatar" />
+            <img src={{avatarUrl}} alt="Аватар" class="chat__avatar" />
           </div>
           <p class="chat__name">Андрей</p>
         </div>
         <div class="chat__points-wrapper">
           <button class="chat__points-button"></button>
           <div class="chat__tooltip-wrapper chat__tooltip-wrapper_points">
-            {{> tooltipLayout items=pointsItems}}
+
+            <div class="chat__tooltip">
+              <ul class="chat__tooltip-list">
+                <li class="chat__tooltip-list-item" onclick="router('popupAddUser')">
+                  <img src={{addUserIcon}} />
+                  <p class="chat__tooltip-list-item-label">
+                    Добавить пользователя
+                  </p>
+                </li>
+                <li class="chat__tooltip-list-item" onclick="router('popupDeleteUser')">
+                  <img src={{deleteUserIcon}} />
+                  <p class="chat__tooltip-list-item-label chat__tooltip-list-item-label_red">
+                    Удалить пользователя
+                  </p>
+                </li>
+                <li class="chat__tooltip-list-item" onclick="router('popupDeleteChat')">
+                  <img src={{deleteChatIcon}} />
+                  <p class="chat__tooltip-list-item-label chat__tooltip-list-item-label_red">
+                    Удалить чат
+                  </p>
+                </li>
+              </ul>
+            </div>
+
           </div>
         </div>
       </div>
@@ -68,14 +91,38 @@
 Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро."
         }}
         {{> messageLayout message="Круто!" time="12:59" messageStatus=messageWasReadIcon}}
-        {{> messageLayout image=defaultAvatarUrl time="12:59" companion=true }}
+        {{> messageLayout image=avatarUrl time="12:59" companion=true }}
+        {{> messageLayout image=avatar2Url time="13:05" }}
       </div>
 
       <form class="chat__form">
         <div class="chat__attach-wrapper">
           <button type="button" class="chat__attach-button"></button>
           <div class="chat__tooltip-wrapper chat__tooltip-wrapper_attach">
-            {{> tooltipLayout items=attachItems}}
+
+            <div class="chat__tooltip">
+              <ul class="chat__tooltip-list">
+                <li class="chat__tooltip-list-item">
+                  <img src={{imagesIcon}} />
+                  <p class="chat__tooltip-list-item-label">
+                    Фото или видео
+                  </p>
+                </li>
+                <li class="chat__tooltip-list-item">
+                  <img src={{fileIcon}} />
+                  <p class="chat__tooltip-list-item-label">
+                    Файл
+                  </p>
+                </li>
+                <li class="chat__tooltip-list-item">
+                  <img src={{locationIcon}} />
+                  <p class="chat__tooltip-list-item-label">
+                    Локация
+                  </p>
+                </li>
+              </ul>
+            </div>
+
           </div>
         </div>
         <input type="text" class="chat__message-input" placeholder="Сообщение" />

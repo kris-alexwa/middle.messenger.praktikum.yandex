@@ -1,12 +1,5 @@
 import defaultAvatarUrl from "../assets/img/user.png";
 import avatarUserUrl from "../assets/img/avatar.png";
-import createChatIcon from "../assets/icons/create-chat.svg"
-import addUserIcon from "../assets/icons/add.svg";
-import deleteUserIcon from "../assets/icons/delete-user.svg";
-import deleteChatIcon from "../assets/icons/delete-chat.svg";
-import imagesIcon from "../assets/icons/images.svg";
-import fileIcon from "../assets/icons/file.svg";
-import locationIcon from "../assets/icons/location.svg";
 
 export const dialogs = [
     {
@@ -92,44 +85,5 @@ export const dialogs = [
         message: "Друзья, у меня для вас особенный выпуск новостей!",
         messageCount: 0,
         time: "Пн"
-    }
-]
-
-export const addChatItems = [
-    {
-        icon: createChatIcon,
-        label: "Создать чат"
-    }
-]
-
-export const pointsItems = [
-    {
-        icon: addUserIcon,
-        label: "Добавить пользователя"
-    },
-    {
-        icon: deleteUserIcon,
-        label: "Удалить пользователя",
-        delete: true
-    },
-    {
-        icon: deleteChatIcon,
-        label: "Удалить чат",
-        delete: true
-    }
-]
-
-export const attachItems = [
-    {
-        icon: imagesIcon,
-        label: "Фото или видео"
-    },
-    {
-        icon: fileIcon,
-        label: "Файл"
-    },
-    {
-        icon: locationIcon,
-        label: "Локация"
     }
 ]
