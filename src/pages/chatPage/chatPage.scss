@@ -1,13 +1,17 @@
+$border-color: #EAEAEA;
+$second-background-color: #EFEFEF;
+$white-color: #ffffff;
+
 .chat {
   display: flex;
 
   &__dialogs {
     width: 100%;
     max-width: 290px;
-    background-color: #FBFBFB;
+    background-color: var(--second-background-color);
     height: 100vh;
     padding: 16px 0;
-    border-right: 1px solid #EAEAEA;
+    border-right: 1px solid $border-color;
     position: relative;
   }
 
@@ -27,7 +31,7 @@
   &__search-input {
     border: none;
     border-radius: 5px;
-    background-color: #EFEFEF;
+    background-color: $second-background-color;
     font-size: 12px;
     padding: 10px 10px 10px 30px;
     width: 100%;
@@ -89,7 +93,7 @@
     width: 100%;
     align-items: center;
     padding-bottom: 10px;
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid $border-color;
   }
 
   &__name {
@@ -136,7 +140,7 @@
 
   &__form {
     display: flex;
-    background-color: #ffffff;
+    background-color: $white-color;
     justify-content: space-between;
     position: absolute;
     left: 0;
@@ -144,7 +148,7 @@
     width: 100%;
     padding: 11px 20px;
     align-items: center;
-    border-top: 1px solid #EAEAEA;
+    border-top: 1px solid $border-color;
   }
 
   &__attach-button {
@@ -162,7 +166,7 @@
   &__message-input {
     width: 100%;
     border: none;
-    background-color: #EFEFEF;
+    background-color: $second-background-color;
     border-radius: 30px;
     min-height: 32px;
     margin: 0 10px;
@@ -210,7 +214,7 @@
   }
 
   &__tooltip {
-    background-color: #ffffff;
+    background-color: $white-color;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.14);
     border-radius: 12px;
     padding: 5px 0;
@@ -233,7 +237,7 @@
         margin-left: 8px;
 
         &_red {
-          color: #EF0A0A;
+          color: var(--red-color);
         }
       }
     }

@@ -19,6 +19,7 @@ import messageLayout from './partials/messageLayout/messageLayout.hbs';
 import widgetBar from './partials/widgetBar/widgetBar.hbs';
 import popup from './partials/popup/popup.hbs';
 import errorPageLayout from './partials/errorPageLayout/errorPageLayout.hbs';
+import inputUserProfile from "./partials/inputUserProfile/inputUserProfile.hbs";
 
 import searchIconUrl from "./assets/icons/search.svg";
 import chatIconActive from "./assets/icons/chat-active.svg";
@@ -46,6 +47,7 @@ Handlebars.registerPartial("messageLayout", messageLayout);
 Handlebars.registerPartial("widgetBar", widgetBar);
 Handlebars.registerPartial("popup", popup);
 Handlebars.registerPartial("errorPageLayout", errorPageLayout);
+Handlebars.registerPartial("inputUserProfile", inputUserProfile);
 
 function render(html) {
   const app = document.querySelector("#app");

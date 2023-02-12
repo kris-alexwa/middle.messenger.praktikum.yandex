@@ -1,9 +1,11 @@
+$label-color: #999999;
+
 .input-container {
   display: flex;
   flex-direction: column;
 
   &__label {
-    color: #999999;
+    color: $label-color;
     font-size: 10px;
     padding-bottom: 8px;
   }

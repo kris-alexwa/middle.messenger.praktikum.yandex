@@ -13,12 +13,16 @@
 @import "../pages/popupDeleteChat/popupDeleteChat";
 @import "../pages/popupUploadFile/popupUploadFile";
 @import "errorPageLayout/errorPageLayout";
+@import "inputUserProfile/inputUserProfile";
 
 :root
 {
+  --main-text-color: #1E1E1E;
   --main-color: #3369F3;
   --second-text-color: #999999;
   --hover-color: #E4EDFD;
+  --second-background-color: #FBFBFB;
+  --red-color: #EF0A0A;
 }
 
 @font-face {
@@ -38,7 +42,7 @@
 body {
   font-family: "Inter";
   font-weight: 500;
-  color: #1E1E1E;
+  color: var(--main-text-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

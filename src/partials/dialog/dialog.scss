@@ -1,3 +1,6 @@
+$background-color: #EAEAEA;
+$white-color: #ffffff;
+
 .dialog {
   display: flex;
   justify-content: space-between;
@@ -11,7 +14,7 @@
 
   &__border {
     height: 1px;
-    background-color: #EAEAEA;
+    background-color: $background-color;
     position: absolute;
     bottom: 0;
     left: 10px;
@@ -35,7 +38,7 @@
     font-size: 13px;
     font-weight: 600;
     margin-bottom: 4px;
-    color: #1E1E1E;
+    color: var(--main-text-color);
   }
 
   &__message {
@@ -70,7 +73,7 @@
     width: 20px;
     height: 20px;
     border-radius: 100%;
-    color: #ffffff;
+    color: $white-color;
     text-align: center;
     padding: 4px;
     font-size: 11px;

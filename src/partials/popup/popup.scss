@@ -1,3 +1,5 @@
+$white-color: #ffffff;
+
 .popup {
   width: 100vw;
   height: 100vh;
@@ -11,13 +13,13 @@
   z-index: 2;
 
   &__container {
-    background-color: #ffffff;
+    background-color: $white-color;
     z-index: 1001;
     width: 100%;
     max-width: 340px;
     border-radius: 12px;
     padding: 30px;
-    color: #1E1E1E;
+    color: var(--main-text-color);
   }
 
   &-change-user {
