@@ -1,0 +1,245 @@
+$border-color: #EAEAEA;
+$second-background-color: #EFEFEF;
+$white-color: #ffffff;
+
+.chat {
+  display: flex;
+
+  &__dialogs {
+    width: 100%;
+    max-width: 290px;
+    background-color: var(--second-background-color);
+    height: 100vh;
+    padding: 16px 0;
+    border-right: 1px solid $border-color;
+    position: relative;
+  }
+
+  &__wrapper {
+    display: flex;
+    column-gap: 16px;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 0 10px;
+  }
+
+  &__search {
+    width: 100%;
+    position: relative;
+  }
+
+  &__search-input {
+    border: none;
+    border-radius: 5px;
+    background-color: $second-background-color;
+    font-size: 12px;
+    padding: 10px 10px 10px 30px;
+    width: 100%;
+  }
+
+  &__add-btn {
+    border: 1px solid var(--second-text-color);
+    border-radius: 100%;
+    background-color: transparent;
+    width: 100%;
+    background-image: url('/src/assets/icons/plus.svg');
+    background-position: center;
+    height: 25px;
+  }
+
+  &__search-icon {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+  }
+
+  &__dialogs-list {
+    overflow-y: auto;
+    height: 90%;
+  }
+
+  &__dialog {
+    width: 100%;
+  }
+
+  &__dialog-wrapper {
+    width: 100%;
+    display: flex;
+    padding: 10px 20px;
+    position: relative;
+  }
+
+  &__dialog-default-message {
+    font-size: 12px;
+    color: var(--second-text-color);
+    margin: auto;
+    align-self: center;
+  }
+
+  &__avatar-wrapper {
+    width: 37px;
+    height: 37px;
+    object-fit: contain;
+  }
+
+  &__avatar {
+    width: 100%;
+    border-radius: 100%;
+  }
+
+  &__dialog-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $border-color;
+  }
+
+  &__name {
+    font-weight: 600;
+    font-size: 13px;
+    margin-left: 10px;
+  }
+
+  &__companion-info-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__points-button {
+    background-image: url('/src/assets/icons/points.svg');
+    background-position: center;
+    height: 25px;
+    width: 25px;
+    min-height: 15px;
+
+    &:hover {
+      background-color: var(--hover-color);
+      border-radius: 100%;
+      height: 25px;
+    }
+  }
+
+  &__texts-container {
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    padding: 48px 0;
+    overflow-y: auto;
+  }
+
+  &__texts-date {
+    font-size: 12px;
+    color: var(--second-text-color);
+    text-align: center;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  &__form {
+    display: flex;
+    background-color: $white-color;
+    justify-content: space-between;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 11px 20px;
+    align-items: center;
+    border-top: 1px solid $border-color;
+  }
+
+  &__attach-button {
+    background-image: url('/src/assets/icons/attach.svg');
+    width: 32px;
+    height: 32px;
+    background-position: center;
+
+    &:hover {
+      background-color: var(--hover-color);
+      border-radius: 100%;
+    }
+  }
+
+  &__message-input {
+    width: 100%;
+    border: none;
+    background-color: $second-background-color;
+    border-radius: 30px;
+    min-height: 32px;
+    margin: 0 10px;
+    padding: 0 20px;
+    font-size: 12px;
+  }
+
+  &__message-submit-button {
+    background-image: url('/src/assets/icons/submit-message.svg');
+    background-position: center;
+    background-color: var(--main-color);
+    border-radius: 100%;
+    width: 28px;
+    height: 28px;
+  }
+
+  &__add-chat-wrapper {
+    position: relative;
+    width: 11%;
+    max-width: 25px;
+  }
+
+  &__tooltip-wrapper {
+    position: absolute;
+    z-index: 100;
+
+    &_create-chat {
+      left: 20px;
+    }
+
+    &_points {
+      right: 26px;
+      top: 5px;
+      min-width: 210px;
+    }
+
+    &_attach {
+      bottom: 55px;
+      left: 0;
+    }
+  }
+
+  &__points-wrapper, &__attach-wrapper {
+    position: relative;
+  }
+
+  &__tooltip {
+    background-color: $white-color;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.14);
+    border-radius: 12px;
+    padding: 5px 0;
+    width: 100%;
+    min-width: 162px;
+    max-width: 210px;
+
+    &-list-item {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: 5px 12px;
+
+      &:hover {
+        background-color: rgba(205, 205, 205, 0.3);
+      }
+
+      &-label {
+        font-size: 12px;
+        margin-left: 8px;
+
+        &_red {
+          color: var(--red-color);
+        }
+      }
+    }
+  }
+}

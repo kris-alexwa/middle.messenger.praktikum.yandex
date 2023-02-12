@@ -1,0 +1,20 @@
+$border-color: #EAEAEA;
+
+.widget-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid $border-color;
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  column-gap: 45px;
+  background-color: var(--second-background-color);
+
+  &__button {
+    height: fit-content;
+    display: flex;
+    align-items: center;
+  }
+}
