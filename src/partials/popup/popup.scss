@@ -1,4 +1,4 @@
-$white-color: #ffffff;
+$white-color: #fff;
 
 .popup {
   width: 100vw;
@@ -9,7 +9,7 @@ $white-color: #ffffff;
   align-items: center;
   position: fixed;
   top: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgb(0 0 0 / 50%);
   z-index: 2;
 
   &__container {

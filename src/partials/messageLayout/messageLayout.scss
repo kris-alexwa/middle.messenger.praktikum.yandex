@@ -1,5 +1,5 @@
-$white-color: #ffffff;
-$background-message-color: #F8F8F8;
+$white-color: #fff;
+$background-message-color: #f8f8f8;
 
 .message-layout {
   font-size: 12px;
@@ -11,12 +11,12 @@ $background-message-color: #F8F8F8;
   position: relative;
 
   &__companion {
-    border-radius: 0 12px 12px 12px;
+    border-radius: 0 12px 12px;
     background-color: $background-message-color;
   }
 
   &__you {
-    border-radius: 12px 12px 0 12px;
+    border-radius: 12px 12px 0;
     background-color: var(--hover-color);
     align-self: end;
   }
@@ -38,7 +38,7 @@ $background-message-color: #F8F8F8;
     position: absolute;
     bottom: 11px;
     right: 11px;
-    background-color: rgba(82, 82, 82, 0.5);
+    background-color: rgb(82 82 82 / 50%);
     color: $white-color;
     padding: 2px 7px;
     border-radius: 30px;

@@ -17,30 +17,30 @@
 
 :root
 {
-  --main-text-color: #1E1E1E;
-  --main-color: #3369F3;
-  --second-text-color: #999999;
-  --hover-color: #E4EDFD;
-  --second-background-color: #FBFBFB;
-  --red-color: #EF0A0A;
+  --main-text-color: #1e1e1e;
+  --main-color: #3369f3;
+  --second-text-color: #999;
+  --hover-color: #e4edfd;
+  --second-background-color: #fbfbfb;
+  --red-color: #ef0a0a;
 }
 
 @font-face {
-  font-family: "Inter";
+  font-family: Inter;
   src: url('../assets/fonts/Inter-Medium.ttf');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Inter";
+  font-family: Inter;
   src: url('../assets/fonts/Inter-SemiBold.ttf');
   font-weight: 600;
   font-style: normal;
 }
 
 body {
-  font-family: "Inter";
+  font-family: Inter, sans-serif;
   font-weight: 500;
   color: var(--main-text-color);
   -webkit-font-smoothing: antialiased;

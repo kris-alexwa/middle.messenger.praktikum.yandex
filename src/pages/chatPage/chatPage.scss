@@ -1,6 +1,6 @@
-$border-color: #EAEAEA;
-$second-background-color: #EFEFEF;
-$white-color: #ffffff;
+$border-color: #eaeaea;
+$second-background-color: #efefef;
+$white-color: #fff;
 
 .chat {
   display: flex;
@@ -215,7 +215,7 @@ $white-color: #ffffff;
 
   &__tooltip {
     background-color: $white-color;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.14);
+    box-shadow: 0 0 6px rgb(0 0 0 / 14%);
     border-radius: 12px;
     padding: 5px 0;
     width: 100%;
@@ -229,7 +229,7 @@ $white-color: #ffffff;
       padding: 5px 12px;
 
       &:hover {
-        background-color: rgba(205, 205, 205, 0.3);
+        background-color: rgb(205 205 205 / 30%);
       }
 
       &-label {

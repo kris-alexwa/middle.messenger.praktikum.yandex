@@ -1,5 +1,5 @@
-$border-color: #EAEAEA;
-$white-color: #ffffff;
+$border-color: #eaeaea;
+$white-color: #fff;
 
 .profile {
   display: flex;
@@ -12,6 +12,27 @@ $white-color: #ffffff;
     border-right: 1px solid $border-color;
     position: relative;
     padding: 37px 0;
+
+      &-list {
+          display: flex;
+          flex-direction: column;
+          margin-top: 30px;
+      }
+
+      &-item {
+          font-size: 14px;
+          color: var(--main-color);
+          cursor: pointer;
+          padding: 10px 35px;
+
+          &:hover {
+              background-color: var(--hover-color);
+          }
+
+          &_exit {
+              color: var(--red-color);
+          }
+      }
   }
 
   &__avatar {
@@ -69,29 +90,6 @@ $white-color: #ffffff;
     &-phone, &-nickname {
       font-size: 12px;
       color: var(--second-text-color)
-    }
-  }
-
-  &__settings {
-    &-list {
-      display: flex;
-      flex-direction: column;
-      margin-top: 30px;
-    }
-
-    &-item {
-      font-size: 14px;
-      color: var(--main-color);
-      cursor: pointer;
-      padding: 10px 35px;
-
-      &:hover {
-        background-color: var(--hover-color);
-      }
-
-      &_exit {
-        color: var(--red-color);
-      }
     }
   }
 
