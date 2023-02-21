@@ -1,0 +1,49 @@
+@import "assets/css/normalize.css";
+@import 'components/simpleButton/simpleButton';
+@import 'components/activeButton/activeButton';
+@import 'components/input/input';
+@import 'pages/signUp/signUp';
+@import 'pages/signIn/signIn';
+@import 'pages/chatPage/chatPage';
+@import 'components/dialog/dialog';
+@import 'components/messageLayout/messageLayout';
+@import 'pages/profilePage/profilePage';
+@import 'components/widgetBar/widgetBar';
+@import "components/popup/popup";
+@import "pages/popupDeleteChat/popupDeleteChat";
+@import "pages/popupUploadFile/popupUploadFile";
+@import "components/inputUserProfile/inputUserProfile";
+@import "pages/404Page/404";
+@import "pages/500Page/500";
+
+:root
+{
+  --main-text-color: #1e1e1e;
+  --main-color: #3369f3;
+  --second-text-color: #999;
+  --hover-color: #e4edfd;
+  --second-background-color: #fbfbfb;
+  --red-color: #ef0a0a;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url('assets/fonts/Inter-Medium.ttf');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url('assets/fonts/Inter-SemiBold.ttf');
+  font-weight: 600;
+  font-style: normal;
+}
+
+body {
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  color: var(--main-text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
