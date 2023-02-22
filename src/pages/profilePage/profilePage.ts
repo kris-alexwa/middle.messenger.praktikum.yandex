@@ -1,21 +1,26 @@
 import Block from '../../infractructure/Block';
 import template from './profilePage.hbs';
-import { render } from '../../utils/render';
 import avatarUrl from '../../assets/img/avatar.png';
 import { WidgetBar } from '../../components/widgetBar/widgetBar';
 import profileIconActive from '../../assets/icons/profile-active.svg';
 import chatIconDefault from '../../assets/icons/chat-default.svg';
 import { InputUserProfile } from '../../components/inputUserProfile/inputUserProfile';
 import { ActiveButton } from '../../components/activeButton/activeButton';
+import { PopupUploadFile } from '../../components/popups/popupUploadFile/popupUploadFile';
+import { showPopup } from '../../utils/changeVisibilityPopup';
 
 export default class ProfilePage extends Block {
   init() {
     this.props.avatarUrl = avatarUrl;
+    this.props.changeDataViewIsDefault = true;
+    this.props.changeDataViewIsForm = false;
+    this.props.changePasswordView = false;
 
     this.children.widgetBar = new WidgetBar({
       profileIcon: profileIconActive,
       chatIcon: chatIconDefault,
     });
+
     this.children.inputsUserProfile = [
       new InputUserProfile({
         id: 'email',
@@ -83,6 +88,7 @@ export default class ProfilePage extends Block {
         type: 'password',
       }),
     ];
+
     this.children.activeButton = new ActiveButton({
       label: 'Сохранить',
       events: {
@@ -91,6 +97,36 @@ export default class ProfilePage extends Block {
         },
       },
     });
+
+    this.props.eventsBySelector = [
+      {
+        selector: '#change-data-btn',
+        eventName: 'click',
+        handler: () => {
+          this.props.changeDataViewIsDefault = !this.props.changeDataViewIsDefault;
+          this.props.changeDataViewIsForm = !this.props.changeDataViewIsForm;
+          this.props.changePasswordView = false;
+        },
+      },
+      {
+        selector: '#change-password-btn',
+        eventName: 'click',
+        handler: () => {
+          this.props.changePasswordView = !this.props.changePasswordView;
+          this.props.changeDataViewIsForm = false;
+          this.props.changeDataViewIsDefault = true;
+        },
+      },
+      {
+        selector: '#upload-file-btn',
+        eventName: 'click',
+        handler: () => {
+          showPopup('upload-file');
+        },
+      },
+    ];
+
+    this.children.popupUploadFile = new PopupUploadFile();
   }
 
   render() {

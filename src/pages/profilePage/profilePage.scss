@@ -24,6 +24,7 @@ $white-color: #fff;
           color: var(--main-color);
           cursor: pointer;
           padding: 10px 35px;
+          text-align: left;
 
           &:hover {
               background-color: var(--hover-color);
@@ -31,6 +32,10 @@ $white-color: #fff;
 
           &_exit {
               color: var(--red-color);
+          }
+
+          &_selected {
+              background-color: var(--hover-color);
           }
       }
   }
@@ -53,7 +58,7 @@ $white-color: #fff;
         top: 0;
         left: 0;
         content: "Поменять аватар";
-        padding-top: 22px;
+        padding-top: 25px;
         text-align: center;
         border-radius: 100%;
         width: 100%;

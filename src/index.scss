@@ -9,12 +9,13 @@
 @import 'components/messageLayout/messageLayout';
 @import 'pages/profilePage/profilePage';
 @import 'components/widgetBar/widgetBar';
-@import "components/popup/popup";
-@import "pages/popupDeleteChat/popupDeleteChat";
-@import "pages/popupUploadFile/popupUploadFile";
+@import "components/popups/popup";
+@import "components/popups/popupDeleteChat/popupDeleteChat";
+@import "components/popups/popupUploadFile/popupUploadFile";
 @import "components/inputUserProfile/inputUserProfile";
 @import "pages/404Page/404";
 @import "pages/500Page/500";
+@import "components/dashboardItem/dashboardItem";
 
 :root
 {
@@ -46,4 +47,12 @@ body {
   color: var(--main-text-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.popup-wrapper {
+    display: none;
+
+    &__visible {
+        display: flex;
+    }
 }

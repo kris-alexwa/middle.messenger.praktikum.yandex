@@ -62,6 +62,19 @@ export default class Block {
     Object.keys(events).forEach((eventName) => {
       this._element?.addEventListener(eventName, events[eventName]);
     });
+
+    if (this.props.eventsBySelector) {
+        type event = {
+            selector: string,
+            eventName: string,
+            handler: () => void
+        }
+        const { eventsBySelector = [] } = this.props;
+
+        eventsBySelector.forEach(({ selector, eventName, handler }: event) => {
+          this._element?.querySelector(selector)?.addEventListener(eventName, handler);
+        });
+    }
   }
 
   _registerEvents(eventBus: EventBus) {

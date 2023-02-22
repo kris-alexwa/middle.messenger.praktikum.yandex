@@ -1,7 +1,7 @@
 import Block from '../../infractructure/Block';
-import template from './inputUserProfile.hbs';
+import template from './dashboardItem.hbs';
 
-export class InputUserProfile extends Block {
+export class DashboardItem extends Block {
   render() {
     return this.compile(template, this.props);
   }

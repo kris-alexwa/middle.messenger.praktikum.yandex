@@ -1,4 +1,14 @@
 <div class="chat">
+    <span id="delete-chat" class="popup-wrapper">
+        {{{popupDeleteChat}}}
+    </span>
+    <span id="delete-user" class="popup-wrapper">
+        {{{popupDeleteUser}}}
+    </span>
+    <span id="add-user" class="popup-wrapper">
+        {{{popupAddUser}}}
+    </span>
+
     <div class="chat__dialogs">
         <div class="chat__wrapper">
             <div class="chat__search">
@@ -6,20 +16,13 @@
                 <img src={{searchIconUrl}} alt="Поиск" class="chat__search-icon" />
             </div>
             <div class="chat__add-chat-wrapper">
-                <button class="chat__add-btn"></button>
-                <div class="chat__tooltip-wrapper chat__tooltip-wrapper_create-chat">
-
-                    <div class="chat__tooltip">
-                        <ul class="chat__tooltip-list">
-                            <li class="chat__tooltip-list-item">
-                                <img src={{createChatIcon}} />
-                                <p class="chat__tooltip-list-item-label">
-                                    Создать чат
-                                </p>
-                            </li>
+                <button id="dashboard-create-chat-btn" class="chat__add-btn"></button>
+                <div id="dashboard-create-chat" class="chat__dashboard-wrapper chat__dashboard-wrapper_create-chat">
+                    <div class="chat__dashboard">
+                        <ul class="chat__dashboard-list">
+                            {{{dashboardCreateChat}}}
                         </ul>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -48,32 +51,15 @@
                     <p class="chat__name">Андрей</p>
                 </div>
                 <div class="chat__points-wrapper">
-                    <button class="chat__points-button"></button>
-                    <div class="chat__tooltip-wrapper chat__tooltip-wrapper_points">
-
-                        <div class="chat__tooltip">
-                            <ul class="chat__tooltip-list">
-                                <li class="chat__tooltip-list-item" onclick="router('popupAddUser')">
-                                    <img src={{addUserIcon}} />
-                                    <p class="chat__tooltip-list-item-label">
-                                        Добавить пользователя
-                                    </p>
-                                </li>
-                                <li class="chat__tooltip-list-item" onclick="router('popupDeleteUser')">
-                                    <img src={{deleteUserIcon}} />
-                                    <p class="chat__tooltip-list-item-label chat__tooltip-list-item-label_red">
-                                        Удалить пользователя
-                                    </p>
-                                </li>
-                                <li class="chat__tooltip-list-item" onclick="router('popupDeleteChat')">
-                                    <img src={{deleteChatIcon}} />
-                                    <p class="chat__tooltip-list-item-label chat__tooltip-list-item-label_red">
-                                        Удалить чат
-                                    </p>
-                                </li>
+                    <button id="dashboard-points-btn" class="chat__points-button"></button>
+                    <div id="dashboard-points" class="chat__dashboard-wrapper chat__dashboard-wrapper_points">
+                        <div class="chat__dashboard">
+                            <ul class="chat__dashboard-list">
+                                {{{dashboardAddUser}}}
+                                {{{dashboardDeleteUser}}}
+                                {{{dashboardDeleteChat}}}
                             </ul>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -87,32 +73,15 @@
 
             <form class="chat__form">
                 <div class="chat__attach-wrapper">
-                    <button type="button" class="chat__attach-button"></button>
-                    <div class="chat__tooltip-wrapper chat__tooltip-wrapper_attach">
-
-                        <div class="chat__tooltip">
-                            <ul class="chat__tooltip-list">
-                                <li class="chat__tooltip-list-item">
-                                    <img src={{imagesIcon}} />
-                                    <p class="chat__tooltip-list-item-label">
-                                        Фото или видео
-                                    </p>
-                                </li>
-                                <li class="chat__tooltip-list-item">
-                                    <img src={{fileIcon}} />
-                                    <p class="chat__tooltip-list-item-label">
-                                        Файл
-                                    </p>
-                                </li>
-                                <li class="chat__tooltip-list-item">
-                                    <img src={{locationIcon}} />
-                                    <p class="chat__tooltip-list-item-label">
-                                        Локация
-                                    </p>
-                                </li>
+                    <button id="dashboard-attach-btn" type="button" class="chat__attach-button"></button>
+                    <div id="dashboard-attach" class="chat__dashboard-wrapper chat__dashboard-wrapper_attach">
+                        <div class="chat__dashboard">
+                            <ul class="chat__dashboard-list">
+                                {{{dashboardAddImageOrVideo}}}
+                                {{{dashboardAddFile}}}
+                                {{{dashboardAddLocation}}}
                             </ul>
                         </div>
-
                     </div>
                 </div>
                 <input type="text" id="message" name="message" class="chat__message-input" placeholder="Сообщение" />

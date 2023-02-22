@@ -12,12 +12,6 @@ const ROUTES = {
   profilePage: ProfilePage,
   page404: Page404,
   page500: Page500,
-  // popupAddUser,
-  // popupDeleteChat,
-  // popupDeleteUser,
-  // popupUploadFile,
-  // page404,
-  // page500,
 };
 export function render(route: keyof typeof ROUTES = 'signInPage') {
   const app: HTMLElement | null = document.querySelector('#app');
@@ -28,6 +22,8 @@ export function render(route: keyof typeof ROUTES = 'signInPage') {
   const page = new PageComponent();
 
   (app as HTMLElement).append(page.element!);
+
+  console.log(page)
 
   page.dispatchComponentDidMount();
 }
