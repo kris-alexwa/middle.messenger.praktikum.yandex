@@ -2,11 +2,37 @@
   <form class="sign-up__form">
     <div>
       <h1 class="sign-up__title">Регистрация</h1>
-      <div class="sign-up__inputs">
-          {{#each inputs}}
-              {{{this}}}
-          {{/each}}
-      </div>
+      <ul class="sign-up__inputs">
+          <li class="sign-up__input-container">
+              <label class="sign-up__input-label" for="email">Почта</label>
+              {{{inputEmail}}}
+              <span id="email-error" class="input-error-message">Некорректный формат</span>
+          </li>
+          <li class="sign-up__input-container">
+              <label class="sign-up__input-label" for="login">Логин</label>
+              {{{inputLogin}}}
+          </li>
+          <li class="sign-up__input-container">
+              <label class="sign-up__input-label" for="first-name">Имя</label>
+              {{{inputFirstName}}}
+          </li>
+          <li class="sign-up__input-container">
+              <label class="sign-up__input-label" for="second-name">Фамилия</label>
+              {{{inputSecondName}}}
+          </li>
+          <li class="sign-up__input-container">
+              <label class="sign-up__input-label" for="phone">Телефон</label>
+              {{{inputPhone}}}
+          </li>
+          <li class="sign-up__input-container">
+              <label class="sign-up__input-label" for="password">Пароль</label>
+              {{{inputPassword}}}
+          </li>
+          <li class="sign-up__input-container">
+              <label class="sign-up__input-label" for="repeat-password">Пароль (еще раз)</label>
+              {{{inputRepeatPassword}}}
+          </li>
+      </ul>
     </div>
     <div class="sign-up__wrapper">
         {{{activeButton}}}

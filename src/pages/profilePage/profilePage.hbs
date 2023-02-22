@@ -35,14 +35,21 @@
         {{#if changePasswordView}}
             <form class="profile__form">
                 <ul class="profile__list profile__list_change-password">
-                    {{#each inputsUserPasswordProfile}}
-                        <li class="profile__list-item">
-                            {{{this}}}
-                        </li>
-                    {{/each}}
+                    <li class="profile__list-item">
+                        <label class="profile__input-label" for="old-password">Старый пароль</label>
+                        {{{inputOldPassword}}}
+                    </li>
+                    <li class="profile__list-item">
+                        <label class="profile__input-label" for="new-password">Новый пароль</label>
+                        {{{inputNewPassword}}}
+                    </li>
+                    <li class="profile__list-item">
+                        <label class="profile__input-label" for="new-password-repeat">Повторите новый пароль</label>
+                        {{{inputNewPasswordRepeat}}}
+                    </li>
                 </ul>
                 <div class="profile__btn-save-wrapper">
-                    {{{activeButton}}}
+                    {{{activeButtonChangePassword}}}
                 </div>
             </form>
         {{else}}
@@ -76,14 +83,33 @@
             {{else if changeDataViewIsForm}}
                 <form class="profile__form">
                     <ul class="profile__list profile__list_data">
-                        {{#each inputsUserProfile}}
-                            <li class="profile__list-item">
-                                {{{this}}}
-                            </li>
-                        {{/each}}
+                        <li class="profile__list-item">
+                            <label class="profile__input-label" for="email">Почта</label>
+                            {{{inputEmail}}}
+                        </li>
+                        <li class="profile__list-item">
+                            <label class="profile__input-label" for="login">Логин</label>
+                            {{{inputLogin}}}
+                        </li>
+                        <li class="profile__list-item">
+                            <label class="profile__input-label" for="first-name">Имя</label>
+                            {{{inputFirstName}}}
+                        </li>
+                        <li class="profile__list-item">
+                            <label class="profile__input-label" for="second-name">Фамилия</label>
+                            {{{inputSecondName}}}
+                        </li>
+                        <li class="profile__list-item">
+                            <label class="profile__input-label" for="display-name">Имя в чате</label>
+                            {{{inputDisplayName}}}
+                        </li>
+                        <li class="profile__list-item">
+                            <label class="profile__input-label" for="phone">Телефон</label>
+                            {{{inputPhone}}}
+                        </li>
                     </ul>
                     <div class="profile__btn-save-wrapper">
-                        {{{activeButton}}}
+                        {{{activeButtonChangeData}}}
                     </div>
                 </form>
             {{/if}}

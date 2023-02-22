@@ -1,12 +1,6 @@
 .input-user-profile {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-
-    &__input {
-        width: 60%;
-        border: none;
-        text-align: end;
-        color: var(--main-text-color);
-    }
+    width: 60%;
+    border: none;
+    text-align: end;
+    color: var(--main-text-color);
 }

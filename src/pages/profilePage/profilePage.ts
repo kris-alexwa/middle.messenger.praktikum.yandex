@@ -8,6 +8,22 @@ import { InputUserProfile } from '../../components/inputUserProfile/inputUserPro
 import { ActiveButton } from '../../components/activeButton/activeButton';
 import { PopupUploadFile } from '../../components/popups/popupUploadFile/popupUploadFile';
 import { showPopup } from '../../utils/changeVisibilityPopup';
+import { Input } from '../../components/input/input';
+
+type ProfileDataType = {
+    email: string;
+    login: string;
+    firstName: string;
+    secondName: string;
+    displayName: string;
+    phone: string;
+}
+
+type PasswordDataType = {
+    oldPassword: string;
+    newPassword: string;
+    newPasswordRepeat: string;
+}
 
 export default class ProfilePage extends Block {
   init() {
@@ -21,79 +37,92 @@ export default class ProfilePage extends Block {
       chatIcon: chatIconDefault,
     });
 
-    this.children.inputsUserProfile = [
-      new InputUserProfile({
-        id: 'email',
-        label: 'Почта',
-        name: 'email',
-        value: 'pochta@yandex.ru',
-        type: 'text',
-      }),
-      new InputUserProfile({
-        id: 'login',
-        label: 'Логин',
-        name: 'login',
-        value: 'ivanivanov',
-        type: 'text',
-      }),
-      new InputUserProfile({
-        id: 'first_name',
-        label: 'Имя',
-        name: 'first_name',
-        value: 'Иван',
-        type: 'text',
-      }),
-      new InputUserProfile({
-        id: 'second_name',
-        label: 'Фамилия',
-        name: 'second_name',
-        value: 'Иванов',
-        type: 'text',
-      }),
-      new InputUserProfile({
-        id: 'display_name',
-        label: 'Имя в чате',
-        name: 'display_name',
-        value: 'ivanIvanov',
-        type: 'text',
-      }),
-      new InputUserProfile({
-        id: 'phone',
-        label: 'Телефон',
-        name: 'phone',
-        value: '+7 (909) 967 30 30',
-        type: 'text',
-      }),
-    ];
-    this.children.inputsUserPasswordProfile = [
-      new InputUserProfile({
-        id: 'oldPassword',
-        label: 'Старый пароль',
-        name: 'oldPassword',
-        value: 'pochta@yandex.ru',
-        type: 'password',
-      }),
-      new InputUserProfile({
-        id: 'newPassword',
-        label: 'Новый пароль',
-        name: 'newPassword',
-        value: 'ivanivanov',
-        type: 'password',
-      }),
-      new InputUserProfile({
-        id: 'newPasswordRepeat',
-        label: 'Повторите новый пароль',
-        name: 'newPassword',
-        value: 'Иванов',
-        type: 'password',
-      }),
-    ];
+    this.children.inputEmail = new InputUserProfile({
+      id: 'email',
+      name: 'email',
+      value: 'pochta@yandex.ru',
+      type: 'text',
+    });
+    this.children.inputLogin = new InputUserProfile({
+      id: 'login',
+      name: 'login',
+      value: 'ivanivanov',
+      type: 'text',
+    });
+    this.children.inputFirstName = new InputUserProfile({
+      id: 'first-name',
+      name: 'first_name',
+      value: 'Иван',
+      type: 'text',
+    });
+    this.children.inputSecondName = new InputUserProfile({
+      id: 'second-name',
+      name: 'second_name',
+      value: 'Иванов',
+      type: 'text',
+    });
+    this.children.inputDisplayName = new InputUserProfile({
+      id: 'display-name',
+      name: 'display_name',
+      value: 'ivanIvanov',
+      type: 'text',
+    });
+    this.children.inputPhone = new InputUserProfile({
+      id: 'phone',
+      name: 'phone',
+      value: '+7 (909) 967 30 30',
+      type: 'text',
+    });
 
-    this.children.activeButton = new ActiveButton({
+    this.children.inputOldPassword = new InputUserProfile({
+      id: 'old-password',
+      name: 'oldPassword',
+      value: 'pochta@yandex.ru',
+      type: 'password',
+    });
+    this.children.inputNewPassword = new InputUserProfile({
+      id: 'new-password',
+      name: 'newPassword',
+      value: 'ivanivanov',
+      type: 'password',
+    });
+    this.children.inputNewPasswordRepeat = new InputUserProfile({
+      id: 'new-password-repeat',
+      name: 'newPassword',
+      value: 'Иванов',
+      type: 'password',
+    });
+
+    this.children.activeButtonChangeData = new ActiveButton({
       label: 'Сохранить',
       events: {
         click: (event) => {
           event.preventDefault();
+          const data: ProfileDataType = {} as ProfileDataType;
+
+          data.email = (this.children.inputEmail as Input).value;
+          data.login = (this.children.inputLogin as Input).value;
+          data.firstName = (this.children.inputFirstName as Input).value;
+          data.secondName = (this.children.inputSecondName as Input).value;
+          data.displayName = (this.children.inputDisplayName as Input).value;
+          data.phone = (this.children.inputPhone as Input).value;
+
+          console.log('profileDataForm', data);
+        },
+      },
+    });
+    this.children.activeButtonChangePassword = new ActiveButton({
+      label: 'Сохранить',
+      events: {
+        click: (event) => {
+          event.preventDefault();
+          const data: PasswordDataType = {} as PasswordDataType;
+
+          data.newPassword = (this.children.inputOldPassword as Input).value;
+          data.oldPassword = (this.children.inputNewPassword as Input).value;
+          data.newPasswordRepeat = (this.children.inputNewPasswordRepeat as Input).value;
+
+          console.log('passwordDataForm', data);
         },
       },
     });

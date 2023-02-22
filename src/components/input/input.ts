@@ -1,14 +1,11 @@
 import Block from '../../infractructure/Block';
 import template from './input.hbs';
 
-// interface ButtonProps {
-//     label: string;
-//     events: {
-//         click: () => void;
-//     };
-// }
-
 export class Input extends Block {
+  get value() {
+    return (this.element as HTMLInputElement).value;
+  }
+
   render() {
     return this.compile(template, this.props);
   }

@@ -1,20 +1,7 @@
-$label-color: #999;
-
-.input-container {
-  display: flex;
-  flex-direction: column;
-
-  &__label {
-    color: $label-color;
-    font-size: 10px;
-    padding-bottom: 8px;
-  }
-
-  &__input {
+.input {
     border: none;
     border-bottom: 1px solid var(--main-color);
     max-width: 280px;
     padding-bottom: 7px;
     font-size: 13px;
-  }
 }
