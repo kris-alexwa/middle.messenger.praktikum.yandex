@@ -9,6 +9,9 @@ import { ActiveButton } from '../../components/activeButton/activeButton';
 import { PopupUploadFile } from '../../components/popups/popupUploadFile/popupUploadFile';
 import { showPopup } from '../../utils/changeVisibilityPopup';
 import { Input } from '../../components/input/input';
+import {
+  isValid, validateEmail, validateLogin, validateName, validatePassword, validatePhone,
+} from '../../utils/formValidation';
 
 type ProfileDataType = {
     email: string;
@@ -38,28 +41,52 @@ export default class ProfilePage extends Block {
     });
 
     this.children.inputEmail = new InputUserProfile({
-      id: 'email',
+      id: 'profile-email-input',
       name: 'email',
       value: 'pochta@yandex.ru',
       type: 'text',
+      events: {
+        blur: () => {
+          const { value } = this.children.inputEmail as Input;
+          isValid(validateEmail(value), 'email-error', 'profile-email-input');
+        },
+      },
     });
     this.children.inputLogin = new InputUserProfile({
-      id: 'login',
+      id: 'profile-login-input',
       name: 'login',
       value: 'ivanivanov',
       type: 'text',
+      events: {
+        blur: () => {
+          const { value } = this.children.inputLogin as Input;
+          isValid(validateLogin(value), 'login-error', 'profile-login-input');
+        },
+      },
     });
     this.children.inputFirstName = new InputUserProfile({
-      id: 'first-name',
+      id: 'profile-first-name-input',
       name: 'first_name',
       value: 'Иван',
       type: 'text',
+      events: {
+        blur: () => {
+          const { value } = this.children.inputFirstName as Input;
+          isValid(validateName(value), 'first-name-error', 'profile-first-name-input');
+        },
+      },
     });
     this.children.inputSecondName = new InputUserProfile({
-      id: 'second-name',
+      id: 'profile-second-name-input',
       name: 'second_name',
       value: 'Иванов',
       type: 'text',
+      events: {
+        blur: () => {
+          const { value } = this.children.inputSecondName as Input;
+          isValid(validateName(value), 'second-name-error', 'profile-second-name-input');
+        },
+      },
     });
     this.children.inputDisplayName = new InputUserProfile({
       id: 'display-name',
@@ -68,29 +95,57 @@ export default class ProfilePage extends Block {
       type: 'text',
     });
     this.children.inputPhone = new InputUserProfile({
-      id: 'phone',
+      id: 'profile-phone-input',
       name: 'phone',
-      value: '+7 (909) 967 30 30',
+      value: '+7 909 967 30 30',
       type: 'text',
+      events: {
+        blur: () => {
+          const { value } = this.children.inputPhone as Input;
+          isValid(validatePhone(value), 'phone-error', 'profile-phone-input');
+        },
+      },
     });
 
     this.children.inputOldPassword = new InputUserProfile({
-      id: 'old-password',
+      id: 'old-password-input',
       name: 'oldPassword',
       value: 'pochta@yandex.ru',
       type: 'password',
+      events: {
+        blur: () => {
+          const { value } = this.children.inputOldPassword as Input;
+          isValid(validatePassword(value), 'old-password-error', 'old-password-input');
+        },
+      },
     });
     this.children.inputNewPassword = new InputUserProfile({
-      id: 'new-password',
+      id: 'new-password-input',
       name: 'newPassword',
       value: 'ivanivanov',
       type: 'password',
+      events: {
+        blur: () => {
+          const { value } = this.children.inputNewPassword as Input;
+          isValid(validatePassword(value), 'new-password-error', 'new-password-input');
+        },
+      },
     });
     this.children.inputNewPasswordRepeat = new InputUserProfile({
-      id: 'new-password-repeat',
+      id: 'new-password-repeat-input',
       name: 'newPassword',
       value: 'Иванов',
       type: 'password',
+      events: {
+        blur: () => {
+          const { value } = this.children.inputNewPasswordRepeat as Input;
+          isValid(
+            validatePassword(value),
+            'repeat-new-password-error',
+            'new-password-repeat-input',
+          );
+        },
+      },
     });
 
     this.children.activeButtonChangeData = new ActiveButton({

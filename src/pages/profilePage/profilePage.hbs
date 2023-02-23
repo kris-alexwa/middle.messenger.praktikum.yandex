@@ -35,17 +35,26 @@
         {{#if changePasswordView}}
             <form class="profile__form">
                 <ul class="profile__list profile__list_change-password">
-                    <li class="profile__list-item">
-                        <label class="profile__input-label" for="old-password">Старый пароль</label>
-                        {{{inputOldPassword}}}
+                    <li class="profile__list-item-input">
+                        <div class="profile__list-item-wrapper">
+                            <label class="profile__input-label" for="old-password">Старый пароль</label>
+                            {{{inputOldPassword}}}
+                        </div>
+                        <span id="old-password-error" class="input-error-message">Некорректный формат</span>
                     </li>
-                    <li class="profile__list-item">
-                        <label class="profile__input-label" for="new-password">Новый пароль</label>
-                        {{{inputNewPassword}}}
+                    <li class="profile__list-item-input">
+                        <div class="profile__list-item-wrapper">
+                            <label class="profile__input-label" for="new-password">Новый пароль</label>
+                            {{{inputNewPassword}}}
+                        </div>
+                        <span id="new-password-error" class="input-error-message">Некорректный формат</span>
                     </li>
-                    <li class="profile__list-item">
-                        <label class="profile__input-label" for="new-password-repeat">Повторите новый пароль</label>
-                        {{{inputNewPasswordRepeat}}}
+                    <li class="profile__list-item-input">
+                        <div class="profile__list-item-wrapper">
+                            <label class="profile__input-label" for="new-password-repeat">Повторите новый пароль</label>
+                            {{{inputNewPasswordRepeat}}}
+                        </div>
+                        <span id="repeat-new-password-error" class="input-error-message">Некорректный формат</span>
                     </li>
                 </ul>
                 <div class="profile__btn-save-wrapper">
@@ -83,29 +92,47 @@
             {{else if changeDataViewIsForm}}
                 <form class="profile__form">
                     <ul class="profile__list profile__list_data">
-                        <li class="profile__list-item">
-                            <label class="profile__input-label" for="email">Почта</label>
-                            {{{inputEmail}}}
+                        <li class="profile__list-item-input">
+                            <div class="profile__list-item-wrapper">
+                                <label class="profile__input-label" for="email">Почта</label>
+                                {{{inputEmail}}}
+                            </div>
+                            <span id="email-error" class="input-error-message">Некорректный формат</span>
                         </li>
-                        <li class="profile__list-item">
-                            <label class="profile__input-label" for="login">Логин</label>
-                            {{{inputLogin}}}
+                        <li class="profile__list-item-input">
+                            <div class="profile__list-item-wrapper">
+                                <label class="profile__input-label" for="login">Логин</label>
+                                {{{inputLogin}}}
+                            </div>
+                            <span id="login-error" class="input-error-message">Некорректный формат</span>
                         </li>
-                        <li class="profile__list-item">
-                            <label class="profile__input-label" for="first-name">Имя</label>
-                            {{{inputFirstName}}}
+                        <li class="profile__list-item-input">
+                            <div class="profile__list-item-wrapper">
+                                <label class="profile__input-label" for="first-name">Имя</label>
+                                {{{inputFirstName}}}
+                            </div>
+                            <span id="first-name-error" class="input-error-message">Некорректный формат</span>
                         </li>
-                        <li class="profile__list-item">
-                            <label class="profile__input-label" for="second-name">Фамилия</label>
-                            {{{inputSecondName}}}
+                        <li class="profile__list-item-input">
+                            <div class="profile__list-item-wrapper">
+                                <label class="profile__input-label" for="second-name">Фамилия</label>
+                                {{{inputSecondName}}}
+                            </div>
+                            <span id="second-name-error" class="input-error-message">Некорректный формат</span>
                         </li>
-                        <li class="profile__list-item">
-                            <label class="profile__input-label" for="display-name">Имя в чате</label>
-                            {{{inputDisplayName}}}
+                        <li class="profile__list-item-input">
+                            <div class="profile__list-item-wrapper">
+                                <label class="profile__input-label" for="display-name">Имя в чате</label>
+                                {{{inputDisplayName}}}
+                            </div>
+                            <span id="display-name-error" class="input-error-message">Некорректный формат</span>
                         </li>
-                        <li class="profile__list-item">
-                            <label class="profile__input-label" for="phone">Телефон</label>
-                            {{{inputPhone}}}
+                        <li class="profile__list-item-input">
+                            <div class="profile__list-item-wrapper profile__list-item-wrapper_last-child">
+                                <label class="profile__input-label" for="phone">Телефон</label>
+                                {{{inputPhone}}}
+                            </div>
+                            <span id="phone-error" class="input-error-message">Некорректный формат</span>
                         </li>
                     </ul>
                     <div class="profile__btn-save-wrapper">

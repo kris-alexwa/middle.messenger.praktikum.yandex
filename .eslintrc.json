@@ -27,6 +27,7 @@
         "lines-between-class-members": "off",
         "class-methods-use-this": "off",
         "no-use-before-define": "off",
+        "no-shadow": "off",
         "import/extensions": [
             "error",
             "ignorePackages",

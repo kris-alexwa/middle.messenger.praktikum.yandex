@@ -3,7 +3,11 @@
         <div class="popup-change-user">
             <p class="popup-change-user__title">Удалить пользователя</p>
             <div class="popup-change-user__wrapper">
-                {{{input}}}
+                <div class="popup-change-user__input-container">
+                    <label class="popup-change-user__input-label" for="login">Логин</label>
+                    {{{input}}}
+                    <span id="delete-user-login-error" class="input-error-message">Некорректный формат</span>
+                </div>
                 {{{activeButton}}}
             </div>
         </div>

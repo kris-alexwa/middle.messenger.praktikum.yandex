@@ -4,8 +4,9 @@ import { ActiveButton } from '../../components/activeButton/activeButton';
 import { SimpleButton } from '../../components/simpleButton/simpleButton';
 import { Input } from '../../components/input/input';
 import { render } from '../../utils/render';
-import { validateEmail } from '../../utils/formValidation';
-import { hideError, showError } from '../../utils/changeVisibilityError';
+import {
+    validateEmail, validateLogin, validateName, validatePassword, isValid, validatePhone
+} from '../../utils/formValidation'
 
 type dataType = {
     email: string;
@@ -18,15 +19,6 @@ type dataType = {
 };
 
 export default class SignUpPage extends Block {
-  emailIsValid() {
-    const { value } = this.children.inputEmail as Input;
-    if (!validateEmail(value)) {
-      showError('#email-error', '#email');
-    } else {
-      hideError('#email-error', '#email');
-    }
-  }
-
   init() {
     this.children.activeButton = new ActiveButton({
       label: 'Зарегистрироваться',
@@ -56,43 +48,83 @@ export default class SignUpPage extends Block {
         },
       },
     });
+
     this.children.inputEmail = new Input({
-      id: 'email',
+      id: 'sign-up-email-input',
       name: 'email',
       type: 'email',
       events: {
-        blur: () => this.emailIsValid(),
+        blur: () => {
+          const { value } = this.children.inputEmail as Input;
+          isValid(validateEmail(value), 'email-error', 'sign-up-email-input');
+        },
       },
     });
     this.children.inputLogin = new Input({
-      id: 'login',
+      id: 'sign-up-login-input',
       name: 'login',
       type: 'text',
+      events: {
+        blur: () => {
+          const { value } = this.children.inputLogin as Input;
+          isValid(validateLogin(value), 'login-error', 'sign-up-login-input');
+        },
+      },
     });
     this.children.inputFirstName = new Input({
-      id: 'first-name',
+      id: 'sign-up-first-name-input',
       name: 'first_name',
       type: 'text',
+      events: {
+        blur: () => {
+          const { value } = this.children.inputFirstName as Input;
+          isValid(validateName(value), 'first-name-error', 'sign-up-first-name-input');
+        },
+      },
     });
     this.children.inputSecondName = new Input({
-      id: 'second-name',
+      id: 'sign-up-second-name-input',
       name: 'second_name',
       type: 'text',
+      events: {
+        blur: () => {
+          const { value } = this.children.inputSecondName as Input;
+          isValid(validateName(value), 'second-name-error', 'sign-up-second-name-input');
+        },
+      },
     });
     this.children.inputPhone = new Input({
-      id: 'phone',
+      id: 'phone-input',
       name: 'phone',
       type: 'tel',
+      events: {
+        blur: () => {
+          const { value } = this.children.inputPhone as Input;
+          isValid(validatePhone(value), 'phone-error', 'phone-input');
+        },
+      },
     });
     this.children.inputPassword = new Input({
-      id: 'password',
+      id: 'password-input',
       name: 'password',
       type: 'password',
+      events: {
+        blur: () => {
+          const { value } = this.children.inputPassword as Input;
+          isValid(validatePassword(value), 'password-error', 'password-input');
+        },
+      },
     });
     this.children.inputRepeatPassword = new Input({
-      id: 'repeat-password',
+      id: 'repeat-password-input',
       name: 'password',
       type: 'password',
+      events: {
+        blur: () => {
+          const { value } = this.children.inputRepeatPassword as Input;
+          isValid(validatePassword(value), 'repeat-password-error', 'repeat-password-input');
+        },
+      },
     });
   }
 

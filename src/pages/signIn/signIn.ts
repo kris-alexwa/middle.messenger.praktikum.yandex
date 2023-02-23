@@ -4,6 +4,7 @@ import { ActiveButton } from '../../components/activeButton/activeButton';
 import { SimpleButton } from '../../components/simpleButton/simpleButton';
 import { Input } from '../../components/input/input';
 import { render } from '../../utils/render';
+import { isValid, validateLogin, validatePassword } from '../../utils/formValidation';
 
 type dataType = {
     login: string;
@@ -13,14 +14,26 @@ type dataType = {
 export default class SignInPage extends Block {
   init() {
     this.children.inputLogin = new Input({
-      id: 'login',
+      id: 'sign-in-login-input',
       name: 'login',
       type: 'text',
+      events: {
+        blur: () => {
+          const { value } = this.children.inputLogin as Input;
+          isValid(validateLogin(value), 'login-error', 'sign-in-login-input');
+        },
+      },
     });
     this.children.inputPassword = new Input({
-      id: 'password',
+      id: 'sign-in-password-input',
       name: 'password',
       type: 'password',
+      events: {
+        blur: () => {
+          const { value } = this.children.inputPassword as Input;
+          isValid(validatePassword(value), 'password-error', 'sign-in-password-input');
+        },
+      },
     });
 
     this.children.activeButton = new ActiveButton({
