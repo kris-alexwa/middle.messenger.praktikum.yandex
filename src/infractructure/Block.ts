@@ -119,20 +119,6 @@ export default class Block<P extends Record<string, any> = any,
   }
 
   protected componentDidUpdate(_oldProps: P, _newProps: P) {
-    // console.log(this.props)
-    // console.log(this.element)
-    // if (newProps) {
-    //   const res: boolean = Object.entries(oldProps).every(([keyOld, valueOld]) => {
-    //     return Object.entries(newProps).forEach(([keyNew, valueNew]) => {
-    //       return keyOld === keyNew && valueOld === valueNew;
-    //     });
-    //   });
-    //
-    //   if (res) {
-    //     return true;
-    //   }
-    // }
-
     return true;
   }
 
