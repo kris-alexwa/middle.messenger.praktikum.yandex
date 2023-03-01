@@ -2,8 +2,7 @@ import { nanoid } from 'nanoid';
 import { TemplateDelegate } from 'handlebars';
 import { EventBus } from './EventBus';
 
-export default class Block<P extends Record<string, any> = any,
-    E extends HTMLElement = HTMLElement> {
+export default class Block<P extends Record<string, any> = any, E extends HTMLElement = HTMLElement> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -66,16 +65,37 @@ export default class Block<P extends Record<string, any> = any,
     });
 
     if (this.props.eventsBySelector) {
-            type event = {
-                selector: string;
-                eventName: string;
-                handler: () => void;
-            };
-            const { eventsBySelector = [] } = this.props;
+      type event = {
+        selector: string;
+        eventName: string;
+        handler: () => void;
+      };
+      const { eventsBySelector = [] } = this.props;
 
-            eventsBySelector.forEach(({ selector, eventName, handler }: event) => {
-              this._element?.querySelector(selector)?.addEventListener(eventName, handler);
-            });
+      eventsBySelector.forEach(({ selector, eventName, handler }: event) => {
+        this._element?.querySelector(selector)?.addEventListener(eventName, handler);
+      });
+    }
+  }
+
+  _removeEvents() {
+    const { events = {} } = this.props;
+
+    Object.keys(events).forEach((eventName) => {
+      this._element?.removeEventListener(eventName, events[eventName]);
+    });
+
+    if (this.props.eventsBySelector) {
+      type event = {
+        selector: string;
+        eventName: string;
+        handler: () => void;
+      };
+      const { eventsBySelector = [] } = this.props;
+
+      eventsBySelector.forEach(({ selector, eventName, handler }: event) => {
+        this._element?.querySelector(selector)?.removeEventListener(eventName, handler);
+      });
     }
   }
 
@@ -133,6 +153,8 @@ export default class Block<P extends Record<string, any> = any,
   private _render() {
     const fragment = this.render();
     const fragmentElement = fragment.firstElementChild as HTMLElement;
+
+    this._removeEvents();
 
     if (this._element) {
       this._element.replaceWith(fragmentElement);
@@ -212,10 +234,10 @@ export default class Block<P extends Record<string, any> = any,
   }
 
   show() {
-        this.getContent()!.style.display = 'block';
+    this.getContent()!.style.display = 'block';
   }
 
   hide() {
-        this.getContent()!.style.display = 'none';
+    this.getContent()!.style.display = 'none';
   }
 }

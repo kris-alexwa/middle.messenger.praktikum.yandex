@@ -6,10 +6,7 @@ import { validateLogin } from '../../../utils/formValidation';
 import { InputWithError } from '../../inputWithError/inputWithError';
 import { Form } from '../../form/form';
 import { SimpleButton } from '../../simpleButton/simpleButton';
-
-type dataType = {
-    login: string;
-}
+import { submitDeleteUserForm } from '../submitForms';
 
 export class PopupDeleteUser extends Block {
   _clearInput() {
@@ -36,19 +33,9 @@ export class PopupDeleteUser extends Block {
       events: {
         submit: (event) => {
           event.preventDefault();
-          const loginIsValid = validateLogin((this.children.input as InputWithError).value);
+          const submit = submitDeleteUserForm((this.children.input as InputWithError));
 
-          if (loginIsValid) {
-            const data: dataType = {} as dataType;
-            data.login = (this.children.input as InputWithError).value;
-
-            // eslint-disable-next-line no-console
-            console.log('deleteUserForm', data);
-            hidePopup('delete-user');
-            this._clearInput();
-          } else {
-            (this.children.input as InputWithError).forceValidate();
-          }
+          if (submit) this._clearInput();
         },
       },
     });

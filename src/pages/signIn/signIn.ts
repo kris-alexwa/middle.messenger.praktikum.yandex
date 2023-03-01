@@ -6,11 +6,7 @@ import { render } from '../../utils/render';
 import { validateLogin, validatePassword } from '../../utils/formValidation';
 import { Form } from '../../components/form/form';
 import { InputWithError } from '../../components/inputWithError/inputWithError';
-
-type dataType = {
-    login: string;
-    password: string;
-};
+import { submitForm } from './submitForm';
 
 export default class SignInPage extends Block {
   init() {
@@ -41,21 +37,12 @@ export default class SignInPage extends Block {
       events: {
         submit: (event) => {
           event.preventDefault();
-          const loginIsValid = validateLogin((this.children.inputLogin as InputWithError).value);
-          const passwordIsValid = validatePassword((this.children.inputPassword as InputWithError).value);
+          const sudmit = submitForm(
+            (this.children.inputLogin as InputWithError),
+            (this.children.inputPassword as InputWithError),
+          );
 
-          if (loginIsValid && passwordIsValid) {
-            const data: dataType = {} as dataType;
-            data.login = (this.children.inputLogin as InputWithError).value;
-            data.password = (this.children.inputPassword as InputWithError).value;
-
-            // eslint-disable-next-line no-console
-            console.log('signInForm', data);
-            render('chatPage');
-          } else {
-            (this.children.inputLogin as InputWithError).forceValidate();
-            (this.children.inputPassword as InputWithError).forceValidate();
-          }
+          if (sudmit) render('chatPage');
         },
       },
     });

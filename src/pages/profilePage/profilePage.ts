@@ -13,21 +13,7 @@ import {
 import { InputWithError } from '../../components/inputWithError/inputWithError';
 import { Form } from '../../components/form/form';
 import { SimpleButton } from '../../components/simpleButton/simpleButton';
-
-type ProfileDataType = {
-    email: string;
-    login: string;
-    firstName: string;
-    secondName: string;
-    displayName: string;
-    phone: string;
-}
-
-type PasswordDataType = {
-    oldPassword: string;
-    newPassword: string;
-    newPasswordRepeat: string;
-}
+import { submitUserDataForm, submitChangePasswordForm } from './submitForms';
 
 export default class ProfilePage extends Block {
   _resetChangePasswordInputs() {
@@ -141,33 +127,16 @@ export default class ProfilePage extends Block {
       events: {
         submit: (event) => {
           event.preventDefault();
-          const emailIsValid = validateEmail((this.children.inputEmail as InputWithError).value);
-          const loginIsValid = validateLogin((this.children.inputLogin as InputWithError).value);
-          const firstNameIsValid = validateName((this.children.inputFirstName as InputWithError).value);
-          const secondNameIsValid = validateName((this.children.inputSecondName as InputWithError).value);
-          const phoneIsValid = validatePhone((this.children.inputPhone as InputWithError).value);
+          const submit = submitUserDataForm(
+            (this.children.inputEmail as InputWithError),
+            (this.children.inputLogin as InputWithError),
+            (this.children.inputFirstName as InputWithError),
+            (this.children.inputSecondName as InputWithError),
+            (this.children.inputDisplayName as InputWithError),
+            (this.children.inputPhone as InputWithError),
+          );
 
-          if (emailIsValid && loginIsValid && firstNameIsValid && secondNameIsValid && phoneIsValid) {
-            const data: ProfileDataType = {} as ProfileDataType;
-
-            data.email = (this.children.inputEmail as InputWithError).value;
-            data.login = (this.children.inputLogin as InputWithError).value;
-            data.firstName = (this.children.inputFirstName as InputWithError).value;
-            data.secondName = (this.children.inputSecondName as InputWithError).value;
-            data.displayName = (this.children.inputDisplayName as InputWithError).value;
-            data.phone = (this.children.inputPhone as InputWithError).value;
-
-            // eslint-disable-next-line no-console
-            console.log('profileDataForm', data);
-            this._changeUserDataHandler();
-          } else {
-            (this.children.inputEmail as InputWithError).forceValidate();
-            (this.children.inputLogin as InputWithError).forceValidate();
-            (this.children.inputFirstName as InputWithError).forceValidate();
-            (this.children.inputSecondName as InputWithError).forceValidate();
-            (this.children.inputDisplayName as InputWithError).forceValidate();
-            (this.children.inputPhone as InputWithError).forceValidate();
-          }
+          if (submit) this._changeUserDataHandler();
         },
       },
     });
@@ -211,41 +180,13 @@ export default class ProfilePage extends Block {
       events: {
         submit: (event) => {
           event.preventDefault();
-          const oldPasswordIsValid = validatePassword(
-            (this.children.inputOldPassword as InputWithError).value,
-          );
-          const newPasswordIsValid = validatePassword(
-            (this.children.inputNewPassword as InputWithError).value,
-          );
-          const repeatNewPasswordIsValid = validatePassword(
-            (this.children.inputNewPasswordRepeat as InputWithError).value,
+          const submit = submitChangePasswordForm(
+            (this.children.inputOldPassword as InputWithError),
+            (this.children.inputNewPassword as InputWithError),
+            (this.children.inputNewPasswordRepeat as InputWithError),
           );
 
-          const passwordsMatch = (this.children.inputNewPassword as InputWithError).value
-            === (this.children.inputNewPasswordRepeat as InputWithError).value;
-
-          if (oldPasswordIsValid
-            && newPasswordIsValid
-            && repeatNewPasswordIsValid
-            && passwordsMatch
-          ) {
-            const data: PasswordDataType = {} as PasswordDataType;
-
-            data.newPassword = (this.children.inputOldPassword as InputWithError).value;
-            data.oldPassword = (this.children.inputNewPassword as InputWithError).value;
-            data.newPasswordRepeat = (this.children.inputNewPasswordRepeat as InputWithError).value;
-
-            // eslint-disable-next-line no-console
-            console.log('passwordDataForm', data);
-            this._changePasswordHandler();
-          } else if (!passwordsMatch) {
-            (this.children.inputNewPassword as InputWithError).forceValidate('mismatch');
-            (this.children.inputNewPasswordRepeat as InputWithError).forceValidate('mismatch');
-          } else {
-            (this.children.inputOldPassword as InputWithError).forceValidate();
-            (this.children.inputNewPassword as InputWithError).forceValidate();
-            (this.children.inputNewPasswordRepeat as InputWithError).forceValidate();
-          }
+          if (submit) this._changePasswordHandler();
         },
       },
     });

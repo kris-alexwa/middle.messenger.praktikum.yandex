@@ -6,10 +6,7 @@ import { InputWithError } from '../../inputWithError/inputWithError';
 import { Form } from '../../form/form';
 import { hidePopup } from '../../../utils/changeVisibilityPopup';
 import { SimpleButton } from '../../simpleButton/simpleButton';
-
-type dataType = {
-    login: string;
-}
+import { submitAddUserForm } from '../submitForms';
 
 export class PopupAddUser extends Block {
   _clearInput() {
@@ -35,19 +32,9 @@ export class PopupAddUser extends Block {
       events: {
         submit: (event) => {
           event.preventDefault();
-          const loginIsValid = validateLogin((this.children.input as InputWithError).value);
+          const submit = submitAddUserForm((this.children.input as InputWithError));
 
-          if (loginIsValid) {
-            const data: dataType = {} as dataType;
-            data.login = (this.children.input as InputWithError).value;
-
-            // eslint-disable-next-line no-console
-            console.log('addUserForm', data);
-            hidePopup('add-user');
-            this._clearInput();
-          } else {
-            (this.children.input as InputWithError).forceValidate();
-          }
+          if (submit) this._clearInput();
         },
       },
     });
