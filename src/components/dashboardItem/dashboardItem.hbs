@@ -1,0 +1,10 @@
+<li id={{id}} class="dashboard-list-item">
+    <img src={{icon}} />
+    {{#if red}}
+        <p class="dashboard-list-item__label dashboard-list-item__label_red">
+            {{title}}
+        </p>
+    {{else}}
+        <p class="dashboard-list-item__label">{{title}}</p>
+    {{/if}}
+</li>

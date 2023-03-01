@@ -1,0 +1,57 @@
+$white-color: #fff;
+
+.popup {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    background-color: rgb(0 0 0 / 50%);
+    z-index: 1000;
+
+    &__container {
+        background-color: $white-color;
+        z-index: 1001;
+        width: 100%;
+        max-width: 340px;
+        border-radius: 12px;
+        padding: 30px;
+        color: var(--main-text-color);
+    }
+
+    &-change-user {
+      display: flex;
+      flex-direction: column;
+
+        &__title {
+            font-size: 15px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        &__input {
+            margin-bottom: 33px;
+        }
+
+        &__wrapper {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            row-gap: 33px;
+        }
+
+        &__input-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__input-label {
+            color: var(--label-color);
+            font-size: 10px;
+            padding-bottom: 8px;
+        }
+    }
+}
