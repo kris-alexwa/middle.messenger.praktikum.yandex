@@ -7,7 +7,7 @@ interface InputWithErrorProps {
     inputId: string;
     inputName: string;
     inputType: string;
-    validate: (value: string) => boolean;
+    validate: (value?: string) => boolean;
     errorMessage: string | undefined;
     inputValue?: any;
     label?: string;
