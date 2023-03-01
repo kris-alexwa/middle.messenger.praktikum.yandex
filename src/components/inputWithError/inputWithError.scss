@@ -1,0 +1,16 @@
+.input-with-error {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 7px;
+  width: 100%;
+
+    &__label {
+        color: var(--label-color);
+        font-size: 10px;
+        padding-bottom: 8px;
+    }
+
+    &__wrapper {
+        height: 16px;
+    }
+}

@@ -24,7 +24,6 @@ function queryStringify(data: Options['data']) {
   }).join('&')}`;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 class HTTPTransport {
   get = (url: string, options: Omit<Options, 'method'>): Promise<XMLHttpRequest> => this.request(
     url,

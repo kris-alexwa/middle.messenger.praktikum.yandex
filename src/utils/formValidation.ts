@@ -1,13 +1,3 @@
-import { hideError, showError } from './changeVisibilityError';
-
-export function isValid(valid: Boolean, errorId: string, inputId: string) {
-  if (!valid) {
-    showError(`#${errorId}`, `#${inputId}`);
-  } else {
-    hideError(`#${errorId}`, `#${inputId}`);
-  }
-}
-
 export function validateEmail(email: string) {
   const REGEXP_EMAIL = /^.+@.+\..+$/;
   return REGEXP_EMAIL.test(email);

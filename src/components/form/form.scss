@@ -1,0 +1,13 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    margin-bottom: 14px;
+
+  &__submit-btn {
+    margin-top: 12px;
+    display: flex;
+    justify-content: center;
+  }
+}

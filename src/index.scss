@@ -12,10 +12,12 @@
 @import "components/popups/popup";
 @import "components/popups/popupDeleteChat/popupDeleteChat";
 @import "components/popups/popupUploadFile/popupUploadFile";
-@import "components/inputUserProfile/inputUserProfile";
 @import "pages/404Page/404";
 @import "pages/500Page/500";
 @import "components/dashboardItem/dashboardItem";
+@import "components/inputError/inputError";
+@import "components/inputWithError/inputWithError";
+@import "components/form/form";
 
 :root {
     --main-text-color: #1e1e1e;
@@ -59,15 +61,4 @@ body {
 
 .error-text {
     color: var(--red-color);
-}
-
-.input-error-message {
-    visibility: hidden;
-    color: var(--red-color);
-    font-size: 10px;
-    margin-top: 5px;
-
-    &_visible {
-        visibility: visible;
-    }
 }

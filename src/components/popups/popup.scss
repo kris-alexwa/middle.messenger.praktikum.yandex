@@ -23,6 +23,9 @@ $white-color: #fff;
     }
 
     &-change-user {
+      display: flex;
+      flex-direction: column;
+
         &__title {
             font-size: 15px;
             margin-bottom: 50px;

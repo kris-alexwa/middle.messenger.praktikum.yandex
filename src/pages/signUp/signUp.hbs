@@ -1,48 +1,7 @@
 <div class="sign-up">
-  <form class="sign-up__form">
-    <div>
-      <h1 class="sign-up__title">Регистрация</h1>
-      <ul class="sign-up__inputs">
-          <li class="sign-up__input-container">
-              <label class="sign-up__input-label" for="email">Почта</label>
-              {{{inputEmail}}}
-              <span id="email-error" class="input-error-message">Некорректный формат</span>
-          </li>
-          <li class="sign-up__input-container">
-              <label class="sign-up__input-label" for="login">Логин</label>
-              {{{inputLogin}}}
-              <span id="login-error" class="input-error-message">Некорректный формат</span>
-          </li>
-          <li class="sign-up__input-container">
-              <label class="sign-up__input-label" for="first-name">Имя</label>
-              {{{inputFirstName}}}
-              <span id="first-name-error" class="input-error-message">Некорректный формат</span>
-          </li>
-          <li class="sign-up__input-container">
-              <label class="sign-up__input-label" for="second-name">Фамилия</label>
-              {{{inputSecondName}}}
-              <span id="second-name-error" class="input-error-message">Некорректный формат</span>
-          </li>
-          <li class="sign-up__input-container">
-              <label class="sign-up__input-label" for="phone">Телефон</label>
-              {{{inputPhone}}}
-              <span id="phone-error" class="input-error-message">Некорректный формат</span>
-          </li>
-          <li class="sign-up__input-container">
-              <label class="sign-up__input-label" for="password">Пароль</label>
-              {{{inputPassword}}}
-              <span id="password-error" class="input-error-message">Некорректный формат</span>
-          </li>
-          <li class="sign-up__input-container">
-              <label class="sign-up__input-label" for="repeat-password">Пароль (еще раз)</label>
-              {{{inputRepeatPassword}}}
-              <span id="repeat-password-error" class="input-error-message">Некорректный формат</span>
-          </li>
-      </ul>
-    </div>
-    <div class="sign-up__wrapper">
-        {{{activeButton}}}
-        {{{simpleButton}}}
-    </div>
-  </form>
+  <div class="sign-up__form">
+    <h1 class="sign-up__title">Регистрация</h1>
+    {{{form}}}
+    {{{simpleButton}}}
+  </div>
 </div>

@@ -1,9 +1,9 @@
-type TypeFunction = () => void;
+type TypeFunction = (...args: any) => void;
 
-export default class EventBus {
+export class EventBus {
   private readonly listeners: Record<string, Array<TypeFunction>> = {};
 
-  on(event, callback: TypeFunction) {
+  on(event: string, callback: TypeFunction) {
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
@@ -11,7 +11,7 @@ export default class EventBus {
     this.listeners[event].push(callback);
   }
 
-  off(event, callback: TypeFunction) {
+  off(event: string, callback: TypeFunction) {
     if (!this.listeners[event]) {
       throw new Error(`Нет события: ${event}`);
     }
@@ -21,13 +21,12 @@ export default class EventBus {
     );
   }
 
-  emit(event, ...args: Array<any>) {
+  emit(event: string, ...args: Array<any>) {
     if (!this.listeners[event]) {
       throw new Event(`Нет события: ${event}`);
     }
 
     this.listeners[event].forEach((listener) => {
-      // @ts-ignore
       listener(...args);
     });
   }

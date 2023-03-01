@@ -8,8 +8,7 @@ export default class Page404 extends Block {
     this.children.simpleButton = new SimpleButton({
       label: 'Назад к чатам',
       events: {
-        click: (event) => {
-          event.preventDefault();
+        click: () => {
           render('chatPage');
         },
       },

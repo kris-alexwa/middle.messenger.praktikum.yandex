@@ -1,23 +1,7 @@
 <div class="sign-in">
-    <form class="sign-in__form">
-        <div>
-            <h1 class="sign-in__title">Вход</h1>
-            <ul class="sign-in__inputs">
-                <li class="sign-in__input-container">
-                    <label class="sign-in__input-label" for="login">Логин</label>
-                    {{{inputLogin}}}
-                    <span id="login-error" class="input-error-message">Некорректный логин</span>
-                </li>
-                <li class="sign-in__input-container">
-                    <label class="sign-in__input-label" for="password">Пароль</label>
-                    {{{inputPassword}}}
-                    <span id="password-error" class="input-error-message">Некорректный пароль</span>
-                </li>
-            </ul>
-        </div>
-        <div class="sign-in__wrapper">
-            {{{activeButton}}}
-            {{{simpleButton}}}
-        </div>
-    </form>
+    <div class="sign-in__container">
+        <h1 class="sign-in__title">Вход</h1>
+        {{{form}}}
+        {{{simpleButton}}}
+    </div>
 </div>

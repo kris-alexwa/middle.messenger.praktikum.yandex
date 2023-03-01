@@ -1,0 +1,9 @@
+<div class="input-with-error">
+    <label class="input-with-error__label" for="{{inputId}}">{{label}}</label>
+    {{{input}}}
+    <div class="input-with-error__wrapper">
+        {{#if errorMessage}}
+            {{{error}}}
+        {{/if}}
+    </div>
+</div>

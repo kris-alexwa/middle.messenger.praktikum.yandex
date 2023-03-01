@@ -18,8 +18,7 @@
         }
     },
     "rules": {
-        "max-len": [2, 100],
-        "@typescript-eslint/no-unused-vars": 2,
+        "max-len": [2, 110],
         "import/prefer-default-export": "off",
         "import/no-extraneous-dependencies": "off",
         "func-names": "off",
@@ -28,6 +27,8 @@
         "class-methods-use-this": "off",
         "no-use-before-define": "off",
         "no-shadow": "off",
+        "no-param-reassign": "off",
+        "no-unused-vars": "off",
         "import/extensions": [
             "error",
             "ignorePackages",

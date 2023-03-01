@@ -23,7 +23,5 @@ export function render(route: keyof typeof ROUTES = 'signInPage') {
 
   (app as HTMLElement).append(page.element!);
 
-  console.log(page)
-
   page.dispatchComponentDidMount();
 }

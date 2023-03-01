@@ -1,9 +1,20 @@
 import Block from '../../infractructure/Block';
 import template from './input.hbs';
 
-export class Input extends Block {
+interface InputProps {
+    id: string;
+    name: string;
+    type: string;
+    value?: any;
+    events: {
+        blur: () => void,
+        focus: () => void
+    }
+}
+
+export class Input extends Block<InputProps, HTMLInputElement> {
   get value() {
-    return (this.element as HTMLInputElement).value;
+    return this.element.value;
   }
 
   render() {
