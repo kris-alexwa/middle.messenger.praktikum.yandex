@@ -111,7 +111,7 @@ export default class ProfilePage extends Block {
       inputName: 'display_name',
       inputType: 'text',
       label: 'Имя в чате',
-      validate: (s) => true,
+      validate: () => true,
       errorMessage: undefined,
       inputValue: 'ivanIvanov',
     });

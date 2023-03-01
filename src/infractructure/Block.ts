@@ -16,7 +16,7 @@ export default class Block<P extends Record<string, any> = any,
   public children: Record<string, Block | Array<Block>>;
   private eventBus: () => EventBus;
   private _element: E | null = null;
-  private _meta: { props: any };
+  _meta: { props: any };
 
   constructor(propsWithChildren: P = {} as P) {
     const eventBus = new EventBus();
@@ -118,7 +118,7 @@ export default class Block<P extends Record<string, any> = any,
     }
   }
 
-  protected componentDidUpdate(oldProps: P, newProps: P) {
+  protected componentDidUpdate(_oldProps: P, _newProps: P) {
     // console.log(this.props)
     // console.log(this.element)
     // if (newProps) {
@@ -156,7 +156,7 @@ export default class Block<P extends Record<string, any> = any,
     this._addEvents();
   }
 
-  private _replaceContent(temp, item) {
+  private _replaceContent(temp: any, item: any) {
     const stub = temp.content.querySelector(`[data-id="${item.id}"]`);
 
     if (!stub) {
