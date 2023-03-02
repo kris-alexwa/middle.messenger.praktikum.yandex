@@ -1,0 +1,21 @@
+.dashboard {
+    &-list-item {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding: 5px 12px;
+
+        &:hover {
+            background-color: rgb(205 205 205 / 30%);
+        }
+
+        &__label {
+            font-size: 12px;
+            margin-left: 8px;
+
+            &_red {
+                color: var(--red-color);
+            }
+        }
+    }
+}

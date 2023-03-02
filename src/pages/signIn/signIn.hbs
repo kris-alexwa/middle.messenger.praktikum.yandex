@@ -1,17 +1,7 @@
 <div class="sign-in">
-  <form class="sign-in__form">
-    <div>
-      <h1 class="sign-in__title">Вход</h1>
-      <div class="sign-in__inputs">
-        {{> input id="login" name="login" label="Логин"}}
-        {{> input id="password" name="password" label="Пароль"}}
-      </div>
+    <div class="sign-in__container">
+        <h1 class="sign-in__title">Вход</h1>
+        {{{form}}}
+        {{{simpleButton}}}
     </div>
-    <div class="sign-in__wrapper">
-      <span onclick="router('chatPage')" class="sign-in__span">
-        {{> activeButton label="Авторизоваться"}}
-      </span>
-      <span onclick="router('signUp')">{{> simpleButton label="Нет аккаунта?"}}</span>
-    </div>
-  </form>
 </div>

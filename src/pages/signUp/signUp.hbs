@@ -1,20 +1,7 @@
 <div class="sign-up">
-  <form class="sign-up__form">
-    <div>
-      <h1 class="sign-up__title">Регистрация</h1>
-      <div class="sign-up__inputs">
-        {{> input id="email" name="email" label="Почта"}}
-        {{> input id="login" name="login" label="Логин"}}
-        {{> input id="first_name" name="first_name" label="Имя"}}
-        {{> input id="second_name" name="second_name" label="Фамилия"}}
-        {{> input id="phone" name="phone" label="Телефон"}}
-        {{> input id="password" name="password" label="Пароль"}}
-        {{> input id="repeat-password" name="password" label="Пароль (ещё раз)"}}
-      </div>
-    </div>
-    <div class="sign-up__wrapper">
-      {{> activeButton label="Зарегистрироваться"}}
-      <span onclick="router('signIn')">{{> simpleButton label="Войти"}}</span>
-    </div>
-  </form>
+  <div class="sign-up__form">
+    <h1 class="sign-up__title">Регистрация</h1>
+    {{{form}}}
+    {{{simpleButton}}}
+  </div>
 </div>
