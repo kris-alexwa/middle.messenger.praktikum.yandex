@@ -35,6 +35,8 @@
     "no-useless-constructor": "off",
     "no-empty-function": "off",
     "default-case": "off",
+    "no-continue": "off",
+    "prefer-promise-reject-errors": "off",
     "import/extensions": [
       "error",
       "ignorePackages",

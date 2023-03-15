@@ -1,26 +1,20 @@
 import { validateLogin, validatePassword } from '../../utils/formValidation';
 import { InputWithError } from '../../components/inputWithError/inputWithError';
+import AuthController from '../../infractructure/controllers/AuthController';
+import { SigninData } from '../../infractructure/api/types';
 
-type dataType = {
-  login: string;
-  password: string;
-};
-
-export function submitForm(inputLogin: InputWithError, inputPassword: InputWithError): boolean {
+export function submitForm(inputLogin: InputWithError, inputPassword: InputWithError) {
   const loginIsValid = validateLogin(inputLogin.value);
   const passwordIsValid = validatePassword(inputPassword.value);
 
   if (loginIsValid && passwordIsValid) {
-    const data: dataType = {} as dataType;
+    const data: SigninData = {} as SigninData;
     data.login = inputLogin.value;
     data.password = inputPassword.value;
 
-    // eslint-disable-next-line no-console
-    console.log('signInForm', data);
-    return true;
-  } else {
-    inputLogin.forceValidate();
-    inputLogin.forceValidate();
-    return false;
+    AuthController.signin(data);
   }
+  inputLogin.forceValidate();
+  inputPassword.forceValidate();
+  return false;
 }

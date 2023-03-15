@@ -1,8 +1,6 @@
 import Block from '../../infractructure/Block';
 import template from './signIn.hbs';
 import { ActiveButton } from '../../components/activeButton/activeButton';
-// import { SimpleButton } from '../../components/simpleButton/simpleButton';
-import { render } from '../../utils/render';
 import { validateLogin, validatePassword } from '../../utils/formValidation';
 import { Form } from '../../components/form/form';
 import { InputWithError } from '../../components/inputWithError/inputWithError';
@@ -38,12 +36,10 @@ export default class SignInPage extends Block {
       events: {
         submit: (event) => {
           event.preventDefault();
-          const sudmit = submitForm(
+          submitForm(
             (this.children.inputLogin as InputWithError),
             (this.children.inputPassword as InputWithError),
           );
-
-          if (sudmit) render('chatPage');
         },
       },
     });

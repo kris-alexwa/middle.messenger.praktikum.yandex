@@ -14,6 +14,7 @@ import { InputWithError } from '../../components/inputWithError/inputWithError';
 import { Form } from '../../components/form/form';
 import { SimpleButton } from '../../components/simpleButton/simpleButton';
 import { submitUserDataForm, submitChangePasswordForm } from './submitForms';
+import AuthController from '../../infractructure/controllers/AuthController';
 
 export default class ProfilePage extends Block {
   _resetChangePasswordInputs() {
@@ -214,6 +215,13 @@ export default class ProfilePage extends Block {
         eventName: 'click',
         handler: () => {
           showPopup('upload-file');
+        },
+      },
+      {
+        selector: '#exit-btn',
+        eventName: 'click',
+        handler: () => {
+          AuthController.logout();
         },
       },
     ];

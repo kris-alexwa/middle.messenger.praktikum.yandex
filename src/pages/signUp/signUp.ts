@@ -1,7 +1,6 @@
 import Block from '../../infractructure/Block';
 import template from './signUp.hbs';
 import { ActiveButton } from '../../components/activeButton/activeButton';
-import { render } from '../../utils/render';
 import {
   validateEmail, validateLogin, validateName, validatePassword, validatePhone,
 } from '../../utils/formValidation';
@@ -92,7 +91,7 @@ export default class SignUpPage extends Block {
       events: {
         submit: (event) => {
           event.preventDefault();
-          const submit = submitForm(
+          submitForm(
             (this.children.inputEmail as InputWithError),
             (this.children.inputLogin as InputWithError),
             (this.children.inputFirstName as InputWithError),
@@ -101,8 +100,6 @@ export default class SignUpPage extends Block {
             (this.children.inputPassword as InputWithError),
             (this.children.inputRepeatPassword as InputWithError),
           );
-
-          if (submit) render('chatPage');
         },
       },
     });
