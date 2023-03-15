@@ -1,12 +1,13 @@
 import Block from '../../infractructure/Block';
 import template from './signIn.hbs';
 import { ActiveButton } from '../../components/activeButton/activeButton';
-import { SimpleButton } from '../../components/simpleButton/simpleButton';
+// import { SimpleButton } from '../../components/simpleButton/simpleButton';
 import { render } from '../../utils/render';
 import { validateLogin, validatePassword } from '../../utils/formValidation';
 import { Form } from '../../components/form/form';
 import { InputWithError } from '../../components/inputWithError/inputWithError';
 import { submitForm } from './submitForm';
+import { Link } from '../../components/link/link';
 
 export default class SignInPage extends Block {
   init() {
@@ -47,13 +48,9 @@ export default class SignInPage extends Block {
       },
     });
 
-    this.children.simpleButton = new SimpleButton({
+    this.children.link = new Link({
+      to: '/sign-up',
       label: 'Нет аккаунта?',
-      events: {
-        click: () => {
-          render('signUpPage');
-        },
-      },
     });
   }
 

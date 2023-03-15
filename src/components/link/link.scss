@@ -1,0 +1,10 @@
+.link {
+  display: flex;
+  justify-content: center;
+
+  &__button {
+    height: fit-content;
+    display: flex;
+    align-items: center;
+  }
+}

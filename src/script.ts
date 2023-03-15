@@ -24,7 +24,14 @@ function queryStringify(data: Options['data']) {
   }).join('&')}`;
 }
 
-class HTTPTransport {
+export default class HTTPTransport {
+  static API_URL = 'https://ya-praktikum.tech/api/v2';
+  protected endpoint: string;
+
+  constructor(endpoint: string) {
+    this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
+  }
+
   get = (url: string, options: Omit<Options, 'method'>): Promise<XMLHttpRequest> => this.request(
     url,
     { ...options, method: METHODS.GET },

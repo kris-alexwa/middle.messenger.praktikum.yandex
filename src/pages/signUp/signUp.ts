@@ -1,7 +1,6 @@
 import Block from '../../infractructure/Block';
 import template from './signUp.hbs';
 import { ActiveButton } from '../../components/activeButton/activeButton';
-import { SimpleButton } from '../../components/simpleButton/simpleButton';
 import { render } from '../../utils/render';
 import {
   validateEmail, validateLogin, validateName, validatePassword, validatePhone,
@@ -9,19 +8,17 @@ import {
 import { Form } from '../../components/form/form';
 import { InputWithError } from '../../components/inputWithError/inputWithError';
 import submitForm from './submitForm';
+import { Link } from '../../components/link/link';
 
 export default class SignUpPage extends Block {
   init() {
     this.children.activeButton = new ActiveButton({
       label: 'Зарегистрироваться',
     });
-    this.children.simpleButton = new SimpleButton({
+
+    this.children.link = new Link({
+      to: '/',
       label: 'Войти',
-      events: {
-        click: () => {
-          render('signInPage');
-        },
-      },
     });
 
     this.children.inputEmail = new InputWithError({
