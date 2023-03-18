@@ -3,10 +3,10 @@ import template from './dialog.hbs';
 
 interface DialogProps {
   avatar: string;
-  name: string;
+  title: string;
   message: string;
   time: string;
-  messageCount: number;
+  messageCount: string | number;
 }
 
 export class Dialog extends Block<DialogProps> {

@@ -1,23 +1,42 @@
-type Indexed<T = unknown> = {
-  [key in string]: T;
+type PlainObject<T = any> = {
+  [k in string]: T;
 };
 
-function isEqual(a: Indexed, b: Indexed): boolean {
-  if (a !== Object(a) || b !== Object(b)) return false;
+function isPlainObject(value: unknown): value is PlainObject {
+  return typeof value === 'object'
+    && value !== null
+    && value.constructor === Object
+    && Object.prototype.toString.call(value) === '[object Object]';
+}
 
-  return Object.entries(a).every(([key]) => {
-    if (!b.hasOwnProperty(key)) {
+function isArray(value: unknown): value is [] {
+  return Array.isArray(value);
+}
+
+function isArrayOrObject(value: unknown): value is [] | PlainObject {
+  return isPlainObject(value) || isArray(value);
+}
+
+function isEqual(lhs: PlainObject, rhs: PlainObject) {
+  if (Object.keys(lhs).length !== Object.keys(rhs).length) {
+    return false;
+  }
+
+  for (const [key, value] of Object.entries(lhs)) {
+    const rightValue = rhs[key];
+    if (isArrayOrObject(value) && isArrayOrObject(rightValue)) {
+      if (isEqual(value, rightValue)) {
+        continue;
+      }
       return false;
     }
 
-    if ((a[key] as Indexed) === Object(a[key]) && (b[key] as Indexed) === Object(b[key])) {
-      return isEqual(a[key] as Indexed, b[key] as Indexed);
+    if (value !== rightValue) {
+      return false;
     }
+  }
 
-    if (a[key] === b[key]) return true;
-
-    return false;
-  });
+  return true;
 }
 
 export default isEqual;

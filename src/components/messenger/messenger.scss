@@ -1,0 +1,168 @@
+$white-color: #fff;
+$border-color: #eaeaea;
+$second-background-color: #efefef;
+
+.messenger {
+  width: 100%;
+  display: flex;
+  padding: 10px 20px;
+  position: relative;
+
+  &__dialog {
+    width: 100%;
+  }
+
+  &__dialog-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $border-color;
+  }
+
+  &__companion-info-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__avatar-wrapper {
+    width: 37px;
+    height: 37px;
+    object-fit: contain;
+  }
+
+  &__avatar {
+    width: 100%;
+    border-radius: 100%;
+  }
+
+  &__name {
+    font-weight: 600;
+    font-size: 13px;
+    margin-left: 10px;
+  }
+
+  &__points-wrapper,
+  &__attach-wrapper {
+    position: relative;
+  }
+
+  &__points-button {
+    background-image: url("/src/assets/icons/points.svg");
+    background-position: center;
+    height: 25px;
+    width: 25px;
+    min-height: 15px;
+
+    &:hover {
+      background-color: var(--hover-color);
+      border-radius: 100%;
+      height: 25px;
+    }
+  }
+
+  &__dashboard-wrapper {
+    display: none;
+    position: absolute;
+    z-index: 100;
+
+    &_visible {
+      display: block;
+    }
+
+    &_create-chat {
+      left: 20px;
+    }
+
+    &_points {
+      right: 26px;
+      top: 5px;
+      min-width: 210px;
+    }
+
+    &_attach {
+      bottom: 55px;
+      left: 0;
+    }
+  }
+
+  &__dashboard {
+    background-color: $white-color;
+    box-shadow: 0 0 6px rgb(0 0 0 / 14%);
+    border-radius: 12px;
+    padding: 5px 0;
+    width: 100%;
+    min-width: 162px;
+    max-width: 210px;
+  }
+
+  &__texts-container {
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    padding: 48px 0;
+    overflow-y: auto;
+  }
+
+  &__texts-date {
+    font-size: 12px;
+    color: var(--second-text-color);
+    text-align: center;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  &__form {
+    display: flex;
+    background-color: $white-color;
+    justify-content: space-between;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 11px 20px;
+    align-items: center;
+    border-top: 1px solid $border-color;
+  }
+
+  &__attach-button {
+    background-image: url("/src/assets/icons/attach.svg");
+    width: 32px;
+    height: 32px;
+    background-position: center;
+
+    &:hover {
+      background-color: var(--hover-color);
+      border-radius: 100%;
+    }
+  }
+
+  &__message-input {
+    width: 100%;
+    border: none;
+    background-color: $second-background-color;
+    border-radius: 30px;
+    min-height: 32px;
+    margin: 0 10px;
+    padding: 0 20px;
+    font-size: 12px;
+  }
+
+  &__message-submit-button {
+    background-image: url("/src/assets/icons/submit-message.svg");
+    background-position: center;
+    background-color: var(--main-color);
+    border-radius: 100%;
+    width: 28px;
+    height: 28px;
+  }
+
+  &__dialog-default-message {
+    font-size: 12px;
+    color: var(--second-text-color);
+    margin: auto;
+    align-self: center;
+  }
+}

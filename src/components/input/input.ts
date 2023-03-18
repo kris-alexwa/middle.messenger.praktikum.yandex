@@ -8,7 +8,6 @@ interface InputProps {
     value?: any;
     events: {
         blur: () => void,
-        focus: () => void
     }
 }
 

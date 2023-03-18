@@ -19,32 +19,44 @@ export default class HTTPTransport {
     this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
   }
 
-  get = (url: string): Promise<XMLHttpRequest> => this.request(
-    this.endpoint + url,
-  );
+  get<Response>(url: string): Promise<Response> {
+    return this.request(this.endpoint + url);
+  }
 
-  post = (url: string, data?: unknown): Promise<XMLHttpRequest> => this.request(
-    this.endpoint + url,
-    {
-      data,
-      method: METHODS.POST,
-    },
-  );
+  post<Response = void>(url: string, data?: unknown): Promise<Response> {
+    return this.request<Response>(
+      this.endpoint + url,
+      {
+        data,
+        method: METHODS.POST,
+      },
+    );
+  }
 
-  put = (url: string, data: unknown): Promise<XMLHttpRequest> => this.request(
-    this.endpoint + url,
-    { data, method: METHODS.PUT },
-  );
+  put<Response = void>(url: string, data: unknown): Promise<Response> {
+    return this.request(
+      this.endpoint + url,
+      {
+        data,
+        method: METHODS.PUT,
+      },
+    );
+  }
 
-  delete = (url: string, data: unknown): Promise<XMLHttpRequest> => this.request(
-    this.endpoint + url,
-    { data, method: METHODS.DELETE },
-  );
+  delete<Response>(url: string, data: unknown): Promise<Response> {
+    return this.request(
+      this.endpoint + url,
+      {
+        data,
+        method: METHODS.DELETE,
+      },
+    );
+  }
 
-  request = (
+  request<Response>(
     url: string,
     options: Options = { method: METHODS.GET },
-  ): Promise<XMLHttpRequest> => {
+  ): Promise<Response> {
     const { method, data } = options;
 
     return new Promise((resolve, reject) => {
@@ -81,5 +93,5 @@ export default class HTTPTransport {
         xhr.send(JSON.stringify(data));
       }
     });
-  };
+  }
 }

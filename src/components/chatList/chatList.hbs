@@ -1,0 +1,16 @@
+<ul class="chat-list">
+  {{#if isLoading}}
+    {{{loader}}}
+    {{else}}
+    {{#if chats.length}}
+      {{#each chats}}
+        <li>
+          {{{this}}}
+        </li>
+      {{/each}}
+    {{else}}
+      <p class="chat__dialogs-list-empty">У вас пока нет чатов</p>
+    {{/if}}
+  {{/if}}
+
+</ul>

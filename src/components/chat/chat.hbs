@@ -1,0 +1,20 @@
+<div class="chat">
+  <div class="chat__avatar-wrapper">
+    <img src="{{avatar}}" alt="Аватар" class="chat__avatar" />
+  </div>
+
+  <div class="chat__message-wrapper">
+    <p class="chat__name">{{title}}</p>
+    <p class="chat__message">{{message}}</p>
+  </div>
+
+  <div class="chat__info-wrapper">
+    <p class="chat__time">{{time}}</p>
+    {{#if unreadCount}}
+      <p class="chat__message-count">
+        {{unreadCount}}
+      </p>
+    {{/if}}
+  </div>
+  <div class="chat__border"></div>
+</div>

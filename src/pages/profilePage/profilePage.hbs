@@ -9,9 +9,9 @@
                 <img src={{avatarUrl}} alt="Аватар" class="profile__avatar" />
             </div>
             <div class="profile__user-wrapper">
-                <p class="profile__user-name">Иван</p>
-                <p class="profile__user-phone">+7 (909) 967 30 30</p>
-                <p class="profile__user-nickname">ivanIvanov</p>
+                <p class="profile__user-name">{{{first_name}}}</p>
+                <p class="profile__user-phone">{{{phone}}}</p>
+                <p class="profile__user-nickname">{{{login}}}</p>
             </div>
         </div>
 
@@ -41,27 +41,27 @@
                 <ul class="profile__list profile__list_data">
                     <li class="profile__list-item">
                         <p class="profile__list-item-title">Почта</p>
-                        <p class="profile__list-item-info">pochta@yandex.ru</p>
+                        <p class="profile__list-item-info">{{{email}}}</p>
                     </li>
                     <li class="profile__list-item">
                         <p class="profile__list-item-title">Логин</p>
-                        <p class="profile__list-item-info">ivanivanov</p>
+                        <p class="profile__list-item-info">{{{login}}}</p>
                     </li>
                     <li class="profile__list-item">
                         <p class="profile__list-item-title">Имя</p>
-                        <p class="profile__list-item-info">Иван</p>
+                        <p class="profile__list-item-info">{{{first_name}}}</p>
                     </li>
                     <li class="profile__list-item">
                         <p class="profile__list-item-title">Фамилия</p>
-                        <p class="profile__list-item-info">Иванов</p>
+                        <p class="profile__list-item-info">{{{second_name}}}</p>
                     </li>
                     <li class="profile__list-item">
                         <p class="profile__list-item-title">Имя в чате</p>
-                        <p class="profile__list-item-info">ivanIvanov</p>
+                        <p class="profile__list-item-info">{{{login}}}</p>
                     </li>
                     <li class="profile__list-item">
                         <p class="profile__list-item-title">Телефон</p>
-                        <p class="profile__list-item-info">+7 909 967 30 30</p>
+                        <p class="profile__list-item-info">{{{phone}}}</p>
                     </li>
                 </ul>
             {{else if changeDataViewIsForm}}

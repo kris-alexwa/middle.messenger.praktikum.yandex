@@ -17,7 +17,7 @@ class AuthController {
       await this.getUser();
       Router.go('/settings');
     } catch (error) {
-      console.error(error.message);
+      console.error(error.reason);
     }
   }
 
@@ -28,7 +28,7 @@ class AuthController {
       this.getUser();
       Router.go('/settings');
     } catch (error) {
-      console.error(error.message);
+      console.error(error.reason);
     }
   }
 
@@ -39,7 +39,7 @@ class AuthController {
       Router.go('/');
       store.set('user.data', undefined);
     } catch (error) {
-      console.error(error.message);
+      console.error(error.reason);
     }
   }
 

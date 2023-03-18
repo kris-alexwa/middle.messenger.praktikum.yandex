@@ -1,92 +1,28 @@
-<div class="chat">
-    <span id="delete-chat" class="popup-wrapper">
-        {{{popupDeleteChat}}}
-    </span>
-    <span id="delete-user" class="popup-wrapper">
-        {{{popupDeleteUser}}}
-    </span>
-    <span id="add-user" class="popup-wrapper">
-        {{{popupAddUser}}}
-    </span>
+<div class="chat-page">
+  <span id="create-chat" class="popup-wrapper">
+    {{{popupCreateChat}}}
+  </span>
 
-    <div class="chat__dialogs">
-        <div class="chat__wrapper">
-            <div class="chat__search">
-                <input class="chat__search-input" name="search" type="text" placeholder="Поиск" />
-                <img src={{searchIconUrl}} alt="Поиск" class="chat__search-icon" />
-            </div>
-            <div class="chat__add-chat-wrapper">
-                <button id="dashboard-create-chat-btn" class="chat__add-btn"></button>
-                <div id="dashboard-create-chat" class="chat__dashboard-wrapper chat__dashboard-wrapper_create-chat">
-                    <div class="chat__dashboard">
-                        <ul class="chat__dashboard-list">
-                            {{{dashboardCreateChat}}}
-                        </ul>
-                    </div>
-                </div>
-            </div>
+  <div class="chat-page__dialogs">
+    <div class="chat-page__wrapper">
+      <div class="chat-page__search">
+        <input class="chat-page__search-input" name="search" type="text" placeholder="Поиск" />
+        <img src="{{searchIconUrl}}" alt="Поиск" class="chat-page__search-icon" />
+      </div>
+      <div class="chat-page__add-chat-wrapper">
+        <button id="dashboard-create-chat-btn" class="chat-page__add-btn"></button>
+        <div id="dashboard-create-chat" class="chat-page__dashboard-wrapper chat-page__dashboard-wrapper_create-chat">
+          <div class="chat-page__dashboard">
+            <ul class="chat-page__dashboard-list">
+              {{{dashboardCreateChat}}}
+            </ul>
+          </div>
         </div>
-        <ul class="chat__dialogs-list">
-            {{#each dialogs}}
-                <li onclick="router('currentChat')">
-                    {{{this}}}
-                </li>
-            {{/each}}
-        </ul>
-
-        {{{widgetBar}}}
+      </div>
     </div>
+    {{{chatList}}}
+    {{{widgetBar}}}
+  </div>
 
-    <div class="chat__dialog-wrapper">
-        {{#if false}}
-            <p class="chat__dialog-default-message">Выберите чат чтобы отправить сообщение</p>
-        {{/if}}
-
-        <div class="chat__dialog">
-            <div class="chat__dialog-header">
-                <div class="chat__companion-info-wrapper">
-                    <div class="chat__avatar-wrapper">
-                        <img src={{avatarUrl}} alt="Аватар" class="chat__avatar" />
-                    </div>
-                    <p class="chat__name">Андрей</p>
-                </div>
-                <div class="chat__points-wrapper">
-                    <button id="dashboard-points-btn" class="chat__points-button"></button>
-                    <div id="dashboard-points" class="chat__dashboard-wrapper chat__dashboard-wrapper_points">
-                        <div class="chat__dashboard">
-                            <ul class="chat__dashboard-list">
-                                {{{dashboardAddUser}}}
-                                {{{dashboardDeleteUser}}}
-                                {{{dashboardDeleteChat}}}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="chat__texts-container">
-                <p class="chat__texts-date">19 июня</p>
-                {{#each messageLayouts}}
-                    {{{this}}}
-                {{/each}}
-            </div>
-
-            <form class="chat__form">
-                <div class="chat__attach-wrapper">
-                    <button id="dashboard-attach-btn" type="button" class="chat__attach-button"></button>
-                    <div id="dashboard-attach" class="chat__dashboard-wrapper chat__dashboard-wrapper_attach">
-                        <div class="chat__dashboard">
-                            <ul class="chat__dashboard-list">
-                                {{{dashboardAddImageOrVideo}}}
-                                {{{dashboardAddFile}}}
-                                {{{dashboardAddLocation}}}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <input type="text" id="message" name="message" class="chat__message-input" placeholder="Сообщение" />
-                <button type="submit" class="chat__message-submit-button"></button>
-            </form>
-        </div>
-    </div>
+  {{{messenger}}}
 </div>

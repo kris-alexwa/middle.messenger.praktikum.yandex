@@ -15,8 +15,9 @@ import { Form } from '../../components/form/form';
 import { SimpleButton } from '../../components/simpleButton/simpleButton';
 import { submitUserDataForm, submitChangePasswordForm } from './submitForms';
 import AuthController from '../../infractructure/controllers/AuthController';
+import { withStore } from '../../infractructure/Store';
 
-export default class ProfilePage extends Block {
+class ProfilePageBase extends Block {
   _resetChangePasswordInputs() {
     (this.children.inputOldPassword as InputWithError).setProps({ inputValue: '' });
     (this.children.inputNewPassword as InputWithError).setProps({ inputValue: '' });
@@ -24,12 +25,12 @@ export default class ProfilePage extends Block {
   }
 
   _resetChangeUserDataInputs() {
-    (this.children.inputEmail as InputWithError).setProps({ inputValue: 'pochta@yandex.ru' });
-    (this.children.inputLogin as InputWithError).setProps({ inputValue: 'ivanivanov' });
-    (this.children.inputFirstName as InputWithError).setProps({ inputValue: 'Иван' });
-    (this.children.inputSecondName as InputWithError).setProps({ inputValue: 'Иванов' });
-    (this.children.inputDisplayName as InputWithError).setProps({ inputValue: 'ivanIvanov' });
-    (this.children.inputPhone as InputWithError).setProps({ inputValue: '+7 909 967 30 30' });
+    (this.children.inputEmail as InputWithError).setProps({ inputValue: this.props.email });
+    (this.children.inputLogin as InputWithError).setProps({ inputValue: this.props.login });
+    (this.children.inputFirstName as InputWithError).setProps({ inputValue: this.props.first_name });
+    (this.children.inputSecondName as InputWithError).setProps({ inputValue: this.props.second_name });
+    (this.children.inputDisplayName as InputWithError).setProps({ inputValue: this.props.login });
+    (this.children.inputPhone as InputWithError).setProps({ inputValue: this.props.phone });
   }
 
   _changePasswordHandler() {
@@ -64,7 +65,7 @@ export default class ProfilePage extends Block {
       validate: (s: string) => validateEmail(s),
       label: 'Почта',
       errorMessage: 'Некорректная почта',
-      inputValue: 'pochta@yandex.ru',
+      inputValue: this.props.email,
     });
     this.children.inputLogin = new InputWithError({
       inputId: 'profile-login-input',
@@ -73,7 +74,7 @@ export default class ProfilePage extends Block {
       validate: (s: string) => validateLogin(s),
       label: 'Логин',
       errorMessage: 'Некорректный логин',
-      inputValue: 'ivanivanov',
+      inputValue: this.props.login,
     });
     this.children.inputFirstName = new InputWithError({
       inputId: 'profile-first-name-input',
@@ -82,7 +83,7 @@ export default class ProfilePage extends Block {
       validate: (s: string) => validateName(s),
       label: 'Имя',
       errorMessage: 'Некорректный формат',
-      inputValue: 'Иван',
+      inputValue: this.props.first_name,
     });
     this.children.inputSecondName = new InputWithError({
       inputId: 'profile-second-name-input',
@@ -91,7 +92,7 @@ export default class ProfilePage extends Block {
       validate: (s: string) => validateName(s),
       label: 'Фамилия',
       errorMessage: 'Некорректный формат',
-      inputValue: 'Иванов',
+      inputValue: this.props.second_name,
     });
     this.children.inputDisplayName = new InputWithError({
       inputId: 'profile-display-name-input',
@@ -100,7 +101,7 @@ export default class ProfilePage extends Block {
       label: 'Имя в чате',
       validate: () => true,
       errorMessage: undefined,
-      inputValue: 'ivanIvanov',
+      inputValue: this.props.login,
     });
     this.children.inputPhone = new InputWithError({
       inputId: 'profile-phone-input',
@@ -109,7 +110,7 @@ export default class ProfilePage extends Block {
       validate: (s: string) => validatePhone(s),
       label: 'Телефон',
       errorMessage: 'Некорректный формат',
-      inputValue: '+7 909 967 30 30',
+      inputValue: this.props.phone,
     });
     this.children.activeButtonChangeData = new ActiveButton({
       label: 'Сохранить',
@@ -230,6 +231,13 @@ export default class ProfilePage extends Block {
   }
 
   render() {
+    // console.log(this.props)
     return this.compile(template, this.props);
   }
 }
+
+export const ProfilePage =
+  withStore((state) => {
+    // console.log(state)
+    return state.user.data || {};
+  })(ProfilePageBase as typeof Block);

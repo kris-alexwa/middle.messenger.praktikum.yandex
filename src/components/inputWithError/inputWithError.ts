@@ -38,7 +38,6 @@ export class InputWithError extends Block<InputWithErrorProps, HTMLElement> {
       type: this.props.inputType,
       value: this.props.inputValue,
       events: {
-        focus: () => this._validate(),
         blur: () => this._validate(),
       },
     });

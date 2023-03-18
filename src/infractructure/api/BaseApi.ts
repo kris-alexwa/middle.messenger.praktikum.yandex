@@ -8,7 +8,7 @@ export default abstract class BaseApi {
   }
 
   abstract create?(data: unknown): Promise<unknown>;
-  abstract read?(id: string): Promise<unknown>;
-  abstract update?(id: string, data: unknown): Promise<unknown>;
-  abstract delete?(id: string): Promise<unknown>;
+  abstract read?(id: number): Promise<unknown>;
+  abstract update?(id: number, data: unknown): Promise<unknown>;
+  abstract delete?(id: number): Promise<unknown>;
 }

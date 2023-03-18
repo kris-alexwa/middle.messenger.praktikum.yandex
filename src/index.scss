@@ -5,7 +5,8 @@
 @import "pages/signUp/signUp";
 @import "pages/signIn/signIn";
 @import "pages/chatPage/chatPage";
-@import "components/dialog/dialog";
+@import "components/chat/chat";
+@import "components/chatList/chatList";
 @import "components/messageLayout/messageLayout";
 @import "pages/profilePage/profilePage";
 @import "components/widgetBar/widgetBar";
@@ -19,6 +20,8 @@
 @import "components/inputWithError/inputWithError";
 @import "components/form/form";
 @import "components/link/link";
+@import "components/loader/loader";
+@import "components/messenger/messenger";
 
 :root {
     --main-text-color: #1e1e1e;
@@ -62,4 +65,8 @@ body {
 
 .error-text {
     color: var(--red-color);
+}
+
+.dashboard-visible {
+  display: block;
 }

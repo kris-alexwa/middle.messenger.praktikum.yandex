@@ -1,9 +1,12 @@
 import Router from './infractructure/Router';
 import SignInPage from './pages/signIn/signIn';
 import SignUpPage from './pages/signUp/signUp';
-import ProfilePage from './pages/profilePage/profilePage';
-import ChatPage from './pages/chatPage/chatPage';
+import { ProfilePage } from './pages/profilePage/profilePage';
+import { ChatPage } from './pages/chatPage/chatPage';
 import AuthController from './infractructure/controllers/AuthController';
+import ChatsController from './infractructure/controllers/ChatsController';
+// import ChatsController from './infractructure/controllers/ChatsController';
+// import ChatsController from './infractructure/controllers/ChatsController';
 
 enum Routes {
   SignIn = '/',
@@ -30,6 +33,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   try {
     await AuthController.getUser();
+
     Router.start();
 
     if (!isProtectedRoute) {
