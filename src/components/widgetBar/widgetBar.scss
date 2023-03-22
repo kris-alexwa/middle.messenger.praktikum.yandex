@@ -11,10 +11,4 @@ $border-color: #eaeaea;
   justify-content: center;
   column-gap: 45px;
   background-color: var(--second-background-color);
-
-  &__button {
-    height: fit-content;
-    display: flex;
-    align-items: center;
-  }
 }

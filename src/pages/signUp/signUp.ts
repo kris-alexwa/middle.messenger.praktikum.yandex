@@ -1,36 +1,23 @@
 import Block from '../../infractructure/Block';
 import template from './signUp.hbs';
 import { ActiveButton } from '../../components/activeButton/activeButton';
-import { SimpleButton } from '../../components/simpleButton/simpleButton';
-import { render } from '../../utils/render';
 import {
   validateEmail, validateLogin, validateName, validatePassword, validatePhone,
 } from '../../utils/formValidation';
 import { Form } from '../../components/form/form';
 import { InputWithError } from '../../components/inputWithError/inputWithError';
-
-type dataType = {
-    email: string;
-    login: string;
-    firstName: string;
-    secondName: string;
-    phone: string;
-    password: string;
-    repeatPassword: string;
-};
+import submitForm from './submitForm';
+import { Link } from '../../components/link/link';
 
 export default class SignUpPage extends Block {
   init() {
     this.children.activeButton = new ActiveButton({
       label: 'Зарегистрироваться',
     });
-    this.children.simpleButton = new SimpleButton({
+
+    this.children.link = new Link({
+      to: '/',
       label: 'Войти',
-      events: {
-        click: () => {
-          render('signInPage');
-        },
-      },
     });
 
     this.children.inputEmail = new InputWithError({
@@ -104,54 +91,15 @@ export default class SignUpPage extends Block {
       events: {
         submit: (event) => {
           event.preventDefault();
-          const emailIsValid = validateEmail((this.children.inputEmail as InputWithError).value);
-          const fisrtNameIsValid = validateName((this.children.inputFirstName as InputWithError).value);
-          const secondNameIsValid = validateName((this.children.inputSecondName as InputWithError).value);
-          const phoneIsValid = validatePhone((this.children.inputPhone as InputWithError).value);
-          const loginIsValid = validateLogin((this.children.inputLogin as InputWithError).value);
-          const passwordIsValid = validatePassword((this.children.inputPassword as InputWithError).value);
-          const repeatPasswordIsValid = validatePassword(
-            (this.children.inputRepeatPassword as InputWithError).value,
+          submitForm(
+            (this.children.inputEmail as InputWithError),
+            (this.children.inputLogin as InputWithError),
+            (this.children.inputFirstName as InputWithError),
+            (this.children.inputSecondName as InputWithError),
+            (this.children.inputPhone as InputWithError),
+            (this.children.inputPassword as InputWithError),
+            (this.children.inputRepeatPassword as InputWithError),
           );
-
-          const passwordsMatch = (this.children.inputPassword as InputWithError).value
-            === (this.children.inputRepeatPassword as InputWithError).value;
-
-          if (emailIsValid
-            && fisrtNameIsValid
-            && secondNameIsValid
-            && phoneIsValid
-            && loginIsValid
-            && passwordIsValid
-            && repeatPasswordIsValid
-            && passwordsMatch
-          ) {
-            event.preventDefault();
-            const data: dataType = {} as dataType;
-
-            data.email = (this.children.inputEmail as InputWithError).value;
-            data.login = (this.children.inputLogin as InputWithError).value;
-            data.firstName = (this.children.inputFirstName as InputWithError).value;
-            data.secondName = (this.children.inputSecondName as InputWithError).value;
-            data.phone = (this.children.inputPhone as InputWithError).value;
-            data.password = (this.children.inputPassword as InputWithError).value;
-            data.repeatPassword = (this.children.inputRepeatPassword as InputWithError).value;
-
-            // eslint-disable-next-line no-console
-            console.log('signUpForm', data);
-            render('chatPage');
-          } else if (!passwordsMatch) {
-            (this.children.inputPassword as InputWithError).forceValidate('mismatch');
-            (this.children.inputRepeatPassword as InputWithError).forceValidate('mismatch');
-          } else {
-            (this.children.inputEmail as InputWithError).forceValidate();
-            (this.children.inputFirstName as InputWithError).forceValidate();
-            (this.children.inputSecondName as InputWithError).forceValidate();
-            (this.children.inputPhone as InputWithError).forceValidate();
-            (this.children.inputLogin as InputWithError).forceValidate();
-            (this.children.inputPassword as InputWithError).forceValidate();
-            (this.children.inputRepeatPassword as InputWithError).forceValidate();
-          }
         },
       },
     });

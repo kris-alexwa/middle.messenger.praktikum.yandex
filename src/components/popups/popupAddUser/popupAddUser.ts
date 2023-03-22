@@ -1,53 +1,26 @@
 import Block from '../../../infractructure/Block';
 import template from './popupAddUser.hbs';
 import { ActiveButton } from '../../activeButton/activeButton';
-import { validateLogin } from '../../../utils/formValidation';
-import { InputWithError } from '../../inputWithError/inputWithError';
-import { Form } from '../../form/form';
 import { hidePopup } from '../../../utils/changeVisibilityPopup';
 import { SimpleButton } from '../../simpleButton/simpleButton';
-
-type dataType = {
-    login: string;
-}
+import { submitAddUserForm } from '../validationForms';
+import { toggleDashboard } from '../../../utils/toggleVisibilityDashboard';
+import { SearchUserForm } from '../searchUserForm/searchUserForm';
 
 export class PopupAddUser extends Block {
-  _clearInput() {
-    (this.children.input as InputWithError).setProps({ inputValue: '' });
-  }
-
   init() {
     this.children.activeButton = new ActiveButton({
       label: 'Добавить',
     });
-    this.children.input = new InputWithError({
-      inputId: 'add-user-login-input',
-      inputName: 'login',
-      inputType: 'text',
-      validate: (s: string) => validateLogin(s),
-      label: 'Логин',
-      errorMessage: 'Некорректный логин',
-    });
 
-    this.children.form = new Form({
-      inputs: [this.children.input],
+    this.children.searchedUserForm = new SearchUserForm({
       submitButton: this.children.activeButton,
+      searchButtonId: 'search-to-add-user',
+      dropdownId: 'add-user-dropdown',
       events: {
-        submit: (event) => {
+        submit: (event: Event) => {
           event.preventDefault();
-          const loginIsValid = validateLogin((this.children.input as InputWithError).value);
-
-          if (loginIsValid) {
-            const data: dataType = {} as dataType;
-            data.login = (this.children.input as InputWithError).value;
-
-            // eslint-disable-next-line no-console
-            console.log('addUserForm', data);
-            hidePopup('add-user');
-            this._clearInput();
-          } else {
-            (this.children.input as InputWithError).forceValidate();
-          }
+          submitAddUserForm();
         },
       },
     });
@@ -57,10 +30,19 @@ export class PopupAddUser extends Block {
       events: {
         click: () => {
           hidePopup('add-user');
-          this._clearInput();
         },
       },
     });
+
+    this.props.eventsBySelector = [
+      {
+        selector: '#dashboard-create-chat-btn',
+        eventName: 'click',
+        handler: () => {
+          toggleDashboard('dashboard-create-chat');
+        },
+      },
+    ];
   }
 
   render() {

@@ -1,6 +1,5 @@
 import Block from '../../infractructure/Block';
 import template from './profilePage.hbs';
-import avatarUrl from '../../assets/img/avatar.png';
 import { WidgetBar } from '../../components/widgetBar/widgetBar';
 import profileIconActive from '../../assets/icons/profile-active.svg';
 import chatIconDefault from '../../assets/icons/chat-default.svg';
@@ -13,23 +12,13 @@ import {
 import { InputWithError } from '../../components/inputWithError/inputWithError';
 import { Form } from '../../components/form/form';
 import { SimpleButton } from '../../components/simpleButton/simpleButton';
+import { userDataFormIsValid, changePasswordFormIsValid } from './submitForms';
+import AuthController from '../../infractructure/controllers/AuthController';
+import { withStore } from '../../infractructure/Store';
+import { UserInfoTable } from './components/userInfoTable/userInfoTable';
+import ProfileController from '../../infractructure/controllers/ProfileController';
 
-type ProfileDataType = {
-    email: string;
-    login: string;
-    firstName: string;
-    secondName: string;
-    displayName: string;
-    phone: string;
-}
-
-type PasswordDataType = {
-    oldPassword: string;
-    newPassword: string;
-    newPasswordRepeat: string;
-}
-
-export default class ProfilePage extends Block {
+class ProfilePageBase extends Block {
   _resetChangePasswordInputs() {
     (this.children.inputOldPassword as InputWithError).setProps({ inputValue: '' });
     (this.children.inputNewPassword as InputWithError).setProps({ inputValue: '' });
@@ -37,12 +26,12 @@ export default class ProfilePage extends Block {
   }
 
   _resetChangeUserDataInputs() {
-    (this.children.inputEmail as InputWithError).setProps({ inputValue: 'pochta@yandex.ru' });
-    (this.children.inputLogin as InputWithError).setProps({ inputValue: 'ivanivanov' });
-    (this.children.inputFirstName as InputWithError).setProps({ inputValue: 'Иван' });
-    (this.children.inputSecondName as InputWithError).setProps({ inputValue: 'Иванов' });
-    (this.children.inputDisplayName as InputWithError).setProps({ inputValue: 'ivanIvanov' });
-    (this.children.inputPhone as InputWithError).setProps({ inputValue: '+7 909 967 30 30' });
+    (this.children.inputEmail as InputWithError).setProps({ inputValue: this.props.user.email });
+    (this.children.inputLogin as InputWithError).setProps({ inputValue: this.props.user.login });
+    (this.children.inputFirstName as InputWithError).setProps({ inputValue: this.props.user.name });
+    (this.children.inputSecondName as InputWithError).setProps({ inputValue: this.props.user.lastname });
+    (this.children.inputDisplayName as InputWithError).setProps({ inputValue: this.props.user.login });
+    (this.children.inputPhone as InputWithError).setProps({ inputValue: this.props.user.phone });
   }
 
   _changePasswordHandler() {
@@ -60,10 +49,11 @@ export default class ProfilePage extends Block {
   }
 
   init() {
-    this.props.avatarUrl = avatarUrl;
     this.props.changeDataViewIsDefault = true;
     this.props.changeDataViewIsForm = false;
     this.props.changePasswordView = false;
+
+    this.children.userInfoTable = new UserInfoTable({});
 
     this.children.widgetBar = new WidgetBar({
       profileIcon: profileIconActive,
@@ -77,7 +67,7 @@ export default class ProfilePage extends Block {
       validate: (s: string) => validateEmail(s),
       label: 'Почта',
       errorMessage: 'Некорректная почта',
-      inputValue: 'pochta@yandex.ru',
+      inputValue: this.props.email,
     });
     this.children.inputLogin = new InputWithError({
       inputId: 'profile-login-input',
@@ -86,7 +76,7 @@ export default class ProfilePage extends Block {
       validate: (s: string) => validateLogin(s),
       label: 'Логин',
       errorMessage: 'Некорректный логин',
-      inputValue: 'ivanivanov',
+      inputValue: this.props.login,
     });
     this.children.inputFirstName = new InputWithError({
       inputId: 'profile-first-name-input',
@@ -95,7 +85,7 @@ export default class ProfilePage extends Block {
       validate: (s: string) => validateName(s),
       label: 'Имя',
       errorMessage: 'Некорректный формат',
-      inputValue: 'Иван',
+      inputValue: this.props.first_name,
     });
     this.children.inputSecondName = new InputWithError({
       inputId: 'profile-second-name-input',
@@ -104,7 +94,7 @@ export default class ProfilePage extends Block {
       validate: (s: string) => validateName(s),
       label: 'Фамилия',
       errorMessage: 'Некорректный формат',
-      inputValue: 'Иванов',
+      inputValue: this.props.second_name,
     });
     this.children.inputDisplayName = new InputWithError({
       inputId: 'profile-display-name-input',
@@ -113,7 +103,7 @@ export default class ProfilePage extends Block {
       label: 'Имя в чате',
       validate: () => true,
       errorMessage: undefined,
-      inputValue: 'ivanIvanov',
+      inputValue: this.props.login,
     });
     this.children.inputPhone = new InputWithError({
       inputId: 'profile-phone-input',
@@ -122,7 +112,7 @@ export default class ProfilePage extends Block {
       validate: (s: string) => validatePhone(s),
       label: 'Телефон',
       errorMessage: 'Некорректный формат',
-      inputValue: '+7 909 967 30 30',
+      inputValue: this.props.phone,
     });
     this.children.activeButtonChangeData = new ActiveButton({
       label: 'Сохранить',
@@ -139,34 +129,33 @@ export default class ProfilePage extends Block {
       ],
       submitButton: this.children.activeButtonChangeData,
       events: {
-        submit: (event) => {
+        submit: async (event) => {
           event.preventDefault();
-          const emailIsValid = validateEmail((this.children.inputEmail as InputWithError).value);
-          const loginIsValid = validateLogin((this.children.inputLogin as InputWithError).value);
-          const firstNameIsValid = validateName((this.children.inputFirstName as InputWithError).value);
-          const secondNameIsValid = validateName((this.children.inputSecondName as InputWithError).value);
-          const phoneIsValid = validatePhone((this.children.inputPhone as InputWithError).value);
+          const data = {
+            email: (this.children.inputEmail as InputWithError).value,
+            login: (this.children.inputLogin as InputWithError).value,
+            first_name: (this.children.inputFirstName as InputWithError).value,
+            second_name: (this.children.inputSecondName as InputWithError).value,
+            display_name: (this.children.inputDisplayName as InputWithError).value,
+            phone: (this.children.inputPhone as InputWithError).value,
+          };
 
-          if (emailIsValid && loginIsValid && firstNameIsValid && secondNameIsValid && phoneIsValid) {
-            const data: ProfileDataType = {} as ProfileDataType;
+          const isValid = userDataFormIsValid(
+            (this.children.inputEmail as InputWithError),
+            (this.children.inputLogin as InputWithError),
+            (this.children.inputFirstName as InputWithError),
+            (this.children.inputSecondName as InputWithError),
+            (this.children.inputPhone as InputWithError),
+          );
 
-            data.email = (this.children.inputEmail as InputWithError).value;
-            data.login = (this.children.inputLogin as InputWithError).value;
-            data.firstName = (this.children.inputFirstName as InputWithError).value;
-            data.secondName = (this.children.inputSecondName as InputWithError).value;
-            data.displayName = (this.children.inputDisplayName as InputWithError).value;
-            data.phone = (this.children.inputPhone as InputWithError).value;
-
-            // eslint-disable-next-line no-console
-            console.log('profileDataForm', data);
-            this._changeUserDataHandler();
-          } else {
-            (this.children.inputEmail as InputWithError).forceValidate();
-            (this.children.inputLogin as InputWithError).forceValidate();
-            (this.children.inputFirstName as InputWithError).forceValidate();
-            (this.children.inputSecondName as InputWithError).forceValidate();
-            (this.children.inputDisplayName as InputWithError).forceValidate();
-            (this.children.inputPhone as InputWithError).forceValidate();
+          if (isValid) {
+            await ProfileController.changeUserInfo(data)
+              .then(() => {
+                this._changeUserDataHandler();
+              })
+              .catch((error) => {
+                console.log(error);
+              });
           }
         },
       },
@@ -209,42 +198,29 @@ export default class ProfilePage extends Block {
       ],
       submitButton: this.children.activeButtonChangePassword,
       events: {
-        submit: (event) => {
+        submit: async (event) => {
           event.preventDefault();
-          const oldPasswordIsValid = validatePassword(
-            (this.children.inputOldPassword as InputWithError).value,
+          const data = {
+            oldPassword: (this.children.inputOldPassword as InputWithError).value,
+            newPassword: (this.children.inputNewPassword as InputWithError).value,
+          };
+
+          const isValid = changePasswordFormIsValid(
+            (this.children.inputOldPassword as InputWithError),
+            (this.children.inputNewPassword as InputWithError),
+            (this.children.inputNewPasswordRepeat as InputWithError),
           );
-          const newPasswordIsValid = validatePassword(
-            (this.children.inputNewPassword as InputWithError).value,
-          );
-          const repeatNewPasswordIsValid = validatePassword(
-            (this.children.inputNewPasswordRepeat as InputWithError).value,
-          );
 
-          const passwordsMatch = (this.children.inputNewPassword as InputWithError).value
-            === (this.children.inputNewPasswordRepeat as InputWithError).value;
-
-          if (oldPasswordIsValid
-            && newPasswordIsValid
-            && repeatNewPasswordIsValid
-            && passwordsMatch
-          ) {
-            const data: PasswordDataType = {} as PasswordDataType;
-
-            data.newPassword = (this.children.inputOldPassword as InputWithError).value;
-            data.oldPassword = (this.children.inputNewPassword as InputWithError).value;
-            data.newPasswordRepeat = (this.children.inputNewPasswordRepeat as InputWithError).value;
-
-            // eslint-disable-next-line no-console
-            console.log('passwordDataForm', data);
-            this._changePasswordHandler();
-          } else if (!passwordsMatch) {
-            (this.children.inputNewPassword as InputWithError).forceValidate('mismatch');
-            (this.children.inputNewPasswordRepeat as InputWithError).forceValidate('mismatch');
-          } else {
-            (this.children.inputOldPassword as InputWithError).forceValidate();
-            (this.children.inputNewPassword as InputWithError).forceValidate();
-            (this.children.inputNewPasswordRepeat as InputWithError).forceValidate();
+          if (isValid) {
+            await ProfileController.changeUserPassword(data)
+              .then(() => {
+                this._changePasswordHandler();
+              })
+              .catch((error) => {
+                if (error.reason === 'Password is incorrect') {
+                  (this.children.inputOldPassword as InputWithError).forceValidate('passwordIsIncorrect');
+                }
+              });
           }
         },
       },
@@ -275,6 +251,13 @@ export default class ProfilePage extends Block {
           showPopup('upload-file');
         },
       },
+      {
+        selector: '#exit-btn',
+        eventName: 'click',
+        handler: () => {
+          AuthController.logout();
+        },
+      },
     ];
 
     this.children.popupUploadFile = new PopupUploadFile();
@@ -284,3 +267,7 @@ export default class ProfilePage extends Block {
     return this.compile(template, this.props);
   }
 }
+
+export const ProfilePage = withStore((state) => ({
+  user: { ...state.user.data },
+} || {}))(ProfilePageBase as typeof Block);

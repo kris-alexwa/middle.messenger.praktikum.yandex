@@ -11,12 +11,19 @@ interface InputWithErrorProps {
     errorMessage: string | undefined;
     inputValue?: any;
     label?: string;
+    events?: {}
 }
 
 export class InputWithError extends Block<InputWithErrorProps, HTMLElement> {
   _validate(type?: string) {
     if (this.props.validate(this.value) && type === 'mismatch') {
       (this.children.error as InputError).setProps({ errorMessage: 'Пароли не совпадают' });
+      (this.children.input as Input).element.classList.add('input__error');
+    } else if (this.props.validate(this.value) && type === 'passwordIsIncorrect') {
+      (this.children.error as InputError).setProps({ errorMessage: 'Пароль неверный' });
+      (this.children.input as Input).element.classList.add('input__error');
+    } else if (this.props.validate(this.value) && type === 'nothingFound') {
+      (this.children.error as InputError).setProps({ errorMessage: 'Ничего не найдено' });
       (this.children.input as Input).element.classList.add('input__error');
     } else if (this.props.validate(this.value)) {
       (this.children.error as InputError).setProps({ errorMessage: undefined });
@@ -38,7 +45,7 @@ export class InputWithError extends Block<InputWithErrorProps, HTMLElement> {
       type: this.props.inputType,
       value: this.props.inputValue,
       events: {
-        focus: () => this._validate(),
+        ...this.props.events,
         blur: () => this._validate(),
       },
     });

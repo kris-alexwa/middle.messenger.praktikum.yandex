@@ -1,0 +1,57 @@
+<div class="messenger">
+  {{#if selectedChat}}
+    <div class="messenger__dialog">
+      <div class="messenger__dialog-header">
+        <div class="messenger__companion-info-wrapper">
+          <div class="messenger__avatar-wrapper">
+            <img src="{{selectedChat.avatar}}" alt="Аватар" class="messenger__avatar" />
+          </div>
+          <div class="messenger__dialog-users-wrapper">
+            <p class="messenger__name">{{{selectedChat.title}}}</p>
+            {{#if usersOfChat}}
+              <p class="messenger__dialog-users">{{{usersOfChat}}}</p>
+            {{/if}}
+          </div>
+        </div>
+        <div class="messenger__points-wrapper">
+          <button id="dashboard-points-btn" class="messenger__points-button"></button>
+          <div id="dashboard-points" class="messenger__dashboard-wrapper messenger__dashboard-wrapper_points">
+            <div class="messenger__dashboard">
+              <ul class="messenger__dashboard-list">
+                {{{dashboardAddUser}}}
+                {{{dashboardDeleteUser}}}
+                {{{dashboardDeleteChat}}}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="messenger__texts-container">
+<!--        <p class="messenger__texts-date">19 июня</p>-->
+        {{#each messages}}
+          {{{this}}}
+        {{/each}}
+      </div>
+
+      <form id="send-message-form" class="messenger__form">
+        <div class="messenger__attach-wrapper">
+          <button id="dashboard-attach-btn" type="button" class="messenger__attach-button"></button>
+          <div id="dashboard-attach" class="messenger__dashboard-wrapper messenger__dashboard-wrapper_attach">
+            <div class="messenger__dashboard">
+              <ul class="messenger__dashboard-list">
+                {{{dashboardAddImageOrVideo}}}
+                {{{dashboardAddFile}}}
+                {{{dashboardAddLocation}}}
+              </ul>
+            </div>
+          </div>
+        </div>
+        {{{input}}}
+        <button id="submit-button" type="submit" class="messenger__message-submit-button"></button>
+      </form>
+    </div>
+  {{else}}
+    <p class="messenger__dialog-default-message">Выберите чат чтобы отправить сообщение</p>
+  {{/if}}
+</div>

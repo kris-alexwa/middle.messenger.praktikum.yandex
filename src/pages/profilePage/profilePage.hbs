@@ -6,12 +6,12 @@
     <div class="profile__settings">
         <div class="profile__user-info">
             <div id="upload-file-btn" class="profile__avatar-wrapper">
-                <img src={{avatarUrl}} alt="Аватар" class="profile__avatar" />
+                <img src="https://ya-praktikum.tech/api/v2/resources{{user.avatar}}" alt="Аватар" class="profile__avatar" />
             </div>
             <div class="profile__user-wrapper">
-                <p class="profile__user-name">Иван</p>
-                <p class="profile__user-phone">+7 (909) 967 30 30</p>
-                <p class="profile__user-nickname">ivanIvanov</p>
+                <p class="profile__user-name">{{{user.name}}}</p>
+                <p class="profile__user-phone">{{{user.phone}}}</p>
+                <p class="profile__user-nickname">{{{user.login}}}</p>
             </div>
         </div>
 
@@ -26,7 +26,7 @@
                     type="button">
                 Изменить пароль
             </button>
-            <button class="profile__settings-item profile__settings-item_exit" type="button">Выйти</button>
+            <button id="exit-btn" class="profile__settings-item profile__settings-item_exit" type="button">Выйти</button>
         </div>
         {{{widgetBar}}}
     </div>
@@ -38,32 +38,7 @@
             </div>
         {{else}}
             {{#if changeDataViewIsDefault}}
-                <ul class="profile__list profile__list_data">
-                    <li class="profile__list-item">
-                        <p class="profile__list-item-title">Почта</p>
-                        <p class="profile__list-item-info">pochta@yandex.ru</p>
-                    </li>
-                    <li class="profile__list-item">
-                        <p class="profile__list-item-title">Логин</p>
-                        <p class="profile__list-item-info">ivanivanov</p>
-                    </li>
-                    <li class="profile__list-item">
-                        <p class="profile__list-item-title">Имя</p>
-                        <p class="profile__list-item-info">Иван</p>
-                    </li>
-                    <li class="profile__list-item">
-                        <p class="profile__list-item-title">Фамилия</p>
-                        <p class="profile__list-item-info">Иванов</p>
-                    </li>
-                    <li class="profile__list-item">
-                        <p class="profile__list-item-title">Имя в чате</p>
-                        <p class="profile__list-item-info">ivanIvanov</p>
-                    </li>
-                    <li class="profile__list-item">
-                        <p class="profile__list-item-title">Телефон</p>
-                        <p class="profile__list-item-info">+7 909 967 30 30</p>
-                    </li>
-                </ul>
+                {{{userInfoTable}}}
             {{else if changeDataViewIsForm}}
                 <div class="profile__form">
                     {{{userDataForm}}}

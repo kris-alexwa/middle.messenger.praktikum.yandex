@@ -1,26 +1,26 @@
-{{#if companion}}
-  {{#if image}}
+{{#if isCompanion}}
+  {{#if file}}
     <div class="message-layout message-layout__image-container">
-      <img src={{image}} class="message-layout__image" />
+      <img src={{file.path}} class="message-layout__image" />
       <p class="message-layout__time message-layout__time_companion message-layout__time_image">{{time}}</p>
     </div>
     {{else}}
     <div class="message-layout message-layout__companion">
-      <p>{{message}}</p>
+      <p>{{content}}</p>
       <p class="message-layout__time message-layout__time_companion">{{time}}</p>
     </div>
   {{/if}}
 
 {{else}}
-  {{#if image}}
+  {{#if file}}
     <div class="message-layout message-layout__image-container message-layout__image-container_you">
-      <img src={{image}} class="message-layout__image" />
+      <img src={{file.path}} class="message-layout__image" />
       <p class="message-layout__time message-layout__time_companion message-layout__time_image">{{time}}</p>
     </div>
     {{else}}
     <div class="message-layout message-layout__you">
-      <p>{{message}}</p>
-      <img src={{messageStatus}} alt="Статус" class="message-layout__status" />
+      <p>{{content}}</p>
+      <img src="{{messageStatus}}" alt="Статус" class="message-layout__status" />
       <p class="message-layout__time message-layout__time_you">{{time}}</p>
     </div>
   {{/if}}

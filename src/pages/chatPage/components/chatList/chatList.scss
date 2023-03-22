@@ -1,0 +1,10 @@
+.chat-list {
+  overflow-y: auto;
+  height: 90%;
+
+  &__dialogs-list-empty {
+    color: var(--second-text-color);
+    text-align: center;
+    font-size: 12px;
+  }
+}

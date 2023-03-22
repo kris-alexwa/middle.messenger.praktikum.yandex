@@ -1,0 +1,15 @@
+<form class="searched-users-form">
+  <div class="searched-users-form__input-wrapper">
+    {{{input}}}
+    <button id="{{searchButtonId}}" class="searched-users-form__search-btn"></button>
+  </div>
+  {{{searchedUsers}}}
+  {{#if selectedUsers.length}}
+    <ul class="searched-users-form__selected-list">
+      {{#each selectedUsers}}
+        <li>{{{this}}}</li>
+      {{/each}}
+    </ul>
+  {{/if}}
+  {{{submitButton}}}
+</form>

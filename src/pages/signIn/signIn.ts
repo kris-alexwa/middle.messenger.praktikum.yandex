@@ -1,16 +1,11 @@
 import Block from '../../infractructure/Block';
 import template from './signIn.hbs';
 import { ActiveButton } from '../../components/activeButton/activeButton';
-import { SimpleButton } from '../../components/simpleButton/simpleButton';
-import { render } from '../../utils/render';
 import { validateLogin, validatePassword } from '../../utils/formValidation';
 import { Form } from '../../components/form/form';
 import { InputWithError } from '../../components/inputWithError/inputWithError';
-
-type dataType = {
-    login: string;
-    password: string;
-};
+import { submitForm } from './submitForm';
+import { Link } from '../../components/link/link';
 
 export default class SignInPage extends Block {
   init() {
@@ -41,32 +36,17 @@ export default class SignInPage extends Block {
       events: {
         submit: (event) => {
           event.preventDefault();
-          const loginIsValid = validateLogin((this.children.inputLogin as InputWithError).value);
-          const passwordIsValid = validatePassword((this.children.inputPassword as InputWithError).value);
-
-          if (loginIsValid && passwordIsValid) {
-            const data: dataType = {} as dataType;
-            data.login = (this.children.inputLogin as InputWithError).value;
-            data.password = (this.children.inputPassword as InputWithError).value;
-
-            // eslint-disable-next-line no-console
-            console.log('signInForm', data);
-            render('chatPage');
-          } else {
-            (this.children.inputLogin as InputWithError).forceValidate();
-            (this.children.inputPassword as InputWithError).forceValidate();
-          }
+          submitForm(
+            (this.children.inputLogin as InputWithError),
+            (this.children.inputPassword as InputWithError),
+          );
         },
       },
     });
 
-    this.children.simpleButton = new SimpleButton({
+    this.children.link = new Link({
+      to: '/sign-up',
       label: 'Нет аккаунта?',
-      events: {
-        click: () => {
-          render('signUpPage');
-        },
-      },
     });
   }
 

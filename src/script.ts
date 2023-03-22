@@ -2,59 +2,71 @@ enum METHODS {
     GET = 'GET',
     POST = 'POST',
     PUT = 'PUT',
+    PATCH = 'PATCH',
     DELETE = 'DELETE',
+}
+
+export enum ContentTypes {
+  JSON = 'JSON',
+  FORMDATA = 'FormData',
 }
 
 type Options = {
     method: METHODS;
+    contentType: ContentTypes;
     data?: any;
-    timeout?: number;
-    headers?: any;
 };
 
-function queryStringify(data: Options['data']) {
-  return `?${Object.entries(data).map((item) => {
-    const [key, value] = item;
-    if (Array.isArray(value)) {
-      const val = value.join(',');
-      return `${key}=${val}`;
-    }
+export default class HTTPTransport {
+  static API_URL = 'https://ya-praktikum.tech/api/v2';
+  protected endpoint: string;
 
-    return `${key}=${value}`;
-  }).join('&')}`;
-}
+  constructor(endpoint: string) {
+    this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
+  }
 
-class HTTPTransport {
-  get = (url: string, options: Omit<Options, 'method'>): Promise<XMLHttpRequest> => this.request(
-    url,
-    { ...options, method: METHODS.GET },
-    options.timeout,
-  );
+  get<Response>(url: string): Promise<Response> {
+    return this.request(this.endpoint + url);
+  }
 
-  post = (url: string, options: Options): Promise<XMLHttpRequest> => this.request(
-    url,
-    { ...options, method: METHODS.POST },
-    options.timeout,
-  );
+  post<Response = void>(url: string, data?: unknown, contentType: ContentTypes = ContentTypes.JSON): Promise<Response> {
+    return this.request<Response>(
+      this.endpoint + url,
+      {
+        data,
+        method: METHODS.POST,
+        contentType,
+      },
+    );
+  }
 
-  put = (url: string, options: Options): Promise<XMLHttpRequest> => this.request(
-    url,
-    { ...options, method: METHODS.PUT },
-    options.timeout,
-  );
+  put<Response = void>(url: string, data: unknown, contentType: ContentTypes = ContentTypes.JSON): Promise<Response> {
+    return this.request(
+      this.endpoint + url,
+      {
+        data,
+        method: METHODS.PUT,
+        contentType,
+      },
+    );
+  }
 
-  delete = (url: string, options: Options): Promise<XMLHttpRequest> => this.request(
-    url,
-    { ...options, method: METHODS.DELETE },
-    options.timeout,
-  );
+  delete<Response>(url: string, data: unknown, contentType: ContentTypes = ContentTypes.JSON): Promise<Response> {
+    return this.request(
+      this.endpoint + url,
+      {
+        data,
+        method: METHODS.DELETE,
+        contentType,
+      },
+    );
+  }
 
-  request = (
+  request<Response>(
     url: string,
-    options: Options = { method: METHODS.GET },
-    timeout: number = 5000,
-  ): Promise<XMLHttpRequest> => {
-    const { headers = {}, method, data } = options;
+    options: Options = { method: METHODS.GET, contentType: ContentTypes.JSON },
+  ): Promise<Response> {
+    const { method, data, contentType } = options;
 
     return new Promise((resolve, reject) => {
       if (!method) {
@@ -63,29 +75,39 @@ class HTTPTransport {
       }
 
       const xhr = new XMLHttpRequest();
-      const isGet = method === METHODS.GET;
+      xhr.open(method, url);
 
-      xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
-
-      Object.keys(headers).forEach((key) => {
-        xhr.setRequestHeader(key, headers[key]);
-      });
-
-      xhr.onload = function () {
-        resolve(xhr);
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status < 400) {
+            resolve(xhr.response);
+          } else {
+            reject(xhr.response);
+          }
+        }
       };
 
-      xhr.onabort = reject;
-      xhr.onerror = reject;
+      xhr.onabort = () => reject({ reason: 'abort' });
+      xhr.onerror = () => reject({ reason: 'network error' });
+      xhr.ontimeout = () => reject({ reason: 'timeout' });
 
-      xhr.timeout = timeout;
-      xhr.ontimeout = reject;
+      if (contentType === ContentTypes.JSON) {
+        xhr.setRequestHeader('Content-Type', 'application/json');
+      }
 
-      if (isGet || !data) {
+      xhr.withCredentials = true;
+      xhr.responseType = 'json';
+
+      if (contentType === ContentTypes.FORMDATA) {
+        xhr.send(data);
+        return;
+      }
+
+      if (method === METHODS.GET || !data) {
         xhr.send();
       } else {
-        xhr.send(data);
+        xhr.send(JSON.stringify(data));
       }
     });
-  };
+  }
 }

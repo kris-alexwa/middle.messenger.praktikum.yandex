@@ -1,7 +1,7 @@
 $background-color: #eaeaea;
 $white-color: #fff;
 
-.dialog {
+.chat {
   display: flex;
   justify-content: space-between;
   padding: 12px 10px;
@@ -77,5 +77,9 @@ $white-color: #fff;
     text-align: center;
     padding: 4px;
     font-size: 11px;
+  }
+
+  &__selected {
+    background-color: var(--hover-color);
   }
 }
