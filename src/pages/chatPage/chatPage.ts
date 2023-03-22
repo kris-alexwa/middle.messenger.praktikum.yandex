@@ -20,9 +20,10 @@ import { PopupCreateChat } from '../../components/popups/popupCreateChat/popupCr
 import { DashboardItem } from '../../components/dashboardItem/dashboardItem';
 import { showPopup } from '../../utils/changeVisibilityPopup';
 import { toggleDashboard } from '../../utils/toggleVisibilityDashboard';
-import { ChatList } from '../../components/chatList/chatList';
+import { ChatList } from './components/chatList/chatList';
 import ChatsController from '../../infractructure/controllers/ChatsController';
-import { Messenger } from '../../components/messenger/messenger';
+import { Messenger } from './components/messenger/messenger';
+import SearchChatInput from './components/searchChatInput/searchChatInput';
 
 export class ChatPage extends Block {
   constructor() {
@@ -32,6 +33,18 @@ export class ChatPage extends Block {
   init() {
     this.children.chatList = new ChatList({ isLoading: true });
     this.children.messenger = new Messenger({});
+    this.children.searchInput = new SearchChatInput({
+      events: {
+        input: () => {
+          const { value } = this.children.searchInput as SearchChatInput;
+          if (value) {
+            ChatsController.getChatsByTitle(value);
+          } else {
+            ChatsController.getChats();
+          }
+        },
+      },
+    });
 
     ChatsController.getChats().finally(() => {
       (this.children.chatList as Block).setProps({
@@ -45,7 +58,7 @@ export class ChatPage extends Block {
     });
 
     this.children.popupCreateChat = new PopupCreateChat();
-    this.children.popupDeleteChat = new PopupDeleteChat();
+    this.children.popupDeleteChat = new PopupDeleteChat({});
     this.children.popupDeleteUser = new PopupDeleteUser();
     this.children.popupAddUser = new PopupAddUser();
 

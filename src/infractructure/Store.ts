@@ -1,9 +1,11 @@
 import { EventBus } from './EventBus';
-import { set } from '../helpers/set';
-import { User } from './api/types';
+import set from '../helpers/set';
 import Block from './Block';
 import isEqual from '../helpers/isEqual';
 import { AdaptedChatData } from './adapters/chatsAdapter';
+import { AdaptedSearhedUser } from './adapters/searchedUsersAdapter';
+import { SearchedUserItemProps } from '../components/popups/searchUserForm/searchedUserItem/searchedUserItem';
+import { AdaptedUser } from './adapters/userAdapter';
 
 export enum StoreEvents {
   Updated = 'updated'
@@ -11,12 +13,15 @@ export enum StoreEvents {
 
 export interface State {
   user: {
-    data?: User;
+    data?: AdaptedUser;
     isLoading?: boolean;
   };
   chats: AdaptedChatData[];
   messages?: Record<number, any[]>;
   selectedChat?: number;
+  searchedUsers?: AdaptedSearhedUser[] | undefined;
+  selectedUsers?: Omit<SearchedUserItemProps, 'events'>[];
+  usersOfSelectedChat?: string,
 }
 
 export class Store extends EventBus {
@@ -39,7 +44,7 @@ const store = new Store();
 window.store = store;
 
 export function withStore<SP>(mapStateToProps: (state: State) => SP) {
-  return function wrap<P>(Component: typeof Block<SP & P>) {
+  return function wrap<P>(Component: typeof Block) {
     return class WithStore extends Component {
       constructor(props: Omit<P, keyof SP>) {
         let previousState = mapStateToProps(store.getState());
@@ -49,11 +54,11 @@ export function withStore<SP>(mapStateToProps: (state: State) => SP) {
         store.on(StoreEvents.Updated, () => {
           const stateProps = mapStateToProps(store.getState());
 
-          if (isEqual(previousState, stateProps)) return;
+          if (isEqual(previousState as State, stateProps as State)) return;
 
-          previousState = { ...stateProps };
+          previousState = stateProps;
 
-          this.setProps({ ...stateProps });
+          this.setProps({ ...stateProps as State });
         });
       }
     };

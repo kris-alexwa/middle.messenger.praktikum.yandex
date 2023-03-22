@@ -1,6 +1,5 @@
 import Block from '../../infractructure/Block';
 import template from './profilePage.hbs';
-import avatarUrl from '../../assets/img/avatar.png';
 import { WidgetBar } from '../../components/widgetBar/widgetBar';
 import profileIconActive from '../../assets/icons/profile-active.svg';
 import chatIconDefault from '../../assets/icons/chat-default.svg';
@@ -13,9 +12,11 @@ import {
 import { InputWithError } from '../../components/inputWithError/inputWithError';
 import { Form } from '../../components/form/form';
 import { SimpleButton } from '../../components/simpleButton/simpleButton';
-import { submitUserDataForm, submitChangePasswordForm } from './submitForms';
+import { userDataFormIsValid, changePasswordFormIsValid } from './submitForms';
 import AuthController from '../../infractructure/controllers/AuthController';
 import { withStore } from '../../infractructure/Store';
+import { UserInfoTable } from './components/userInfoTable/userInfoTable';
+import ProfileController from '../../infractructure/controllers/ProfileController';
 
 class ProfilePageBase extends Block {
   _resetChangePasswordInputs() {
@@ -25,12 +26,12 @@ class ProfilePageBase extends Block {
   }
 
   _resetChangeUserDataInputs() {
-    (this.children.inputEmail as InputWithError).setProps({ inputValue: this.props.email });
-    (this.children.inputLogin as InputWithError).setProps({ inputValue: this.props.login });
-    (this.children.inputFirstName as InputWithError).setProps({ inputValue: this.props.first_name });
-    (this.children.inputSecondName as InputWithError).setProps({ inputValue: this.props.second_name });
-    (this.children.inputDisplayName as InputWithError).setProps({ inputValue: this.props.login });
-    (this.children.inputPhone as InputWithError).setProps({ inputValue: this.props.phone });
+    (this.children.inputEmail as InputWithError).setProps({ inputValue: this.props.user.email });
+    (this.children.inputLogin as InputWithError).setProps({ inputValue: this.props.user.login });
+    (this.children.inputFirstName as InputWithError).setProps({ inputValue: this.props.user.name });
+    (this.children.inputSecondName as InputWithError).setProps({ inputValue: this.props.user.lastname });
+    (this.children.inputDisplayName as InputWithError).setProps({ inputValue: this.props.user.login });
+    (this.children.inputPhone as InputWithError).setProps({ inputValue: this.props.user.phone });
   }
 
   _changePasswordHandler() {
@@ -48,10 +49,11 @@ class ProfilePageBase extends Block {
   }
 
   init() {
-    this.props.avatarUrl = avatarUrl;
     this.props.changeDataViewIsDefault = true;
     this.props.changeDataViewIsForm = false;
     this.props.changePasswordView = false;
+
+    this.children.userInfoTable = new UserInfoTable({});
 
     this.children.widgetBar = new WidgetBar({
       profileIcon: profileIconActive,
@@ -127,18 +129,34 @@ class ProfilePageBase extends Block {
       ],
       submitButton: this.children.activeButtonChangeData,
       events: {
-        submit: (event) => {
+        submit: async (event) => {
           event.preventDefault();
-          const submit = submitUserDataForm(
+          const data = {
+            email: (this.children.inputEmail as InputWithError).value,
+            login: (this.children.inputLogin as InputWithError).value,
+            first_name: (this.children.inputFirstName as InputWithError).value,
+            second_name: (this.children.inputSecondName as InputWithError).value,
+            display_name: (this.children.inputDisplayName as InputWithError).value,
+            phone: (this.children.inputPhone as InputWithError).value,
+          };
+
+          const isValid = userDataFormIsValid(
             (this.children.inputEmail as InputWithError),
             (this.children.inputLogin as InputWithError),
             (this.children.inputFirstName as InputWithError),
             (this.children.inputSecondName as InputWithError),
-            (this.children.inputDisplayName as InputWithError),
             (this.children.inputPhone as InputWithError),
           );
 
-          if (submit) this._changeUserDataHandler();
+          if (isValid) {
+            await ProfileController.changeUserInfo(data)
+              .then(() => {
+                this._changeUserDataHandler();
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
         },
       },
     });
@@ -180,15 +198,30 @@ class ProfilePageBase extends Block {
       ],
       submitButton: this.children.activeButtonChangePassword,
       events: {
-        submit: (event) => {
+        submit: async (event) => {
           event.preventDefault();
-          const submit = submitChangePasswordForm(
+          const data = {
+            oldPassword: (this.children.inputOldPassword as InputWithError).value,
+            newPassword: (this.children.inputNewPassword as InputWithError).value,
+          };
+
+          const isValid = changePasswordFormIsValid(
             (this.children.inputOldPassword as InputWithError),
             (this.children.inputNewPassword as InputWithError),
             (this.children.inputNewPasswordRepeat as InputWithError),
           );
 
-          if (submit) this._changePasswordHandler();
+          if (isValid) {
+            await ProfileController.changeUserPassword(data)
+              .then(() => {
+                this._changePasswordHandler();
+              })
+              .catch((error) => {
+                if (error.reason === 'Password is incorrect') {
+                  (this.children.inputOldPassword as InputWithError).forceValidate('passwordIsIncorrect');
+                }
+              });
+          }
         },
       },
     });
@@ -231,13 +264,10 @@ class ProfilePageBase extends Block {
   }
 
   render() {
-    // console.log(this.props)
     return this.compile(template, this.props);
   }
 }
 
-export const ProfilePage =
-  withStore((state) => {
-    // console.log(state)
-    return state.user.data || {};
-  })(ProfilePageBase as typeof Block);
+export const ProfilePage = withStore((state) => ({
+  user: { ...state.user.data },
+} || {}))(ProfilePageBase as typeof Block);

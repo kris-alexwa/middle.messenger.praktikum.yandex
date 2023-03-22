@@ -6,12 +6,12 @@
     <div class="profile__settings">
         <div class="profile__user-info">
             <div id="upload-file-btn" class="profile__avatar-wrapper">
-                <img src={{avatarUrl}} alt="Аватар" class="profile__avatar" />
+                <img src="https://ya-praktikum.tech/api/v2/resources{{user.avatar}}" alt="Аватар" class="profile__avatar" />
             </div>
             <div class="profile__user-wrapper">
-                <p class="profile__user-name">{{{first_name}}}</p>
-                <p class="profile__user-phone">{{{phone}}}</p>
-                <p class="profile__user-nickname">{{{login}}}</p>
+                <p class="profile__user-name">{{{user.name}}}</p>
+                <p class="profile__user-phone">{{{user.phone}}}</p>
+                <p class="profile__user-nickname">{{{user.login}}}</p>
             </div>
         </div>
 
@@ -38,32 +38,7 @@
             </div>
         {{else}}
             {{#if changeDataViewIsDefault}}
-                <ul class="profile__list profile__list_data">
-                    <li class="profile__list-item">
-                        <p class="profile__list-item-title">Почта</p>
-                        <p class="profile__list-item-info">{{{email}}}</p>
-                    </li>
-                    <li class="profile__list-item">
-                        <p class="profile__list-item-title">Логин</p>
-                        <p class="profile__list-item-info">{{{login}}}</p>
-                    </li>
-                    <li class="profile__list-item">
-                        <p class="profile__list-item-title">Имя</p>
-                        <p class="profile__list-item-info">{{{first_name}}}</p>
-                    </li>
-                    <li class="profile__list-item">
-                        <p class="profile__list-item-title">Фамилия</p>
-                        <p class="profile__list-item-info">{{{second_name}}}</p>
-                    </li>
-                    <li class="profile__list-item">
-                        <p class="profile__list-item-title">Имя в чате</p>
-                        <p class="profile__list-item-info">{{{login}}}</p>
-                    </li>
-                    <li class="profile__list-item">
-                        <p class="profile__list-item-title">Телефон</p>
-                        <p class="profile__list-item-info">{{{phone}}}</p>
-                    </li>
-                </ul>
+                {{{userInfoTable}}}
             {{else if changeDataViewIsForm}}
                 <div class="profile__form">
                     {{{userDataForm}}}

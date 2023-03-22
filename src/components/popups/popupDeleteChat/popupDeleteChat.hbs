@@ -2,9 +2,9 @@
     <div class="popup__container">
         <div class="popup-delete-chat">
             <div class="popup-delete-chat__avatar-wrapper">
-                <img src={{avatarUrl}} alt="Аватар" class="popup-delete-chat__avatar" />
+                <img src="{{selectedChat.avatar}}" alt="Аватар" class="popup-delete-chat__avatar" />
             </div>
-            <p class="popup-delete-chat__name">Вадим</p>
+            <p class="popup-delete-chat__name">{{{selectedChat.title}}}</p>
             <p class="popup-delete-chat__warning-msg">Вы точно хотите удалить чат?</p>
 
             <div class="popup-delete-chat__btn-wrapper">

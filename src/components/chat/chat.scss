@@ -78,4 +78,8 @@ $white-color: #fff;
     padding: 4px;
     font-size: 11px;
   }
+
+  &__selected {
+    background-color: var(--hover-color);
+  }
 }

@@ -1,6 +1,7 @@
 import WSTransport, { WSTransportEvents } from '../WSTransport';
 import store from '../Store';
 import { Message } from '../api/types';
+import messageAdapter, { AdaptedMessage } from '../adapters/messageAdapter';
 
 class MessagesController {
   private sockets: Map<number, WSTransport> = new Map();
@@ -10,7 +11,7 @@ class MessagesController {
       return;
     }
 
-    const userId = store.getState().user.id;
+    const userId = store.getState().user.data?.id;
 
     const wsTransport = new WSTransport(`wss://ya-praktikum.tech/ws/chats/${userId}/${id}/${token}`);
 
@@ -50,12 +51,13 @@ class MessagesController {
   }
 
   private onMessage(id: number, messages: Message | Message[]) {
-    let messagesToAdd: Message[] = [];
+    const adaptedMessages = messageAdapter(messages);
+    let messagesToAdd: AdaptedMessage[] = [];
 
-    if (Array.isArray(messages)) {
-      messagesToAdd = messages.reverse();
+    if (Array.isArray(adaptedMessages)) {
+      messagesToAdd = adaptedMessages.reverse();
     } else {
-      messagesToAdd.push(messages);
+      messagesToAdd.push(adaptedMessages);
     }
 
     const currentMessages = (store.getState().messages || {})[id] || [];

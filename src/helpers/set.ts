@@ -1,27 +1,22 @@
 import { merge } from './merge';
 
-type Indexed<T = unknown> = {
+type Indexed<T = any> = {
   [key in string]: T;
 };
 
-export function set(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
-  if (typeof path !== 'string') return new Error('path must be string');
-
-  if (object !== Object(object)) {
+function set(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
+  if (typeof object !== 'object' || object === null) {
     return object;
   }
-  const keys = path.split('.');
-  const newObj = keys.reduceRight((acc: any, key: string, index: number) => {
-    if (index === keys.length - 1) {
-      acc[key] = value;
-    } else {
-      const res: Indexed = {};
-      res[key] = acc;
-      acc = res;
-    }
 
-    return acc;
-  }, {});
+  if (typeof path !== 'string') {
+    throw new Error('path must be string');
+  }
 
-  return merge((object as Indexed), newObj);
+  const result = path.split('.').reduceRight<Indexed>((acc, key) => ({
+    [key]: acc,
+  }), value as any);
+  return merge(object as Indexed, result);
 }
+
+export default set;

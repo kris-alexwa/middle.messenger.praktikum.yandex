@@ -9,6 +9,7 @@ interface ChatProps {
   avatar: string;
   message: string;
   unreadCount: number;
+  isSelected: boolean;
   selectedChat: AdaptedChatData;
   events: {
     click: () => void;
@@ -28,8 +29,8 @@ class ChatBase extends Block<ChatProps> {
   }
 }
 
-export const withSelectedChat = withStore((state) => {
-  return { selectedChat: (state.chats || []).find(({ id }) => id === state.selectedChat) };
-});
+export const withSelectedChat = withStore((state) => ({
+  selectedChat: (state.chats || []).find(({ id }) => id === state.selectedChat),
+}));
 
 export const Chat = withSelectedChat(ChatBase as typeof Block);

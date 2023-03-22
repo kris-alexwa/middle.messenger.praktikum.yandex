@@ -5,7 +5,7 @@ import { InputWithError } from '../../inputWithError/inputWithError';
 import { Form } from '../../form/form';
 import { hidePopup } from '../../../utils/changeVisibilityPopup';
 import { SimpleButton } from '../../simpleButton/simpleButton';
-import { submitCreateChatForm } from '../submitForms';
+import { submitCreateChatForm } from '../validationForms';
 
 export class PopupCreateChat extends Block {
   _clearInput() {
@@ -46,18 +46,6 @@ export class PopupCreateChat extends Block {
         },
       },
     });
-
-    // this.props.eventsBySelector = [
-    //   {
-    //     selector: '#popup-create-chat',
-    //     eventName: 'click',
-    //     handler: () => {
-    //       // event.stopPropagation();
-    //       console.log('всплытие')
-    //       hidePopup('create-chat');
-    //     },
-    //   },
-    // ];
   }
 
   render() {

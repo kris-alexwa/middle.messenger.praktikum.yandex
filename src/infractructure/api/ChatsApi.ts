@@ -1,5 +1,6 @@
 import BaseApi from './BaseApi';
 import { ChatData, User } from './types';
+import { queryString } from '../../helpers/queryString';
 
 export class ChatsApi extends BaseApi {
   constructor() {
@@ -18,12 +19,20 @@ export class ChatsApi extends BaseApi {
     return this.http.get('/');
   }
 
+  getChatByTitle(title: string) {
+    return this.http.get(`/?${queryString({ title })}`);
+  }
+
   getUsers(id: number): Promise<Array<User & { role: string }>> {
     return this.http.get(`/${id}/users`);
   }
 
   addUsers(id: number, users: number[]): Promise<unknown> {
     return this.http.put('/users', { users, chatId: id });
+  }
+
+  deleteUsers(id: number, users: number[]): Promise<unknown> {
+    return this.http.delete('/users', { users, chatId: id });
   }
 
   async getToken(id: number): Promise<string> {

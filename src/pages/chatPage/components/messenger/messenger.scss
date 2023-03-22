@@ -10,6 +10,20 @@ $second-background-color: #efefef;
 
   &__dialog {
     width: 100%;
+
+    &-users {
+      font-size: 12px;
+      color: var(--second-text-color);
+      max-width: 200px;
+      overflow-x: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+    }
+  }
+
+  &__dialog-users-wrapper {
+    margin-left: 10px;
   }
 
   &__dialog-header {
@@ -40,7 +54,6 @@ $second-background-color: #efefef;
   &__name {
     font-weight: 600;
     font-size: 13px;
-    margin-left: 10px;
   }
 
   &__points-wrapper,
@@ -137,17 +150,6 @@ $second-background-color: #efefef;
       background-color: var(--hover-color);
       border-radius: 100%;
     }
-  }
-
-  &__message-input {
-    width: 100%;
-    border: none;
-    background-color: $second-background-color;
-    border-radius: 30px;
-    min-height: 32px;
-    margin: 0 10px;
-    padding: 0 20px;
-    font-size: 12px;
   }
 
   &__message-submit-button {

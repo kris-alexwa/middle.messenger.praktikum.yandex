@@ -1,7 +1,10 @@
 import { AuthApi } from '../api/AuthApi';
-import { SigninData, SignupData } from '../api/types';
+import { SigninData, SignupData, User } from '../api/types';
 import store from '../Store';
 import Router from '../Router';
+import MessagesController from './MessagesController';
+import userAdapter from '../adapters/userAdapter';
+import { addBodyLoader, removeBodyLoader } from '../../index';
 
 class AuthController {
   private api: AuthApi;
@@ -11,6 +14,7 @@ class AuthController {
   }
 
   async signup(data: SignupData) {
+    addBodyLoader();
     try {
       await this.api.signup(data);
 
@@ -18,10 +22,13 @@ class AuthController {
       Router.go('/settings');
     } catch (error) {
       console.error(error.reason);
+    } finally {
+      removeBodyLoader();
     }
   }
 
   async signin(data: SigninData) {
+    addBodyLoader();
     try {
       await this.api.signin(data);
 
@@ -29,17 +36,23 @@ class AuthController {
       Router.go('/settings');
     } catch (error) {
       console.error(error.reason);
+    } finally {
+      removeBodyLoader();
     }
   }
 
   async logout() {
+    addBodyLoader();
     try {
+      MessagesController.closeAll();
       await this.api.logout();
 
       Router.go('/');
       store.set('user.data', undefined);
     } catch (error) {
       console.error(error.reason);
+    } finally {
+      removeBodyLoader();
     }
   }
 
@@ -47,7 +60,7 @@ class AuthController {
     store.set('user.isLoading', true);
     const user = await this.api.getUser();
 
-    store.set('user.data', user);
+    store.set('user.data', userAdapter(user as User));
     store.set('user.isLoading', false);
   }
 }

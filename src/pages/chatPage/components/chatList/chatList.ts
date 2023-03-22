@@ -1,10 +1,10 @@
-import Block from '../../infractructure/Block';
+import Block from '../../../../infractructure/Block';
 import template from './chatList.hbs';
-import { withStore } from '../../infractructure/Store';
-import { ChatData } from '../../infractructure/api/types';
-import ChatsController from '../../infractructure/controllers/ChatsController';
-import { Chat } from '../chat/chat';
-import { Loader } from '../loader/loader';
+import { withStore } from '../../../../infractructure/Store';
+import { ChatData } from '../../../../infractructure/api/types';
+import ChatsController from '../../../../infractructure/controllers/ChatsController';
+import { Chat } from '../../../../components/chat/chat';
+import { Loader } from '../../../../components/loader/loader';
 
 interface ChatListProps {
   chats: ChatData[];
@@ -19,7 +19,6 @@ class ChatListBase extends Block<ChatListProps> {
   protected init() {
     this.children.chats = this.createChats(this.props);
     this.children.loader = new Loader();
-    // this.children.profileLink = new Link({ to: '/profile', label: 'Профиль' });
   }
 
   protected componentDidUpdate(_oldProps: ChatListProps, newProps: ChatListProps): boolean {
@@ -34,6 +33,7 @@ class ChatListBase extends Block<ChatListProps> {
       events: {
         click: () => {
           ChatsController.selectChat(data.id);
+          ChatsController.getUsersOfChat(data.id);
         },
       },
     }));

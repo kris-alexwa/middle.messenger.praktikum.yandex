@@ -2,6 +2,8 @@ import { ChatsApi } from '../api/ChatsApi';
 import store from '../Store';
 import chatsAdapter from '../adapters/chatsAdapter';
 import MessagesController from './MessagesController';
+import usersOfChatAdapter from '../adapters/usersOfChatAdapter';
+import { ChatData } from '../api/types';
 
 class ChatsController {
   private readonly api: ChatsApi;
@@ -29,8 +31,31 @@ class ChatsController {
     store.set('chats', adaptedChats);
   }
 
-  addUserToChat(id: number, userId: number) {
-    this.api.addUsers(id, [userId]);
+  async getChatsByTitle(title: string) {
+    const chats = await this.api.getChatByTitle(title);
+    const adaptedChats = chatsAdapter(chats as ChatData[]);
+
+    store.set('chats', adaptedChats);
+  }
+
+  addUserToChat(id: number, usersId: number[]) {
+    this.api.addUsers(id, usersId);
+
+    this.getUsersOfChat(id);
+  }
+
+  deleteUsersFromChat(id: number, usersId: number[]) {
+    this.api.deleteUsers(id, usersId);
+
+    this.getUsersOfChat(id);
+  }
+
+  async getUsersOfChat(id: number) {
+    const users = await this.api.getUsers(id);
+    const currentUserId = (store.getState().user.data || {}).id;
+    const filterUsers = users.filter((user) => user.id !== currentUserId);
+
+    store.set('usersOfSelectedChat', usersOfChatAdapter(filterUsers));
   }
 
   async delete(id: number) {

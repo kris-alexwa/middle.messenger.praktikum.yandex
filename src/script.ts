@@ -6,8 +6,14 @@ enum METHODS {
     DELETE = 'DELETE',
 }
 
+export enum ContentTypes {
+  JSON = 'JSON',
+  FORMDATA = 'FormData',
+}
+
 type Options = {
     method: METHODS;
+    contentType: ContentTypes;
     data?: any;
 };
 
@@ -23,41 +29,44 @@ export default class HTTPTransport {
     return this.request(this.endpoint + url);
   }
 
-  post<Response = void>(url: string, data?: unknown): Promise<Response> {
+  post<Response = void>(url: string, data?: unknown, contentType: ContentTypes = ContentTypes.JSON): Promise<Response> {
     return this.request<Response>(
       this.endpoint + url,
       {
         data,
         method: METHODS.POST,
+        contentType,
       },
     );
   }
 
-  put<Response = void>(url: string, data: unknown): Promise<Response> {
+  put<Response = void>(url: string, data: unknown, contentType: ContentTypes = ContentTypes.JSON): Promise<Response> {
     return this.request(
       this.endpoint + url,
       {
         data,
         method: METHODS.PUT,
+        contentType,
       },
     );
   }
 
-  delete<Response>(url: string, data: unknown): Promise<Response> {
+  delete<Response>(url: string, data: unknown, contentType: ContentTypes = ContentTypes.JSON): Promise<Response> {
     return this.request(
       this.endpoint + url,
       {
         data,
         method: METHODS.DELETE,
+        contentType,
       },
     );
   }
 
   request<Response>(
     url: string,
-    options: Options = { method: METHODS.GET },
+    options: Options = { method: METHODS.GET, contentType: ContentTypes.JSON },
   ): Promise<Response> {
-    const { method, data } = options;
+    const { method, data, contentType } = options;
 
     return new Promise((resolve, reject) => {
       if (!method) {
@@ -82,10 +91,17 @@ export default class HTTPTransport {
       xhr.onerror = () => reject({ reason: 'network error' });
       xhr.ontimeout = () => reject({ reason: 'timeout' });
 
-      xhr.setRequestHeader('Content-Type', 'application/json');
+      if (contentType === ContentTypes.JSON) {
+        xhr.setRequestHeader('Content-Type', 'application/json');
+      }
 
       xhr.withCredentials = true;
       xhr.responseType = 'json';
+
+      if (contentType === ContentTypes.FORMDATA) {
+        xhr.send(data);
+        return;
+      }
 
       if (method === METHODS.GET || !data) {
         xhr.send();

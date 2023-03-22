@@ -4,9 +4,6 @@ import SignUpPage from './pages/signUp/signUp';
 import { ProfilePage } from './pages/profilePage/profilePage';
 import { ChatPage } from './pages/chatPage/chatPage';
 import AuthController from './infractructure/controllers/AuthController';
-import ChatsController from './infractructure/controllers/ChatsController';
-// import ChatsController from './infractructure/controllers/ChatsController';
-// import ChatsController from './infractructure/controllers/ChatsController';
 
 enum Routes {
   SignIn = '/',
@@ -15,7 +12,21 @@ enum Routes {
   Messenger = '/messenger',
 }
 
+export function removeBodyLoader() {
+  (document.querySelector('body') as HTMLElement).classList.remove(
+    'body-loader',
+  );
+}
+
+export function addBodyLoader() {
+  (document.querySelector('body') as HTMLElement).classList.add(
+    'body-loader',
+  );
+}
+
 window.addEventListener('DOMContentLoaded', async () => {
+  addBodyLoader();
+
   Router
     .use(Routes.SignIn, SignInPage)
     .use(Routes.SignUp, SignUpPage)
@@ -39,11 +50,13 @@ window.addEventListener('DOMContentLoaded', async () => {
     if (!isProtectedRoute) {
       Router.go(Routes.Settings);
     }
+    removeBodyLoader();
   } catch (e) {
     Router.start();
 
     if (isProtectedRoute) {
       Router.go(Routes.SignIn);
     }
+    removeBodyLoader();
   }
 });

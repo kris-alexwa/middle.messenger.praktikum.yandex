@@ -6,7 +6,7 @@
 @import "pages/signIn/signIn";
 @import "pages/chatPage/chatPage";
 @import "components/chat/chat";
-@import "components/chatList/chatList";
+@import "pages/chatPage/components/chatList/chatList";
 @import "components/messageLayout/messageLayout";
 @import "pages/profilePage/profilePage";
 @import "components/widgetBar/widgetBar";
@@ -21,7 +21,10 @@
 @import "components/form/form";
 @import "components/link/link";
 @import "components/loader/loader";
-@import "components/messenger/messenger";
+@import "pages/chatPage/components/messenger/messenger";
+@import "components/messageInput/messageInput";
+@import 'components/popups/searchUserForm/searchUserForm';
+@import "components/uploadFileForm/uploadFileForm";
 
 :root {
     --main-text-color: #1e1e1e;
@@ -53,6 +56,21 @@ body {
     color: var(--main-text-color);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+.body-loader::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  z-index: 100000;
+  background-image: url("assets/icons/spinner.svg");
+  background-size: 100px;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .popup-wrapper {

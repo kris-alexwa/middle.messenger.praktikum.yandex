@@ -2,11 +2,20 @@
   <span id="create-chat" class="popup-wrapper">
     {{{popupCreateChat}}}
   </span>
+  <span id="delete-chat" class="popup-wrapper">
+    {{{popupDeleteChat}}}
+  </span>
+  <span id="delete-user" class="popup-wrapper">
+    {{{popupDeleteUser}}}
+  </span>
+  <span id="add-user" class="popup-wrapper">
+    {{{popupAddUser}}}
+  </span>
 
   <div class="chat-page__dialogs">
     <div class="chat-page__wrapper">
       <div class="chat-page__search">
-        <input class="chat-page__search-input" name="search" type="text" placeholder="Поиск" />
+        {{{searchInput}}}
         <img src="{{searchIconUrl}}" alt="Поиск" class="chat-page__search-icon" />
       </div>
       <div class="chat-page__add-chat-wrapper">
