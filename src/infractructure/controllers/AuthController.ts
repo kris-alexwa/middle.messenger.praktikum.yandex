@@ -48,7 +48,7 @@ class AuthController {
       await this.api.logout();
 
       Router.go('/');
-      store.set('user.data', undefined);
+      store.clear();
     } catch (error) {
       console.error(error.reason);
     } finally {
@@ -57,11 +57,15 @@ class AuthController {
   }
 
   async getUser() {
-    store.set('user.isLoading', true);
-    const user = await this.api.getUser();
+    try {
+      store.set('user.isLoading', true);
+      const user = await this.api.getUser();
 
-    store.set('user.data', userAdapter(user as User));
-    store.set('user.isLoading', false);
+      store.set('user.data', userAdapter(user as User));
+      store.set('user.isLoading', false);
+    } catch (error) {
+      console.log(error.reason);
+    }
   }
 }
 

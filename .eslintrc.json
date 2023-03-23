@@ -37,6 +37,8 @@
     "default-case": "off",
     "no-continue": "off",
     "prefer-promise-reject-errors": "off",
+    "no-console": "off",
+    "consistent-return": "off",
     "import/extensions": [
       "error",
       "ignorePackages",

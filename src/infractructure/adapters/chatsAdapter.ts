@@ -7,7 +7,7 @@ export type AdaptedChatData = {
   title: string;
   message: string;
   time: string;
-  messageCount: string | number;
+  unreadCount: string | number;
 }
 
 export default function chatsAdapter(chats: ChatData[]): AdaptedChatData[] {
@@ -19,6 +19,6 @@ export default function chatsAdapter(chats: ChatData[]): AdaptedChatData[] {
     time: chat.last_message
       ? `${new Date(chat.last_message.time).getHours()}:${new Date(chat.last_message.time).getMinutes()}`
       : '',
-    messageCount: chat.unread_count ? chat.unread_count : '',
+    unreadCount: chat.unread_count ? chat.unread_count : '',
   }));
 }

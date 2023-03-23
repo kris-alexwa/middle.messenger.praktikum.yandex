@@ -34,6 +34,7 @@ class ChatListBase extends Block<ChatListProps> {
         click: () => {
           ChatsController.selectChat(data.id);
           ChatsController.getUsersOfChat(data.id);
+          ChatsController.getChats();
         },
       },
     }));
@@ -44,8 +45,6 @@ class ChatListBase extends Block<ChatListProps> {
   }
 }
 
-const withChats = withStore((state) => {
-  return { chats: [...(state.chats || [])] };
-});
+const withChats = withStore((state) => ({ chats: [...(state.chats || [])] }));
 
 export const ChatList = withChats(ChatListBase as typeof Block);

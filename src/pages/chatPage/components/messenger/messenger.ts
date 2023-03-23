@@ -14,6 +14,7 @@ import { withStore } from '../../../../infractructure/Store';
 import { AdaptedMessage } from '../../../../infractructure/adapters/messageAdapter';
 import MessagesController from '../../../../infractructure/controllers/MessagesController';
 import { MessageInput } from '../../../../components/messageInput/messageInput';
+import ChatsController from '../../../../infractructure/controllers/ChatsController';
 
 interface MessengerProps {
   selectedChat: number | undefined;
@@ -117,6 +118,7 @@ class MessengerBase extends Block {
           input.setValue('');
 
           MessagesController.sendMessage(this.props.selectedChat.id, message);
+          ChatsController.getChats();
         },
       },
     ];

@@ -4,6 +4,7 @@ import chatsAdapter from '../adapters/chatsAdapter';
 import MessagesController from './MessagesController';
 import usersOfChatAdapter from '../adapters/usersOfChatAdapter';
 import { ChatData } from '../api/types';
+import { UnreadCountType } from './types';
 
 class ChatsController {
   private readonly api: ChatsApi;
@@ -13,59 +14,99 @@ class ChatsController {
   }
 
   async create(title: string) {
-    await this.api.create(title);
+    try {
+      await this.api.create(title);
 
-    this.getChats();
+      this.getChats();
+    } catch (error) {
+      console.log(error.reason);
+    }
   }
 
   async getChats() {
-    const chats = await this.api.read();
-    const adaptedChats = chatsAdapter(chats);
+    try {
+      const chats = await this.api.read();
+      const adaptedChats = chatsAdapter(chats);
 
-    chats.map(async (chat) => {
-      const token = await this.getToken(chat.id);
+      chats.map(async (chat) => {
+        const token = await this.getToken(chat.id);
 
-      await MessagesController.connect(chat.id, token);
-    });
+        if (token) await MessagesController.connect(chat.id, token);
+      });
 
-    store.set('chats', adaptedChats);
+      store.set('chats', adaptedChats);
+    } catch (error) {
+      console.log(error.reason);
+    }
   }
 
   async getChatsByTitle(title: string) {
-    const chats = await this.api.getChatByTitle(title);
-    const adaptedChats = chatsAdapter(chats as ChatData[]);
+    try {
+      const chats = await this.api.getChatByTitle(title);
+      const adaptedChats = chatsAdapter(chats as ChatData[]);
 
-    store.set('chats', adaptedChats);
+      store.set('chats', adaptedChats);
+    } catch (error) {
+      console.log(error.reason);
+    }
   }
 
   addUserToChat(id: number, usersId: number[]) {
-    this.api.addUsers(id, usersId);
+    try {
+      this.api.addUsers(id, usersId);
 
-    this.getUsersOfChat(id);
+      this.getUsersOfChat(id);
+    } catch (error) {
+      console.log(error.reason);
+    }
   }
 
   deleteUsersFromChat(id: number, usersId: number[]) {
-    this.api.deleteUsers(id, usersId);
+    try {
+      this.api.deleteUsers(id, usersId);
 
-    this.getUsersOfChat(id);
+      this.getUsersOfChat(id);
+    } catch (error) {
+      console.log(error.reason);
+    }
   }
 
   async getUsersOfChat(id: number) {
-    const users = await this.api.getUsers(id);
-    const currentUserId = (store.getState().user.data || {}).id;
-    const filterUsers = users.filter((user) => user.id !== currentUserId);
+    try {
+      const users = await this.api.getUsers(id);
+      const currentUserId = (store.getState().user.data || {}).id;
+      const filterUsers = users.filter((user) => user.id !== currentUserId);
 
-    store.set('usersOfSelectedChat', usersOfChatAdapter(filterUsers));
+      store.set('usersOfSelectedChat', usersOfChatAdapter(filterUsers));
+    } catch (error) {
+      console.log(error.reason);
+    }
   }
 
   async delete(id: number) {
-    await this.api.delete(id);
+    try {
+      await this.api.delete(id);
 
-    this.getChats();
+      this.getChats();
+    } catch (error) {
+      console.log(error.reason);
+    }
   }
 
   getToken(id: number) {
-    return this.api.getToken(id);
+    try {
+      return this.api.getToken(id);
+    } catch (error) {
+      console.log(error.reason);
+    }
+  }
+
+  getNewMessagesCount(id: number): Promise<UnreadCountType> | Error {
+    try {
+      return this.api.getNewMessagesCount(id);
+    } catch (error) {
+      return new Error(error.reason);
+    }
   }
 
   selectChat(id: number) {
