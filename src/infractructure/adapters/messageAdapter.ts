@@ -9,18 +9,31 @@ export type AdaptedMessage = {
   messageStatus: string;
 }
 
+export function formatMinutes(time: string): string {
+  const getMinutes = new Date(time).getMinutes();
+  const formatMinutes = getMinutes < 10 ? '0' : '';
+  return `${formatMinutes}${getMinutes}`;
+}
+
 export default function messageAdapter(messages: Message[] | Message): AdaptedMessage[] | AdaptedMessage {
   if (Array.isArray(messages)) {
-    return messages.map((message) => ({
-      content: message.content,
-      time: `${new Date(message.time).getHours()}:${new Date(message.time).getMinutes()}`,
-      userId: message.user_id,
-      messageStatus: message.is_read ? messageStatusIsReadIcon : messageStatusIsNotReadIcon,
-    }));
+    return messages.map((message) => {
+      const hours = new Date(message.time).getHours();
+      const minutes = formatMinutes(message.time);
+      return {
+        content: message.content,
+        time: message.time ? `${hours}:${minutes}` : '',
+        userId: message.user_id,
+        messageStatus: message.is_read ? messageStatusIsReadIcon : messageStatusIsNotReadIcon,
+      };
+    });
   }
+  const hours = new Date(messages.time).getHours();
+  const minutes = formatMinutes(messages.time);
+
   return {
     content: messages.content,
-    time: `${new Date(messages.time).getHours()}:${new Date(messages.time).getMinutes()}`,
+    time: `${hours}:${minutes}`,
     userId: messages.user_id,
     messageStatus: messages.is_read ? messageStatusIsReadIcon : messageStatusIsNotReadIcon,
   };

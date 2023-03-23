@@ -17,7 +17,7 @@ class ChatsController {
     try {
       await this.api.create(title);
 
-      this.getChats();
+      await this.getChats();
     } catch (error) {
       console.log(error.reason);
     }
@@ -51,21 +51,21 @@ class ChatsController {
     }
   }
 
-  addUserToChat(id: number, usersId: number[]) {
+  async addUserToChat(id: number, usersId: number[]) {
     try {
-      this.api.addUsers(id, usersId);
+      await this.api.addUsers(id, usersId);
 
-      this.getUsersOfChat(id);
+      await this.getUsersOfChat(id);
     } catch (error) {
       console.log(error.reason);
     }
   }
 
-  deleteUsersFromChat(id: number, usersId: number[]) {
+  async deleteUsersFromChat(id: number, usersId: number[]) {
     try {
-      this.api.deleteUsers(id, usersId);
+      await this.api.deleteUsers(id, usersId);
 
-      this.getUsersOfChat(id);
+      await this.getUsersOfChat(id);
     } catch (error) {
       console.log(error.reason);
     }
@@ -87,7 +87,7 @@ class ChatsController {
     try {
       await this.api.delete(id);
 
-      this.getChats();
+      await this.getChats();
     } catch (error) {
       console.log(error.reason);
     }

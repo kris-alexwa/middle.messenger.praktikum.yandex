@@ -32,7 +32,7 @@ class AuthController {
     try {
       await this.api.signin(data);
 
-      this.getUser();
+      await this.getUser();
       Router.go('/settings');
     } catch (error) {
       console.error(error.reason);
