@@ -7,6 +7,7 @@ export default class Block<P extends Record<string, any> = any, E extends HTMLEl
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
+    FLOW_CDUM: 'flow:component-did-unmount',
     FLOW_RENDER: 'flow:render',
   };
 
@@ -103,6 +104,7 @@ export default class Block<P extends Record<string, any> = any, E extends HTMLEl
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CDUM, this._componentDidUnmount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
@@ -119,6 +121,12 @@ export default class Block<P extends Record<string, any> = any, E extends HTMLEl
   }
 
   componentDidMount() {}
+
+  _componentDidUnmount() {
+    this.componentDidUnmount();
+  }
+
+  componentDidUnmount() {}
 
   public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);

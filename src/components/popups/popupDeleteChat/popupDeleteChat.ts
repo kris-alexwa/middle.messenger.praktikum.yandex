@@ -2,23 +2,27 @@ import Block from '../../../infractructure/Block';
 import template from './popupDeleteChat.hbs';
 import { ActiveButton } from '../../activeButton/activeButton';
 import { SimpleButton } from '../../simpleButton/simpleButton';
-import avatarUrl from '../../../assets/img/avatar.png';
 import { hidePopup } from '../../../utils/changeVisibilityPopup';
+import { withStore } from '../../../infractructure/Store';
+import ChatsController from '../../../infractructure/controllers/ChatsController';
+import { AdaptedChatData } from '../../../infractructure/adapters/chatsAdapter';
 
 interface PopupDeleteChatProps {
-  avatarUrl: string;
+  selectedChat: AdaptedChatData;
 }
 
-export class PopupDeleteChat extends Block<PopupDeleteChatProps> {
+class PopupDeleteChatBase extends Block<PopupDeleteChatProps> {
   init() {
     this.children.activeButton = new ActiveButton({
       label: 'Удалить',
       events: {
-        click: () => {
+        click: async () => {
+          await ChatsController.delete(this.props.selectedChat!.id);
           hidePopup('delete-chat');
         },
       },
     });
+
     this.children.simpleButton = new SimpleButton({
       label: 'Отменить',
       events: {
@@ -27,10 +31,14 @@ export class PopupDeleteChat extends Block<PopupDeleteChatProps> {
         },
       },
     });
-
-    this.props.avatarUrl = avatarUrl;
   }
   render() {
     return this.compile(template, this.props);
   }
 }
+
+const withPopupDeleteChat = withStore((state) => ({
+  selectedChat: ((state.chats || []).find((chat) => chat.id === state.selectedChat) || {}),
+}));
+
+export const PopupDeleteChat = withPopupDeleteChat(PopupDeleteChatBase as typeof Block);

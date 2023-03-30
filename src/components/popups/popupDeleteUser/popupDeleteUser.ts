@@ -2,40 +2,24 @@ import Block from '../../../infractructure/Block';
 import template from './popupDeleteUser.hbs';
 import { ActiveButton } from '../../activeButton/activeButton';
 import { hidePopup } from '../../../utils/changeVisibilityPopup';
-import { validateLogin } from '../../../utils/formValidation';
-import { InputWithError } from '../../inputWithError/inputWithError';
-import { Form } from '../../form/form';
 import { SimpleButton } from '../../simpleButton/simpleButton';
-import { submitDeleteUserForm } from '../submitForms';
+import { submitDeleteUserForm } from '../validationForms';
+import { SearchUserForm } from '../searchUserForm/searchUserForm';
 
 export class PopupDeleteUser extends Block {
-  _clearInput() {
-    (this.children.input as InputWithError).setProps({ inputValue: '' });
-  }
-
   init() {
-    this.children.input = new InputWithError({
-      inputId: 'delete-user-login-input',
-      inputName: 'login',
-      inputType: 'text',
-      validate: (s: string) => validateLogin(s),
-      label: 'Логин',
-      errorMessage: 'Некорректный логин',
-    });
-
     this.children.activeButton = new ActiveButton({
       label: 'Удалить',
     });
 
-    this.children.form = new Form({
-      inputs: [this.children.input],
+    this.children.searchedUserForm = new SearchUserForm({
       submitButton: this.children.activeButton,
+      searchButtonId: 'search-to-delete-user',
+      dropdownId: 'delete-user-dropdown',
       events: {
-        submit: (event) => {
+        submit: (event: Event) => {
           event.preventDefault();
-          const submit = submitDeleteUserForm((this.children.input as InputWithError));
-
-          if (submit) this._clearInput();
+          submitDeleteUserForm();
         },
       },
     });
@@ -45,11 +29,11 @@ export class PopupDeleteUser extends Block {
       events: {
         click: () => {
           hidePopup('delete-user');
-          this._clearInput();
         },
       },
     });
   }
+
   render() {
     return this.compile(template, this.props);
   }

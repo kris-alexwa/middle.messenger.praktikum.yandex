@@ -1,27 +1,23 @@
 import Block from '../../infractructure/Block';
 import template from './signUp.hbs';
 import { ActiveButton } from '../../components/activeButton/activeButton';
-import { SimpleButton } from '../../components/simpleButton/simpleButton';
-import { render } from '../../utils/render';
 import {
   validateEmail, validateLogin, validateName, validatePassword, validatePhone,
 } from '../../utils/formValidation';
 import { Form } from '../../components/form/form';
 import { InputWithError } from '../../components/inputWithError/inputWithError';
 import submitForm from './submitForm';
+import { Link } from '../../components/link/link';
 
 export default class SignUpPage extends Block {
   init() {
     this.children.activeButton = new ActiveButton({
       label: 'Зарегистрироваться',
     });
-    this.children.simpleButton = new SimpleButton({
+
+    this.children.link = new Link({
+      to: '/',
       label: 'Войти',
-      events: {
-        click: () => {
-          render('signInPage');
-        },
-      },
     });
 
     this.children.inputEmail = new InputWithError({
@@ -95,7 +91,7 @@ export default class SignUpPage extends Block {
       events: {
         submit: (event) => {
           event.preventDefault();
-          const submit = submitForm(
+          submitForm(
             (this.children.inputEmail as InputWithError),
             (this.children.inputLogin as InputWithError),
             (this.children.inputFirstName as InputWithError),
@@ -104,8 +100,6 @@ export default class SignUpPage extends Block {
             (this.children.inputPassword as InputWithError),
             (this.children.inputRepeatPassword as InputWithError),
           );
-
-          if (submit) render('chatPage');
         },
       },
     });

@@ -1,41 +1,51 @@
 {
-    "extends": "airbnb",
-    "parser": "@typescript-eslint/parser",
-    "plugins": ["@typescript-eslint"],
-    "env": {
-        "browser": true,
-        "es6": true
-    },
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "settings": {
-        "import/resolver": {
-            "node": {
-                "extensions": [".js", ".jsx", ".ts", ".tsx"]
-            }
-        }
-    },
-    "rules": {
-        "max-len": [2, 110],
-        "import/prefer-default-export": "off",
-        "import/no-extraneous-dependencies": "off",
-        "func-names": "off",
-        "no-underscore-dangle": "off",
-        "lines-between-class-members": "off",
-        "class-methods-use-this": "off",
-        "no-use-before-define": "off",
-        "no-shadow": "off",
-        "no-param-reassign": "off",
-        "no-unused-vars": "off",
-        "import/extensions": [
-            "error",
-            "ignorePackages",
-            {
-                "js": "never",
-                "ts": "never"
-            }
-        ]
+  "extends": "airbnb",
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
     }
+  },
+  "rules": {
+    "max-len": [2, 110],
+    "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": "off",
+    "func-names": "off",
+    "no-underscore-dangle": "off",
+    "lines-between-class-members": "off",
+    "class-methods-use-this": "off",
+    "no-use-before-define": "off",
+    "no-shadow": "off",
+    "no-param-reassign": "off",
+    "no-unused-vars": "off",
+    "no-prototype-builtins": "off",
+    "max-classes-per-file": "off",
+    "no-constructor-return": "off",
+    "no-useless-constructor": "off",
+    "no-empty-function": "off",
+    "default-case": "off",
+    "no-continue": "off",
+    "prefer-promise-reject-errors": "off",
+    "no-console": "off",
+    "consistent-return": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "ts": "never"
+      }
+    ]
+  }
 }

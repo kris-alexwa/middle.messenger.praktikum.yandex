@@ -3,27 +3,11 @@ import {
 } from '../../utils/formValidation';
 import { InputWithError } from '../../components/inputWithError/inputWithError';
 
-type ProfileDataType = {
-  email: string;
-  login: string;
-  firstName: string;
-  secondName: string;
-  displayName: string;
-  phone: string;
-}
-
-type PasswordDataType = {
-  oldPassword: string;
-  newPassword: string;
-  newPasswordRepeat: string;
-}
-
-export function submitUserDataForm(
+export function userDataFormIsValid(
   inputEmail: InputWithError,
   inputLogin: InputWithError,
   inputFirstName: InputWithError,
   inputSecondName: InputWithError,
-  inputDisplayName: InputWithError,
   inputPhone: InputWithError,
 ): boolean {
   const emailIsValid = validateEmail(inputEmail.value);
@@ -33,17 +17,6 @@ export function submitUserDataForm(
   const phoneIsValid = validatePhone(inputPhone.value);
 
   if (emailIsValid && loginIsValid && firstNameIsValid && secondNameIsValid && phoneIsValid) {
-    const data: ProfileDataType = {} as ProfileDataType;
-
-    data.email = inputEmail.value;
-    data.login = inputLogin.value;
-    data.firstName = inputFirstName.value;
-    data.secondName = inputSecondName.value;
-    data.displayName = inputDisplayName.value;
-    data.phone = inputPhone.value;
-
-    // eslint-disable-next-line no-console
-    console.log('profileDataForm', data);
     return true;
   }
   inputEmail.forceValidate();
@@ -54,7 +27,7 @@ export function submitUserDataForm(
   return false;
 }
 
-export function submitChangePasswordForm(
+export function changePasswordFormIsValid(
   inputOldPassword: InputWithError,
   inputNewPassword: InputWithError,
   inputNewPasswordRepeat: InputWithError,
@@ -70,14 +43,6 @@ export function submitChangePasswordForm(
     && repeatNewPasswordIsValid
     && passwordsMatch
   ) {
-    const data: PasswordDataType = {} as PasswordDataType;
-
-    data.oldPassword = inputOldPassword.value;
-    data.newPassword = inputNewPassword.value;
-    data.newPasswordRepeat = inputNewPasswordRepeat.value;
-
-    // eslint-disable-next-line no-console
-    console.log('passwordDataForm', data);
     return true;
   } if (!passwordsMatch) {
     inputNewPassword.forceValidate('mismatch');

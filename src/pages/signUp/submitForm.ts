@@ -2,16 +2,8 @@ import {
   validateEmail, validateLogin, validateName, validatePassword, validatePhone,
 } from '../../utils/formValidation';
 import { InputWithError } from '../../components/inputWithError/inputWithError';
-
-type dataType = {
-  email: string;
-  login: string;
-  firstName: string;
-  secondName: string;
-  phone: string;
-  password: string;
-  repeatPassword: string;
-};
+import AuthController from '../../infractructure/controllers/AuthController';
+import { SignupData } from '../../infractructure/api/types';
 
 export default function submitForm(
   inputEmail: InputWithError,
@@ -41,19 +33,16 @@ export default function submitForm(
     && repeatPasswordIsValid
     && passwordsMatch
   ) {
-    const data: dataType = {} as dataType;
+    const data: SignupData = {} as SignupData;
 
     data.email = inputEmail.value;
     data.login = inputLogin.value;
-    data.firstName = inputFirstName.value;
-    data.secondName = inputSecondName.value;
+    data.first_name = inputFirstName.value;
+    data.second_name = inputSecondName.value;
     data.phone = inputPhone.value;
     data.password = inputPassword.value;
-    data.repeatPassword = inputRepeatPassword.value;
 
-    // eslint-disable-next-line no-console
-    console.log('signUpForm', data);
-    return true;
+    AuthController.signup(data);
   } if (!passwordsMatch) {
     inputPassword.forceValidate('mismatch');
     inputRepeatPassword.forceValidate('mismatch');

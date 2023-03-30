@@ -1,0 +1,18 @@
+.upload-file-input {
+  max-width: 200px;
+  font-size: 12px;
+  margin-top: 40px;
+
+  &__button-wrapper {
+    margin-top: 48px;
+  }
+}
+
+.upload-file-input input[type="file"]::file-selector-button {
+  font-size: 12px;
+  border: none;
+  text-decoration: underline;
+  color: var(--main-color);
+  background-color: transparent;
+  cursor: pointer;
+}

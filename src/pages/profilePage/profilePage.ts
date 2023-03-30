@@ -1,6 +1,5 @@
 import Block from '../../infractructure/Block';
 import template from './profilePage.hbs';
-import avatarUrl from '../../assets/img/avatar.png';
 import { WidgetBar } from '../../components/widgetBar/widgetBar';
 import profileIconActive from '../../assets/icons/profile-active.svg';
 import chatIconDefault from '../../assets/icons/chat-default.svg';
@@ -13,9 +12,13 @@ import {
 import { InputWithError } from '../../components/inputWithError/inputWithError';
 import { Form } from '../../components/form/form';
 import { SimpleButton } from '../../components/simpleButton/simpleButton';
-import { submitUserDataForm, submitChangePasswordForm } from './submitForms';
+import { userDataFormIsValid, changePasswordFormIsValid } from './submitForms';
+import AuthController from '../../infractructure/controllers/AuthController';
+import { withStore } from '../../infractructure/Store';
+import { UserInfoTable } from './components/userInfoTable/userInfoTable';
+import ProfileController from '../../infractructure/controllers/ProfileController';
 
-export default class ProfilePage extends Block {
+class ProfilePageBase extends Block {
   _resetChangePasswordInputs() {
     (this.children.inputOldPassword as InputWithError).setProps({ inputValue: '' });
     (this.children.inputNewPassword as InputWithError).setProps({ inputValue: '' });
@@ -23,12 +26,12 @@ export default class ProfilePage extends Block {
   }
 
   _resetChangeUserDataInputs() {
-    (this.children.inputEmail as InputWithError).setProps({ inputValue: 'pochta@yandex.ru' });
-    (this.children.inputLogin as InputWithError).setProps({ inputValue: 'ivanivanov' });
-    (this.children.inputFirstName as InputWithError).setProps({ inputValue: 'Иван' });
-    (this.children.inputSecondName as InputWithError).setProps({ inputValue: 'Иванов' });
-    (this.children.inputDisplayName as InputWithError).setProps({ inputValue: 'ivanIvanov' });
-    (this.children.inputPhone as InputWithError).setProps({ inputValue: '+7 909 967 30 30' });
+    (this.children.inputEmail as InputWithError).setProps({ inputValue: this.props.user.email });
+    (this.children.inputLogin as InputWithError).setProps({ inputValue: this.props.user.login });
+    (this.children.inputFirstName as InputWithError).setProps({ inputValue: this.props.user.name });
+    (this.children.inputSecondName as InputWithError).setProps({ inputValue: this.props.user.lastname });
+    (this.children.inputDisplayName as InputWithError).setProps({ inputValue: this.props.user.login });
+    (this.children.inputPhone as InputWithError).setProps({ inputValue: this.props.user.phone });
   }
 
   _changePasswordHandler() {
@@ -46,10 +49,11 @@ export default class ProfilePage extends Block {
   }
 
   init() {
-    this.props.avatarUrl = avatarUrl;
     this.props.changeDataViewIsDefault = true;
     this.props.changeDataViewIsForm = false;
     this.props.changePasswordView = false;
+
+    this.children.userInfoTable = new UserInfoTable({});
 
     this.children.widgetBar = new WidgetBar({
       profileIcon: profileIconActive,
@@ -63,7 +67,7 @@ export default class ProfilePage extends Block {
       validate: (s: string) => validateEmail(s),
       label: 'Почта',
       errorMessage: 'Некорректная почта',
-      inputValue: 'pochta@yandex.ru',
+      inputValue: this.props.email,
     });
     this.children.inputLogin = new InputWithError({
       inputId: 'profile-login-input',
@@ -72,7 +76,7 @@ export default class ProfilePage extends Block {
       validate: (s: string) => validateLogin(s),
       label: 'Логин',
       errorMessage: 'Некорректный логин',
-      inputValue: 'ivanivanov',
+      inputValue: this.props.login,
     });
     this.children.inputFirstName = new InputWithError({
       inputId: 'profile-first-name-input',
@@ -81,7 +85,7 @@ export default class ProfilePage extends Block {
       validate: (s: string) => validateName(s),
       label: 'Имя',
       errorMessage: 'Некорректный формат',
-      inputValue: 'Иван',
+      inputValue: this.props.first_name,
     });
     this.children.inputSecondName = new InputWithError({
       inputId: 'profile-second-name-input',
@@ -90,7 +94,7 @@ export default class ProfilePage extends Block {
       validate: (s: string) => validateName(s),
       label: 'Фамилия',
       errorMessage: 'Некорректный формат',
-      inputValue: 'Иванов',
+      inputValue: this.props.second_name,
     });
     this.children.inputDisplayName = new InputWithError({
       inputId: 'profile-display-name-input',
@@ -99,7 +103,7 @@ export default class ProfilePage extends Block {
       label: 'Имя в чате',
       validate: () => true,
       errorMessage: undefined,
-      inputValue: 'ivanIvanov',
+      inputValue: this.props.login,
     });
     this.children.inputPhone = new InputWithError({
       inputId: 'profile-phone-input',
@@ -108,7 +112,7 @@ export default class ProfilePage extends Block {
       validate: (s: string) => validatePhone(s),
       label: 'Телефон',
       errorMessage: 'Некорректный формат',
-      inputValue: '+7 909 967 30 30',
+      inputValue: this.props.phone,
     });
     this.children.activeButtonChangeData = new ActiveButton({
       label: 'Сохранить',
@@ -125,18 +129,34 @@ export default class ProfilePage extends Block {
       ],
       submitButton: this.children.activeButtonChangeData,
       events: {
-        submit: (event) => {
+        submit: async (event) => {
           event.preventDefault();
-          const submit = submitUserDataForm(
+          const data = {
+            email: (this.children.inputEmail as InputWithError).value,
+            login: (this.children.inputLogin as InputWithError).value,
+            first_name: (this.children.inputFirstName as InputWithError).value,
+            second_name: (this.children.inputSecondName as InputWithError).value,
+            display_name: (this.children.inputDisplayName as InputWithError).value,
+            phone: (this.children.inputPhone as InputWithError).value,
+          };
+
+          const isValid = userDataFormIsValid(
             (this.children.inputEmail as InputWithError),
             (this.children.inputLogin as InputWithError),
             (this.children.inputFirstName as InputWithError),
             (this.children.inputSecondName as InputWithError),
-            (this.children.inputDisplayName as InputWithError),
             (this.children.inputPhone as InputWithError),
           );
 
-          if (submit) this._changeUserDataHandler();
+          if (isValid) {
+            await ProfileController.changeUserInfo(data)
+              .then(() => {
+                this._changeUserDataHandler();
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
         },
       },
     });
@@ -178,15 +198,30 @@ export default class ProfilePage extends Block {
       ],
       submitButton: this.children.activeButtonChangePassword,
       events: {
-        submit: (event) => {
+        submit: async (event) => {
           event.preventDefault();
-          const submit = submitChangePasswordForm(
+          const data = {
+            oldPassword: (this.children.inputOldPassword as InputWithError).value,
+            newPassword: (this.children.inputNewPassword as InputWithError).value,
+          };
+
+          const isValid = changePasswordFormIsValid(
             (this.children.inputOldPassword as InputWithError),
             (this.children.inputNewPassword as InputWithError),
             (this.children.inputNewPasswordRepeat as InputWithError),
           );
 
-          if (submit) this._changePasswordHandler();
+          if (isValid) {
+            await ProfileController.changeUserPassword(data)
+              .then(() => {
+                this._changePasswordHandler();
+              })
+              .catch((error) => {
+                if (error.reason === 'Password is incorrect') {
+                  (this.children.inputOldPassword as InputWithError).forceValidate('passwordIsIncorrect');
+                }
+              });
+          }
         },
       },
     });
@@ -216,6 +251,13 @@ export default class ProfilePage extends Block {
           showPopup('upload-file');
         },
       },
+      {
+        selector: '#exit-btn',
+        eventName: 'click',
+        handler: () => {
+          AuthController.logout();
+        },
+      },
     ];
 
     this.children.popupUploadFile = new PopupUploadFile();
@@ -225,3 +267,7 @@ export default class ProfilePage extends Block {
     return this.compile(template, this.props);
   }
 }
+
+export const ProfilePage = withStore((state) => ({
+  user: { ...state.user.data },
+} || {}))(ProfilePageBase as typeof Block);
