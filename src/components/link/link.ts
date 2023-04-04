@@ -2,6 +2,7 @@ import Block from '../../infractructure/Block';
 import template from './link.hbs';
 import { withRouter } from '../../hocs/withRouter';
 import { SimpleButton } from '../simpleButton/simpleButton';
+import Router from '../../infractructure/Router';
 
 interface LinkProps {
   label?: string;
@@ -10,10 +11,11 @@ interface LinkProps {
   to: string;
   events?: {
     click: () => void;
-  }
+  },
+  router: typeof Router
 }
 
-class BaseLink extends Block {
+export class BaseLink extends Block {
   constructor(props: LinkProps) {
     super({
       ...props,

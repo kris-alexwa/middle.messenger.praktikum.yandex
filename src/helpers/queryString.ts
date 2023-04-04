@@ -1,6 +1,4 @@
-type PlainObject<T = unknown> = {
-  [k in string]: T;
-};
+import { PlainObject } from './types';
 
 function isPlainObject(value: unknown): value is PlainObject {
   return typeof value === 'object'

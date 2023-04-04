@@ -1,4 +1,4 @@
-import { AuthApi } from '../api/AuthApi';
+import AuthApi from '../api/AuthApi';
 import { SigninData, SignupData, User } from '../api/types';
 import store from '../Store';
 import Router from '../Router';
@@ -45,6 +45,7 @@ class AuthController {
     addBodyLoader();
     try {
       MessagesController.closeAll();
+
       await this.api.logout();
 
       Router.go('/');
@@ -57,15 +58,11 @@ class AuthController {
   }
 
   async getUser() {
-    try {
-      store.set('user.isLoading', true);
-      const user = await this.api.getUser();
+    store.set('user.isLoading', true);
+    const user = await this.api.getUser();
 
-      store.set('user.data', userAdapter(user as User));
-      store.set('user.isLoading', false);
-    } catch (error) {
-      console.log(error.reason);
-    }
+    store.set('user.data', userAdapter(user as User));
+    store.set('user.isLoading', false);
   }
 }
 

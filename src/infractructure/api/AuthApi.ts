@@ -1,7 +1,7 @@
 import BaseApi from './BaseApi';
 import { SigninData, SignupData } from './types';
 
-export class AuthApi extends BaseApi {
+export default class AuthApi extends BaseApi {
   constructor() {
     super('/auth');
   }
