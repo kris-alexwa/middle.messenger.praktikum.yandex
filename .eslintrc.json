@@ -41,6 +41,7 @@
     "consistent-return": "off",
     "no-undef": "off",
     "no-new": "off",
+    "no-restricted-syntax": "off",
     "import/extensions": [
       "error",
       "ignorePackages",

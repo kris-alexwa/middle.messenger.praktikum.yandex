@@ -29,7 +29,11 @@ export default class HTTPTransport {
     return this.request(this.endpoint + url);
   }
 
-  post<Response = void>(url: string, data?: unknown, contentType: ContentTypes = ContentTypes.JSON): Promise<Response> {
+  post<Response = void>(
+    url: string,
+    data?: unknown,
+    contentType: ContentTypes = ContentTypes.JSON,
+  ): Promise<Response> {
     return this.request<Response>(
       this.endpoint + url,
       {
@@ -40,7 +44,11 @@ export default class HTTPTransport {
     );
   }
 
-  put<Response = void>(url: string, data: unknown, contentType: ContentTypes = ContentTypes.JSON): Promise<Response> {
+  put<Response = void>(
+    url: string,
+    data: unknown,
+    contentType: ContentTypes = ContentTypes.JSON,
+  ): Promise<Response> {
     return this.request(
       this.endpoint + url,
       {
@@ -51,7 +59,11 @@ export default class HTTPTransport {
     );
   }
 
-  delete<Response>(url: string, data: unknown, contentType: ContentTypes = ContentTypes.JSON): Promise<Response> {
+  delete<Response>(
+    url: string,
+    data: unknown,
+    contentType: ContentTypes = ContentTypes.JSON,
+  ): Promise<Response> {
     return this.request(
       this.endpoint + url,
       {
