@@ -9,6 +9,7 @@ const { window } = new JSDOM('<main id="app"></main>', {
 global.window = window;
 global.document = window.document;
 global.DocumentFragment = window.DocumentFragment;
+global.FormData = window.FormData;
 
 require.extensions['.hbs'] = function (module, filename) {
   const contents = fs.readFileSync(filename, 'utf-8');
