@@ -212,15 +212,14 @@ class ProfilePageBase extends Block {
           );
 
           if (isValid) {
-            await ProfileController.changeUserPassword(data)
-              .then(() => {
-                this._changePasswordHandler();
-              })
-              .catch((error) => {
-                if (error.reason === 'Password is incorrect') {
-                  (this.children.inputOldPassword as InputWithError).forceValidate('passwordIsIncorrect');
-                }
-              });
+            try {
+              await ProfileController.changeUserPassword(data);
+              this._changePasswordHandler();
+            } catch (error) {
+              if (error.reason === 'Password is incorrect') {
+                (this.children.inputOldPassword as InputWithError).forceValidate('passwordIsIncorrect');
+              }
+            }
           }
         },
       },

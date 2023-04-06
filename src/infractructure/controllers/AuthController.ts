@@ -65,5 +65,5 @@ class AuthController {
     store.set('user.isLoading', false);
   }
 }
-
-export default new AuthController();
+const authController = new AuthController();
+export default authController;

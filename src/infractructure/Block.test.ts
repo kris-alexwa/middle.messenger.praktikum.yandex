@@ -31,22 +31,7 @@ describe('Block', () => {
     expect(eventBusMock.emit.calledWith('init')).to.eq(true);
   });
 
-  // it.only('should fire protected componentDidMount on component-did-mount dispatch', () => {
-  //   let isCalled = false;
-  //
-  //   class ComponentMock extends Block {
-  //     componentDidMount() {
-  //       isCalled = true;
-  //     }
-  //   }
-  //   const component = new ComponentMock({});
-  //
-  //   component.dispatchComponentDidMount();
-  //
-  //   expect(isCalled).to.eq(true);
-  // });
-
-  it.only('should update props', () => {
+  it('should update props', () => {
     class ComponentMock extends Block {}
     const component = new ComponentMock({
       testProps: '',

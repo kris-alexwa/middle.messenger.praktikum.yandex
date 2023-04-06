@@ -46,9 +46,9 @@ class ProfileControllerBase {
   }
 }
 
-export default new ProfileControllerBase();
-//
-// // @ts-ignore
-// window.usersController = ProfileController;
-//
-// export default ProfileController;
+const ProfileController = new ProfileControllerBase();
+
+// @ts-ignore
+window.usersController = ProfileController;
+
+export default ProfileController;
