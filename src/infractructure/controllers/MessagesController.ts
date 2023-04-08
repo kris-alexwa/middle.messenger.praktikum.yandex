@@ -7,20 +7,24 @@ class MessagesController {
   private sockets: Map<number, WSTransport> = new Map();
 
   async connect(id: number, token: string) {
-    if (this.sockets.has(id)) {
-      return;
+    try {
+      if (this.sockets.has(id)) {
+        return;
+      }
+
+      const userId = store.getState().user.data?.id;
+
+      const wsTransport = new WSTransport(`wss://ya-praktikum.tech/ws/chats/${userId}/${id}/${token}`);
+
+      this.sockets.set(id, wsTransport);
+
+      await wsTransport.connect();
+
+      this.subscribe(wsTransport, id);
+      this.fetchOldMessages(id);
+    } catch (error) {
+      console.log(error.reason);
     }
-
-    const userId = store.getState().user.data?.id;
-
-    const wsTransport = new WSTransport(`wss://ya-praktikum.tech/ws/chats/${userId}/${id}/${token}`);
-
-    this.sockets.set(id, wsTransport);
-
-    await wsTransport.connect();
-
-    this.subscribe(wsTransport, id);
-    this.fetchOldMessages(id);
   }
 
   sendMessage(id: number, message: string) {

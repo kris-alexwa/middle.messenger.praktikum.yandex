@@ -1,4 +1,4 @@
-import { AuthApi } from '../api/AuthApi';
+import AuthApi from '../api/AuthApi';
 import { SigninData, SignupData, User } from '../api/types';
 import store from '../Store';
 import Router from '../Router';
@@ -32,7 +32,7 @@ class AuthController {
     try {
       await this.api.signin(data);
 
-      this.getUser();
+      await this.getUser();
       Router.go('/settings');
     } catch (error) {
       console.error(error.reason);
@@ -45,10 +45,11 @@ class AuthController {
     addBodyLoader();
     try {
       MessagesController.closeAll();
+
       await this.api.logout();
 
       Router.go('/');
-      store.set('user.data', undefined);
+      store.clear();
     } catch (error) {
       console.error(error.reason);
     } finally {
@@ -64,5 +65,5 @@ class AuthController {
     store.set('user.isLoading', false);
   }
 }
-
-export default new AuthController();
+const authController = new AuthController();
+export default authController;

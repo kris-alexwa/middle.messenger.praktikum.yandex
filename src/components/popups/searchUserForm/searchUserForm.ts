@@ -64,7 +64,7 @@ class SearchUserFormBase extends Block<PopupSearchUserProps> {
           if (value) {
             const searchResult = await ProfileController.search(value);
 
-            if (searchResult.length) {
+            if (searchResult?.length) {
               store.set('searchedUsers', searchedUsersAdapter(searchResult));
 
               this._showDropdown();

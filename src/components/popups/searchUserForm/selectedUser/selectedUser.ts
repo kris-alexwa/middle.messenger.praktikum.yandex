@@ -1,7 +1,6 @@
 import Block from '../../../../infractructure/Block';
 import template from './selectedUser.hbs';
 import { withStore } from '../../../../infractructure/Store';
-// import { AdaptedSearhedUser } from '../../../../infractructure/adapters/searchedUsersAdapter';
 
 export interface SearchedUserItemProps {
   login: string;

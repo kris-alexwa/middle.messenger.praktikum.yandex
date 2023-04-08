@@ -1,10 +1,7 @@
 import { merge } from './merge';
+import { Indexed } from './types';
 
-type Indexed<T = any> = {
-  [key in string]: T;
-};
-
-function set(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
+function set(object: Indexed | unknown, path: string | unknown, value: unknown): Indexed | unknown {
   if (typeof object !== 'object' || object === null) {
     return object;
   }

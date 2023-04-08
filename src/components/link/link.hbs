@@ -1,9 +1,7 @@
 <span class="link">
   {{#if label}}
-  {{{simpleButton}}}
-    {{else if icon}}
-    <button class="link__button">
-      <img src={{icon}} alt="{{iconAlt}}" />
-    </button>
+    {{{simpleButton}}}
+  {{else if icon}}
+    <img src={{icon}} alt="{{iconAlt}}" class="link__icon" />
   {{/if}}
 </span>

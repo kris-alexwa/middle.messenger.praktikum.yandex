@@ -1,4 +1,3 @@
-// import isEqual from '../utils/isEqual';
 import Block from './Block';
 
 export interface BlockConstructable<P = any> {
@@ -57,20 +56,20 @@ class Route {
   }
 }
 
-export class Router {
-  private static __instance: Router;
+export class RouterBase {
+  private static __instance: RouterBase;
   private routes: Route[] = [];
   private currentRoute: Route | null = null;
   private history = window.history;
 
   constructor(private readonly rootQuery: string) {
-    if (Router.__instance) {
-      return Router.__instance;
+    if (RouterBase.__instance) {
+      return RouterBase.__instance;
     }
 
     this.routes = [];
 
-    Router.__instance = this;
+    RouterBase.__instance = this;
   }
 
   public use(pathname: string, block: BlockConstructable) {
@@ -124,4 +123,6 @@ export class Router {
   }
 }
 
-export default new Router('#app');
+const Router = new RouterBase('#app');
+
+export default Router;

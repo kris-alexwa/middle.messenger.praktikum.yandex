@@ -1,39 +1,54 @@
 import { ProfileApi } from '../api/ProfileApi';
 import { UserInfoType, UserPasswordType } from './types';
 import AuthController from './AuthController';
-import { User } from '../api/types';
 
-class ProfileController {
+class ProfileControllerBase {
   private readonly api: ProfileApi;
 
   constructor() {
     this.api = new ProfileApi();
   }
 
-  search(login: string): Promise<User[]> {
-    return this.api.search(login);
+  search(login: string) {
+    try {
+      return this.api.search(login);
+    } catch (error) {
+      console.log(error.reason);
+    }
   }
 
   async changeUserInfo(data: UserInfoType) {
-    await this.api.changeUserInfo(data);
+    try {
+      await this.api.changeUserInfo(data);
 
-    await AuthController.getUser();
+      await AuthController.getUser();
+    } catch (error) {
+      console.log(error.reason);
+    }
   }
 
   changeUserPassword(data: UserPasswordType) {
-    return this.api.changeUserPassword(data);
+    try {
+      return this.api.changeUserPassword(data);
+    } catch (error) {
+      console.log(error.reason);
+    }
   }
 
   async changeUserAvatar(avatarFile: FormData) {
-    await this.api.changeUserAvatar(avatarFile);
+    try {
+      await this.api.changeUserAvatar(avatarFile);
 
-    await AuthController.getUser();
+      await AuthController.getUser();
+    } catch (error) {
+      console.log(error.reason);
+    }
   }
 }
 
-const controller = new ProfileController();
+const ProfileController = new ProfileControllerBase();
 
 // @ts-ignore
-window.usersController = controller;
+window.usersController = ProfileController;
 
-export default controller;
+export default ProfileController;

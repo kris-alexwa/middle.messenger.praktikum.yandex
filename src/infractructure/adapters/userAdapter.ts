@@ -22,5 +22,5 @@ export default function userAdapter(user: User): AdaptedUser {
     lastname: user.second_name,
     displayName: user.display_name,
     phone: user.phone,
-  }
+  };
 }

@@ -2,9 +2,10 @@
   display: flex;
   justify-content: center;
 
-  &__button {
+  &__icon {
     height: fit-content;
     display: flex;
     align-items: center;
+    cursor: pointer;
   }
 }

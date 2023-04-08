@@ -33,6 +33,23 @@ export class Store extends EventBus {
     this.emit(StoreEvents.Updated, this.state);
   }
 
+  clear() {
+    this.state = {
+      user: {
+        data: {},
+        isLoading: false,
+      },
+      chats: [],
+      messages: [],
+      selectedChat: undefined,
+      searchedUsers: undefined,
+      selectedUsers: [],
+      usersOfSelectedChat: undefined,
+    };
+
+    this.emit(StoreEvents.Updated, this.state);
+  }
+
   getState(): State {
     return this.state;
   }
@@ -54,7 +71,7 @@ export function withStore<SP>(mapStateToProps: (state: State) => SP) {
         store.on(StoreEvents.Updated, () => {
           const stateProps = mapStateToProps(store.getState());
 
-          if (isEqual(previousState as State, stateProps as State)) return;
+          if (isEqual(previousState as any, stateProps as any)) return;
 
           previousState = stateProps;
 

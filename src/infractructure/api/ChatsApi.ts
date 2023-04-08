@@ -1,6 +1,7 @@
 import BaseApi from './BaseApi';
 import { ChatData, User } from './types';
 import { queryString } from '../../helpers/queryString';
+import { UnreadCountType } from '../controllers/types';
 
 export class ChatsApi extends BaseApi {
   constructor() {
@@ -39,6 +40,10 @@ export class ChatsApi extends BaseApi {
     const response = await this.http.post<{ token: string }>(`/token/${id}`);
 
     return response.token;
+  }
+
+  getNewMessagesCount(id: number): Promise<UnreadCountType> {
+    return this.http.get(`/new/${id}`);
   }
 
   update = undefined;

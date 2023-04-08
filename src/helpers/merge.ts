@@ -1,6 +1,4 @@
-type Indexed<T = any> = {
-  [key in string]: T;
-};
+import { Indexed } from './types';
 
 export function merge(lhs: Indexed, rhs: Indexed): Indexed {
   for (const p in rhs) {
