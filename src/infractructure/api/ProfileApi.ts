@@ -1,7 +1,7 @@
 import BaseApi from './BaseApi';
 import { UserInfoType, UserPasswordType } from '../controllers/types';
 import { User } from './types';
-import { ContentTypes } from '../../script';
+import { ContentTypes } from '../../HTTPTransport';
 
 export class ProfileApi extends BaseApi {
   constructor() {

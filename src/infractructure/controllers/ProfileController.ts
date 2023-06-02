@@ -2,7 +2,7 @@ import { ProfileApi } from '../api/ProfileApi';
 import { UserInfoType, UserPasswordType } from './types';
 import AuthController from './AuthController';
 
-class ProfileController {
+class ProfileControllerBase {
   private readonly api: ProfileApi;
 
   constructor() {
@@ -46,9 +46,9 @@ class ProfileController {
   }
 }
 
-const controller = new ProfileController();
+const ProfileController = new ProfileControllerBase();
 
 // @ts-ignore
-window.usersController = controller;
+window.usersController = ProfileController;
 
-export default controller;
+export default ProfileController;

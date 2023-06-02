@@ -1,4 +1,4 @@
-import HTTPTransport from '../../script';
+import HTTPTransport from '../../HTTPTransport';
 
 export default abstract class BaseApi {
   protected http: HTTPTransport;

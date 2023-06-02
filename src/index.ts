@@ -4,6 +4,7 @@ import SignUpPage from './pages/signUp/signUp';
 import { ProfilePage } from './pages/profilePage/profilePage';
 import { ChatPage } from './pages/chatPage/chatPage';
 import AuthController from './infractructure/controllers/AuthController';
+import './index.scss';
 
 enum Routes {
   SignIn = '/',

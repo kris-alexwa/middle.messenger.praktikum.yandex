@@ -1,4 +1,4 @@
-import { nanoid } from 'nanoid';
+import { nanoid } from 'nanoid/non-secure';
 import { TemplateDelegate } from 'handlebars';
 import { EventBus } from './EventBus';
 
@@ -14,7 +14,7 @@ export default class Block<P extends Record<string, any> = any, E extends HTMLEl
   public id = nanoid(6);
   protected props: P;
   public children: Record<string, Block | Array<Block>>;
-  private eventBus: () => EventBus;
+  protected eventBus: () => EventBus;
   private _element: E | null = null;
   _meta: { props: any };
 

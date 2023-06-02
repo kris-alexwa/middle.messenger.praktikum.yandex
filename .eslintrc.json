@@ -39,6 +39,9 @@
     "prefer-promise-reject-errors": "off",
     "no-console": "off",
     "consistent-return": "off",
+    "no-undef": "off",
+    "no-new": "off",
+    "no-restricted-syntax": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
